@@ -20,7 +20,6 @@ from scheduleProduction import bomsParse
 from scheduleProduction import capacityParse
 from scheduleProduction import priorityParse
 from scheduleProduction import model
-
 # 传统设置列名和列对齐
 pd.set_option('display.unicode.ambiguous_as_wide', True)
 pd.set_option('display.unicode.east_asian_width', True)
