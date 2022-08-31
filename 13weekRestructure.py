@@ -35,10 +35,10 @@ jsons_filename = 'jsons'  # 存放数据的文件夹的名称
 jsons_data_path = project_path + '\\' + jsons_filename  # 原始数据的路径
 ProducePlan = jsons_data_path + '\\' + 'ProducePlan.json'
 PackPlan = jsons_data_path + '\\' + 'PackPlan.json'
-Bom = jsons_data_path + '\\' + 'boms.json'
-Capacity = jsons_data_path + '\\' + 'capacity.json'
-Priority = jsons_data_path + '\\' + 'priority.json'
-Calendar = jsons_data_path + '\\' + 'calendar.json'  # TODO (新增标记)
+Bom = jsons_data_path + '\\' + 'Bom.json'
+Capacity = jsons_data_path + '\\' + 'Capacity.json'
+Priority = jsons_data_path + '\\' + 'Priority.json'
+Calendar = jsons_data_path + '\\' + 'Calendar.json'  # TODO (新增标记)
 print('json数据所在的文件夹路径：', jsons_data_path)
 print('排产计划数据所在的文件夹路径：', ProducePlan)
 print('Bom主数据所在的文件夹路径：', Bom)

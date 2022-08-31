@@ -11,6 +11,8 @@ import copy
 
 
 # TODO 很多函数 return 0的问题需要逐个排查
+def init_model_parameters():
+    pass
 
 
 def get_demand(df, i_d, pack, n, k, s_t, o_t, flag=3):

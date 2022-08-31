@@ -20,6 +20,7 @@ from scheduleProduction import bomsParse
 from scheduleProduction import capacityParse
 from scheduleProduction import priorityParse
 from scheduleProduction import model
+
 # 传统设置列名和列对齐
 pd.set_option('display.unicode.ambiguous_as_wide', True)
 pd.set_option('display.unicode.east_asian_width', True)
@@ -36,16 +37,19 @@ project_path = os.getcwd()  # 当前路径
 jsons_filename = 'jsons'  # 存放数据的文件夹的名称
 jsons_data_path = project_path + '\\' + jsons_filename  # 原始数据的路径
 ProducePlan = jsons_data_path + '\\' + 'ProducePlan.json'
-Bom = jsons_data_path + '\\' + 'boms.json'
-Capacity = jsons_data_path + '\\' + 'capacity.json'
-Priority = jsons_data_path + '\\' + 'priority.json'
-Calendar = jsons_data_path + '\\' + 'calendar.json'  # TODO (新增标记)
+Bom = jsons_data_path + '\\' + 'Bom.json'
+Capacity = jsons_data_path + '\\' + 'Capacity.json'
+Priority = jsons_data_path + '\\' + 'Priority.json'
+Calendar = jsons_data_path + '\\' + 'Calendar.json'
 print('json数据所在的文件夹路径：', jsons_data_path)
 print('排产计划数据所在的文件夹路径：', ProducePlan)
 print('Bom主数据所在的文件夹路径：', Bom)
 print('产能主数据所在的文件夹路径：', Capacity)
 print('优先级主数据所在的文件夹路径：', Priority)
-print('日历主数据所在的文件路径：', Calendar)  # TODO（新增标记）
+print('日历主数据所在的文件路径：', Calendar)
+
+
+
 
 # 日期变量
 '''
@@ -64,8 +68,9 @@ ProducePlan主要数据读入
 3. arrival: 到货信息
 '''
 
-arrive_interval_days = 2  # 全局变量，表示到货子件变成可用的相对日期 # TODO(新增标记)
-available_day = 4  # 全局变量，表示允许使用到货子件的相对日期 # TODO(新增标记)
+arrive_interval_days = 2  # 全局变量，表示到货子件变成可用的相对日期
+available_days = 4  # 全局变量，表示允许使用到货子件的相对日期 # TODO(新增标记)核实重复运算
+
 with open(ProducePlan, "r", encoding="utf-8") as f_json:
     info = f_json.read()
     data_list = json.loads(info)
@@ -74,42 +79,41 @@ with open(ProducePlan, "r", encoding="utf-8") as f_json:
     df_arrival = pd.DataFrame(data_list["arrivalInfo"])  # 到货信息
     df_last_produce = pd.DataFrame(data_list["schedulingRequest"])  # 排产需求（多行）
 
-    if df_last_produce.shape[0] == 0:
-        df_last_produce = pd.DataFrame(columns=['subChannel', 'productCode', 'bomVersion',
-                                                'scheduleId', 'warehouse', 'demandCommitDate',
-                                                'scheduleDate', 'isLock', 'planQuantity'])  # TODO 子节点为空
-
-    # TODO(黄爽)： 此处欠缺数据校验问题
-
 print('df_last_produce:\n {}'.format(df_last_produce))
 Lock = ProducePlanParse.lock_data_parse(df_last_produce, now_time)  # 解析锁定的计划
 OrderFull, Order = ProducePlanParse.orders_f_data_parse(df_orders, Lock, now_time)  # 解析需求提报计划锁定数据
 InventoryInitial = ProducePlanParse.I_0_data_inventory_parse(df_inventory)  # 解析库存数据Inventory
-Arr = ProducePlanParse.arr_data_parse(df_arrival, now_time, arrive_interval_days, available_day)  # 解析到货信息
+Arr = ProducePlanParse.arr_data_parse(df_arrival, now_time, arrive_interval_days, available_days)  # 解析到货信息
 
 # BOM基础数据json信息读入与解析
 '''
 df_bom = pd.read_json(Bom, encoding="utf-8", orient='records')
 '''
-with open(Bom, "r", encoding="utf-8") as f_json_bom:  # TODO（改动标记）
+with open(Bom, "r", encoding="utf-8") as f_json_bom:
     info_bom = f_json_bom.read()
     data_list_bom = json.loads(info_bom)
     df_bom = pd.DataFrame(data_list_bom)
-BOM = bomsParse.bom_data_parse(df_bom, Order)  # TODO（改动标记）
+BOM = bomsParse.bom_data_parse(df_bom, Order)
 
-# calendar基础数据日历(休息日)读入与解析  # TODO(新增标记)
-with open(Calendar, 'r', encoding='UTF-8') as cal_f:
-    calendar_list = json.load(cal_f)
+# calendar基础数据日历(休息日)读入与解析
+# test
+with open(Calendar, "r", encoding="utf-8") as f_json:
+    info = f_json.read()
+    data_list = json.loads(info)
+    Calendar_df_1 = pd.DataFrame(data_list)
+    Calendar_df = Calendar_df_1.explode('dayOff')
+    Calendar_df.reset_index(drop=True, inplace=True)
+print('Calendar_df\n: {}\n Calendar_df.type\n{}'.format(Calendar_df, Calendar_df.shape[0]))
 
 # capacity基础数据分装产能读入与解析
 '''
 df_capacity = pd.read_json(capacity, encoding="utf-8", orient='records')
 '''
-with open(Capacity, "r", encoding="utf-8") as f_json_capacity:  # TODO(改动标记)
+with open(Capacity, "r", encoding="utf-8") as f_json_capacity:
     info_capacity = f_json_capacity.read()
     data_list_capacity = json.loads(info_capacity)
     df_capacity = pd.DataFrame(data_list_capacity)
-PackingCapacity = capacityParse.pc_data_parse(7, df_capacity, calendar_list, list_date)  # TODO(改动标记)
+PackingCapacity = capacityParse.pc_data_parse(7, df_capacity, Calendar_df, list_date)  # TODO(改动标记)
 
 # priority优先级json信息读入与解析
 # TODO(改动标记)
@@ -127,28 +131,32 @@ sample_data = model.get_sample(Order, BOM, 7)
 # 1）模型参数准备
 
 #  开始建模过程
-# 1）模型参数准备
+# 1）模型参数初始化
 
 LOCK_NUM = data_list['lockDays']  # 锁定三天
 PACK_RANGE = 7  # 分装天数
+T = range(1, PACK_RANGE + 1)
+# FIX_NUM = lambda add_day_num: add_day_num if add_day_num > 0 else 0
+
 FIX_NUM = add_day_num
 if FIX_NUM < 0:
     FIX_NUM = 0
 INVENTORY_SCALE = 10000000
-
 # lists
 # print('Order:\n{0},\n lock: \n {1}'.format(Order.head(), Lock.head()))
 lock_day_num = data_list['lockDays']  # TODO(新增标记)
-T = range(1, PACK_RANGE + 1)  # 分装周期
+
 N = list(Order['n'].unique())  # 渠道数量
 WAREHOUSE = list(Order['warehouse'].unique())  # 仓库列表
 PACKAGE = list(Order['package'].unique())  # 礼盒列表
 ORDER_ID = list(OrderFull['id'].unique())  # 全部编号列表
+
 LOCK_ID = list(Lock['id'].unique())  # 锁定订单编号
 SAMPLE = list(sample_data.unique())  # 子件列表
 
 X_INDEX, X1_INDEX = model.get_xindex_x1index(ORDER_ID, OrderFull, T, PACK_RANGE, FIX_NUM)
 PackSample = model.get_package_sample(BOM, PACKAGE)
+
 data_prepare_end = time.time()  # 数据准备时间结束函数
 # print('parameters are ready, time cost are: {0}s'.format(str(data_prepare_end - data_prepare_start)))
 

@@ -8,7 +8,7 @@ import pandas as pd
 import datetime
 
 
-def pc_data_parse(category, df_capacity, calendar_list, list_date):
+def pc_data_parse(category, df_capacity, Calendar_df, list_date):
     df_capacity['productCode'] = df_capacity['productCode'].astype(str)
     data_capacity = pd.DataFrame(df_capacity,
                                  columns=['warehouse', 'lineNo', 'productCode', 'repackagingAbility', 'manHour'])
@@ -19,7 +19,23 @@ def pc_data_parse(category, df_capacity, calendar_list, list_date):
                                   'manHour': 'hours'}, inplace=True)
     # TODO（新增标记）
     pc = pd.DataFrame(columns=['warehouse', 'line', 'package', 'num', 'hours', 't'])
+    Calendar_df.rename(columns={'dayOff': 't', 'packingFactoryCode': 'warehouse'}, inplace=True)
+    # for i in range(Calendar_df.shape[0]):
+    #     day_off_date = datetime.datetime.strptime(Calendar_df.loc[i, 't'], "%Y-%m-%d").date()
+    #     now_time = datetime.date.today()
+    #     day_off_t = (dayoff_date - now_time).days
+    #     Calendar_df.loc[i, 't'] = day_off_t
+
     if category == 7:
+        # data_capacity 和 Calendar_df 各加一个辅助列sup
+        data_capacity['sup'] = 1
+        df_date = pd.DataFrame(list_date, columns=['t'])
+        df_date['sup'] = 1
+        Capacity_date_df = pd.merge(data_capacity, df_date, how='outer', on='sup')
+        Capacity_date_df.drop(['sup'], axis=1, inplace=True)
+        Capacity_date_Calendar = pd.merge(Capacity_date_df, Calendar_df, how='left', on=['warehouse', 't'])
+        print('Capacity_date_Calendar：\n{}'.format(Capacity_date_Calendar))
+        # TODO 江南 完善
         for i in range(data_capacity.shape[0]):
             for j in range(len(list_date)):
                 the_warehouse = data_capacity.loc[i, 'warehouse']

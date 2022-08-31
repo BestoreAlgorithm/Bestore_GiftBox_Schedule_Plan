@@ -835,7 +835,7 @@
       "warehouse": "D303"
     }
   ],
-  "fixedDate": "2022-08-31",
+  "fixedDate": "2022-08-29",
   "lockDays": 3,
   "maximumNumberOfGiftBoxes": 0.0,
   "minimumStockOut": 1.0,
@@ -887,7 +887,7 @@
       "productCode": "11009460",
       "subChannel": "2003",
       "bomVersion": "2",
-      "scheduleDate": "2022-08-31",
+      "scheduleDate": "2022-09-01",
       "planQuantity": 666,
       "deliveryFactory": "df3-1",
       "isLock": true
