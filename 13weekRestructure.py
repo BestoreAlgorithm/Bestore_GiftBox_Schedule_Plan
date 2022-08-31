@@ -86,15 +86,21 @@ print('BOM:\n {}\n BOM_type:\n {}'.format(BOM.head(), BOM.dtypes))
 
 # capacity基础数据分装产能读入与解析
 # TODO(新增标记)
-with open(Calendar, 'r', encoding='UTF-8') as cal_f:
-    calendar_list = json.load(cal_f)
-
+# with open(Calendar, 'r', encoding='UTF-8') as cal_f:
+#    calendar_list = json.load(cal_f)
+with open(Calendar, "r", encoding="utf-8") as f_json:
+    info_calendar = f_json.read()
+    data_list_calendar = json.loads(info_calendar)
+    Calendar_df_1 = pd.DataFrame(data_list_calendar)
+    Calendar_df = Calendar_df_1.explode('dayOff')
+    Calendar_df.reset_index(drop=True, inplace=True)
+print('Calendar_df\n: {}\n Calendar_df.type\n{}'.format(Calendar_df, Calendar_df.shape[0]))
 # TODO(改动标记)
 with open(Capacity, "r", encoding="utf-8") as f_json_capacity:
     info_capacity = f_json_capacity.read()
     data_list_capacity = json.loads(info_capacity)
     df_capacity = pd.DataFrame(data_list_capacity)
-PackingCapacity = capacityParse.pc_data_parse(13, df_capacity, calendar_list, list_date)
+PackingCapacity = capacityParse.pc_data_parse(13, df_capacity, Calendar_df, list_date)
 
 # priority优先级json信息读入与解析
 # TODO(改动标记)

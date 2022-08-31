@@ -117,7 +117,7 @@ def I_0_data_inventory_parse(df_inventory):
     return I_0
 
 
-def arr_data_parse(df_arrival, now_time, arrive_interval_days, available_day):
+def arr_data_parse(df_arrival, now_time, arrive_interval_days):
     # 4. 解析到货数据arrival
     the_first_date = now_time + datetime.timedelta(days=1)  # TODO（新增标记）
     '''
@@ -135,9 +135,7 @@ def arr_data_parse(df_arrival, now_time, arrive_interval_days, available_day):
     for i in range(df_arrival.shape[0]):
         date_arrival = datetime.datetime.strptime(df_arrival.loc[i, 'arrivalDate'], "%Y-%m-%d").date()
         dis_arr = (date_arrival - the_first_date).days + arrive_interval_days  # TODO（改动标记）
-        if (dis_arr < available_day):  # TODO（改动标记）
-            dis_arr = available_day  # TODO（改动标记） 确认这个地方的判别问题
-        # TODO(改动标记)
+        # TODO(改动标记),删除了使用到货的限定
         arr = pd.concat([arr, pd.DataFrame(
             {'warehouse': str(df_arrival.loc[i, 'warehouse']), 'sample': str(df_arrival.loc[i, 'productCode']),
              'num': float(df_arrival.loc[i, 'arrivalNum']), 't': int(dis_arr)}, index=[0])], ignore_index=True)

@@ -49,8 +49,6 @@ print('优先级主数据所在的文件夹路径：', Priority)
 print('日历主数据所在的文件路径：', Calendar)
 
 
-
-
 # 日期变量
 '''
 1、创建日期列表（从今天到未来滚动七天）
@@ -69,21 +67,24 @@ ProducePlan主要数据读入
 '''
 
 arrive_interval_days = 2  # 全局变量，表示到货子件变成可用的相对日期
-available_days = 4  # 全局变量，表示允许使用到货子件的相对日期 # TODO(新增标记)核实重复运算
 
 with open(ProducePlan, "r", encoding="utf-8") as f_json:
     info = f_json.read()
-    data_list = json.loads(info)
-    df_orders = pd.DataFrame(data_list["packingPlanRequest"])  # 分装需求
-    df_inventory = pd.DataFrame(data_list["stockInfo"])  # 库存信息
-    df_arrival = pd.DataFrame(data_list["arrivalInfo"])  # 到货信息
-    df_last_produce = pd.DataFrame(data_list["schedulingRequest"])  # 排产需求（多行）
+    produce_data_list = json.loads(info)  # TODO(修改了命名)
+    df_orders = pd.DataFrame(produce_data_list["packingPlanRequest"])  # 分装需求
+    df_inventory = pd.DataFrame(produce_data_list["stockInfo"])  # 库存信息
+    df_arrival = pd.DataFrame(produce_data_list["arrivalInfo"])  # 到货信息
+    df_last_produce = pd.DataFrame(produce_data_list["schedulingRequest"])  # 排产需求（多行）
+
+# TODO(改动标记)，add_date里面的data_list需要在ProducePlan.json中打开，放在后面会被覆盖
+add_date = datetime.datetime.strptime(produce_data_list['fixedDate'], "%Y-%m-%d").date()  # 传入的锁定天数为一个日期，可能为可以加单日期或隔天可以加单？
+add_day_num = (add_date - now_time).days  # 转化为第n天，今天24，数据中为26号，则为排产的第二天
 
 print('df_last_produce:\n {}'.format(df_last_produce))
 Lock = ProducePlanParse.lock_data_parse(df_last_produce, now_time)  # 解析锁定的计划
 OrderFull, Order = ProducePlanParse.orders_f_data_parse(df_orders, Lock, now_time)  # 解析需求提报计划锁定数据
 InventoryInitial = ProducePlanParse.I_0_data_inventory_parse(df_inventory)  # 解析库存数据Inventory
-Arr = ProducePlanParse.arr_data_parse(df_arrival, now_time, arrive_interval_days, available_days)  # 解析到货信息
+Arr = ProducePlanParse.arr_data_parse(df_arrival, now_time, arrive_interval_days)  # 解析到货信息
 
 # BOM基础数据json信息读入与解析
 '''
@@ -96,7 +97,6 @@ with open(Bom, "r", encoding="utf-8") as f_json_bom:
 BOM = bomsParse.bom_data_parse(df_bom, Order)
 
 # calendar基础数据日历(休息日)读入与解析
-# test
 with open(Calendar, "r", encoding="utf-8") as f_json:
     info = f_json.read()
     data_list = json.loads(info)
@@ -122,8 +122,7 @@ with open(Priority, "r", encoding="utf-8") as f_json_priority:
     data_list_priority = json.loads(info_priority)
     df_priority = pd.DataFrame(data_list_priority)
 Wei = priorityParse.wei_data_parse(df_priority)  # TODO(江南)
-add_date = datetime.datetime.strptime(data_list['fixedDate'], "%Y-%m-%d").date()  # 传入的锁定天数为一个日期，可能为可以加单日期或隔天可以加单？
-add_day_num = (add_date - now_time).days  # 转化为第n天，今天24，数据中为26号，则为排产的第二天
+
 # Sample
 sample_data = model.get_sample(Order, BOM, 7)
 
@@ -133,7 +132,7 @@ sample_data = model.get_sample(Order, BOM, 7)
 #  开始建模过程
 # 1）模型参数初始化
 
-LOCK_NUM = data_list['lockDays']  # 锁定三天
+LOCK_NUM = produce_data_list['lockDays']  # TODO(根据修改的命名，进行了更改)
 PACK_RANGE = 7  # 分装天数
 T = range(1, PACK_RANGE + 1)
 # FIX_NUM = lambda add_day_num: add_day_num if add_day_num > 0 else 0
@@ -144,7 +143,6 @@ if FIX_NUM < 0:
 INVENTORY_SCALE = 10000000
 # lists
 # print('Order:\n{0},\n lock: \n {1}'.format(Order.head(), Lock.head()))
-lock_day_num = data_list['lockDays']  # TODO(新增标记)
 
 N = list(Order['n'].unique())  # 渠道数量
 WAREHOUSE = list(Order['warehouse'].unique())  # 仓库列表
@@ -284,7 +282,7 @@ else:
 
 # 6）开始写结果
 # 创建Json格式文件， 结果写入data当中
-request_id = data_list['requestId']  # TODO(新增标记)
+request_id = produce_data_list['requestId']  # TODO(新增标记)
 res = {'code': 200, 'msg': "success", 'requestId': request_id, 'data': []}
 
 for i_d in ORDER_ID:
@@ -303,7 +301,7 @@ for i_d in ORDER_ID:
                                               (df_bom["bomVersion"] == str(df_last_produce.loc[od, 'bomVersion'])
                                                )]["productName"].values[0]
                     last_res = {
-                        'lockDays': lock_day_num,
+                        'lockDays': LOCK_NUM,
                         'packingPlanId': int(df_last_produce.loc[od, 'packingPlanId']),
                         'packingPlanSerialNum': int(df_last_produce.loc[od, 'packingPlanSerialNum']),
                         'demandCommitDate': df_last_produce.loc[od, 'demandCommitDate'],
