@@ -69,10 +69,11 @@ with open(seven_days_result, "r", encoding="utf-8") as f_json:
     result_7days = pd.DataFrame(data_list["data"])  # 7天分装结果
 
 # 解析13weeks_schedule_plan_result.json数据
-# with open(fourteen_weeks_result, "r", encoding="utf-8") as f_json:
-#     info = f_json.read()
-#     data_list = json.loads(info)
-#     result_13weeks = pd.DataFrame(data_list["data"])  # 13周分装结果
+with open(fourteen_weeks_result, "r", encoding="utf-8") as f_json:
+    info = f_json.read()
+    data_list = json.loads(info)
+    result_13weeks_packingPlanInfo = pd.DataFrame(data_list["data"]["packingPlanInfo"])  # 13周分装结果
+    result_13weeks_subSupplyPlanInfo = pd.DataFrame(data_list["data"]["subSupplyPlanInfo"])  # 13周分装结果
 
 
 with pd.ExcelWriter('data.xlsx') as write:
@@ -86,6 +87,7 @@ with pd.ExcelWriter('data.xlsx') as write:
     df_orders.to_excel(write, sheet_name='df_orders', index=False)
     df_samples.to_excel(write, sheet_name='df_samples', index=False)
     result_7days.to_excel(write, sheet_name='result_7days', index=False)
-    # result_13weeks.to_excel(write, sheet_name='result_13weeks', index=False)
+    result_13weeks_packingPlanInfo.to_excel(write, sheet_name='result_13weeks_PPI', index=False)
+    result_13weeks_subSupplyPlanInfo.to_excel(write, sheet_name='result_13weeks_SPI', index=False)
 
 
