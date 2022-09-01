@@ -26,7 +26,7 @@ def data_orders_clean(df_orders, now_time, list_date):
     data_orders = pd.DataFrame(df_orders, columns=['id', 'productCode', 'bomVersion', 'subChannel',
                                                    'warehouse', 'demandCommitDate', 'packingPlanWeekNum',
                                                    'specifyScheduleIdentifier', 'planPackingQuantity'])
-    data_orders['demandCommitDate'].replace('', "9999-12-31", inplace=True)  # 分装计划中提报时间预处理 # TODO(新增标记)
+    data_orders['demandCommitDate'].replace('', "9999-12-31", inplace=True)  # 分装计划中提报时间预处理
     data_orders.rename(columns={'productCode': 'package', 'bomVersion': 'bom',
                                 'subChannel': 'n', 'demandCommitDate': 's_t',
                                 'packingPlanWeekNum': 'o_t', 'specifyScheduleIdentifier': 'flag',
@@ -37,17 +37,16 @@ def data_orders_clean(df_orders, now_time, list_date):
     data_orders.loc[(data_orders.flag != "x") & (data_orders.flag != "X"), 'flag'] = "0"
     data_orders['flag'] = data_orders['flag'].astype(int)
     the_first_week_date = datetime.datetime.strptime(list_date[0], "%Y-%m-%d").date()
-    days_before_date = the_first_week_date + datetime.timedelta(days=-7)  # 第一周的前一周日期(特殊情况) # TODO(新增标记)
+    days_before_date = the_first_week_date + datetime.timedelta(days=-7)  # 第一周的前一周日期(特殊情况)
     days_before = days_before_date.strftime('%Y-%m-%d')  # str形式的日期
     for i in range(data_orders.shape[0]):  # 日期处理
         date_report = datetime.datetime.strptime(data_orders.loc[i, 's_t'], "%Y-%m-%d").date()  # 提报日期
         interval_day = (date_report - now_time).days
-        if interval_day == 0:  # TODO（反正优先级计算的时候报错 除0）
+        if interval_day == 0:  # 防止优先级计算的时候报错 除0
             interval_day = 1
         data_orders.loc[i, 's_t'] = interval_day
-    # TODO 这个break的含义，会跳出本次循环
     for i in range(data_orders.shape[0]):
-        if data_orders.loc[i, 'o_t'] == days_before:  # TODO(新增标记)
+        if data_orders.loc[i, 'o_t'] == days_before:
             data_orders.loc[i, 'o_t'] = -1
         else:
             for j in range(len(list_date)):
@@ -69,7 +68,8 @@ def I_0_data_clean(df_samples):
     return I_0
 
 
-def trans_data_clean(df_samples, list_date_time):  # TODO(改动标记)
+def trans_data_clean(df_samples, list_date_time):
+    # TODO t为空值
     data_trans = pd.DataFrame(df_samples, columns=['subCode', 'factoryCode', 'appropriationPlanNum', 'planSupplyDate'])
     data_trans.rename(columns={'subCode': 'sample', 'factoryCode': 'warehouse', 'appropriationPlanNum': 'num',
                                'planSupplyDate': 't'}, inplace=True)
@@ -86,7 +86,6 @@ def trans_data_clean(df_samples, list_date_time):  # TODO(改动标记)
                 trans.loc[i, 't'] = j + 1
                 break
     '''
-    # TODO(改动标记)
     for i in range(trans.shape[0]):
         trans_date = datetime.datetime.strptime(trans.loc[i, 't'], "%Y-%m-%d").date()  # 子件调拨到货日期
         the_first_week = list_date_time[0]
@@ -95,7 +94,7 @@ def trans_data_clean(df_samples, list_date_time):  # TODO(改动标记)
         if trans_dis_day <= 0:
             trans_dis_day = trans_dis_day - 1
         trans.loc[i, 't'] = trans_dis_day
-    trans['t'] = trans['t'].astype(int)  # TODO(新增标记)
+    trans['t'] = trans['t'].astype(int)
     return trans
 
 

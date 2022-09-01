@@ -10,7 +10,6 @@ import itertools
 import copy
 
 
-# TODO 很多函数 return 0的问题需要逐个排查
 def init_model_parameters(pack_range, *, lock_num=0, fix_num=0, cover_num=0):
     if pack_range == 7:
         if fix_num < 0:
@@ -200,9 +199,9 @@ def id2p(i_d, orders_f):
     return orders_f[orders_f['id'] == i_d]['package'].values[0]
 
 
-# TODO 这个地方 t 和 f 应该都是可选参数，需要处理
 def type_weight(m, n, k, s_t, o_t, wei, type, f=0):
     '''
+    这个地方 t 和 f 应该都是可选参数，需要处理
     将不同类型的优先级使用1，2，3分别表示delay，lose，holding
     :param m:
     :param n:
@@ -247,7 +246,6 @@ def packing_t(t, T_COVER, T):
 
 
 def get_xindex_x1index(order_id, orders_f, pack_range, flag, fix_num):
-    # TODO 重构,这个copy要好好看一下
     xindex = {}
     x1index = {}
     if flag == 7:

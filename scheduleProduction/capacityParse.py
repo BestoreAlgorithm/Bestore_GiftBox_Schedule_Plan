@@ -52,7 +52,7 @@ def pc_data_parse(category, df_capacity, Calendar_df, list_date):
         # pc = pd.DataFrame(Capacity_date_df, columns=['warehouse', 'line', 'package', 'num', 'hours', 't'])
     elif category == 13:
         the_first_week_date = datetime.datetime.strptime(list_date[0], "%Y-%m-%d").date()
-        days_before_date = the_first_week_date + datetime.timedelta(days=-7)  # 第一周的前一周日期(特殊情况) # TODO(新增标记)
+        days_before_date = the_first_week_date + datetime.timedelta(days=-7)  # 第一周的前一周日期(特殊情况)
         days_before = days_before_date.strftime('%Y-%m-%d')  # str形式的日期
         total_list_date = list_date.copy()  # 新生成一个附带前一周的列表
         total_list_date.insert(0, days_before)

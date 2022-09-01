@@ -273,9 +273,14 @@ print('Lock : \n {}'.format(Lock))
 print(FIX_NUM)
 # 5）开始训练
 print('Optimizing...')
-status = solver.Solve()
-if status == solver.OPTIMAL:
+result_status = solver.Solve()
+if result_status == solver.OPTIMAL:
     model_train_end = time.time()  # # 模型训练结束时间函数
+    assert solver.VerifySolution(1e-7, True)
+    print('Number of variables =', solver.NumVariables())
+    print('Number of constraints =', solver.NumConstraints())
+    # The objective value of the solution.
+    print('Optimal objective value = %d' % solver.Objective().Value())
     print('Optimal solution are ready, time cost are: {0}s'.format(str(model_train_end - model_train_start)))
     # 6）开始写结果
     # 创建Json格式文件， 结果写入data当中
@@ -343,8 +348,17 @@ if status == solver.OPTIMAL:
     with open("7days_schedule_plan_result.json", 'w', encoding='utf-8') as write_f:
         write_f.write(json.dumps(res, indent=4, ensure_ascii=False))
     print('the result is be saved!')
-else:
-    if status == solver.FEASIBLE:
-        print('A potentially suboptimal solution was found.')  # 发现了一个潜在的次优解决方案
-    else:
-        print('The problem does not have an optimal solution.')
+elif (result_status == solver.FEASIBLE):
+    print('A potentially suboptimal solution was found.')  # 发现了一个潜在的次优解决方案
+elif (result_status == solver.INFEASIBLE):
+    print("Problem is infeasible")
+elif (result_status == solver.UNBOUNDED):
+    print("Problem is unbounded")
+elif (result_status == solver.ABNORMAL):
+    print("Problem is abnormal")
+elif (result_status == solver.NOT_SOLVED):
+    print("Problem is not solved")
+
+print('\nAdvanced usage:')
+print('Problem solved in %f milliseconds' % solver.wall_time())
+print('Problem solved in %d iterations' % solver.iterations())
