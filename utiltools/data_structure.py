@@ -5,6 +5,8 @@
 # @Software: PyCharm
 
 import gurobipy as grb
+import gurobipy as gp
+from gurobipy import GRB
 
 '''
 引入Multidict、Tuplelist、Tupledict 三种数据结构的目的：
@@ -75,3 +77,17 @@ d = grb.tupledict([((1, 1), 'a'), ((1, 2), 'b'), ((2, 1), 'c'), ((2, 2), 'd')])
 print(d.select())  # 显示所有元素
 print(d.select(1, '*'))  # pattern筛选元素
 print(d[1, 1])  # 下标访问 # d[1,'*'] #错误的使用
+
+# 矩阵变量的创建
+'''
+Model.addMVar()
+addMVar(shape, lb=0.0, ub=GRB.INFINITY, obj=0.0, vtype=GRB.CONTINUOUS, name="")
+'''
+# shape：矩阵向量的维度
+# lb, ub：分别为变量的上下限（可选）
+# obj：变量在目标函数表达式中的系数（可选）
+# vtype：变量类型（可选）
+model = grb.Model()
+x = model.addMVar(10)  # 包含10个变量的一维矩阵变量
+y = model.addMVar((3, 4), vtype=GRB.BINARY)  # 3x4的0-1变量矩阵
+print('x: {}, y: {}'.format(x, y))
