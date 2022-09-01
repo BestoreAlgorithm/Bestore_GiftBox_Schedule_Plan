@@ -69,7 +69,6 @@ ProducePlan主要数据读入
 '''
 
 arrive_interval_days = 2  # 全局变量，表示到货子件变成可用的相对日期
-available_days = 4  # 全局变量，表示允许使用到货子件的相对日期 # TODO(新增标记)核实重复运算
 
 with open(ProducePlan, "r", encoding="utf-8") as f_json:
     info = f_json.read()
@@ -83,7 +82,7 @@ print('df_last_produce:\n {}'.format(df_last_produce))
 Lock = ProducePlanParse.lock_data_parse(df_last_produce, now_time)  # 解析锁定的计划
 OrderFull, Order = ProducePlanParse.orders_f_data_parse(df_orders, Lock, now_time)  # 解析需求提报计划锁定数据
 InventoryInitial = ProducePlanParse.I_0_data_inventory_parse(df_inventory)  # 解析库存数据Inventory
-Arr = ProducePlanParse.arr_data_parse(df_arrival, now_time, arrive_interval_days, available_days)  # 解析到货信息
+Arr = ProducePlanParse.arr_data_parse(df_arrival, now_time, arrive_interval_days)  # 解析到货信息
 
 # BOM基础数据json信息读入与解析
 '''
@@ -99,8 +98,8 @@ BOM = bomsParse.bom_data_parse(df_bom, Order)
 # test
 with open(Calendar, "r", encoding="utf-8") as f_json:
     info = f_json.read()
-    data_list = json.loads(info)
-    Calendar_df_1 = pd.DataFrame(data_list)
+    data_list_calendar = json.loads(info)
+    Calendar_df_1 = pd.DataFrame(data_list_calendar)
     Calendar_df = Calendar_df_1.explode('dayOff')
     Calendar_df.reset_index(drop=True, inplace=True)
 print('Calendar_df\n: {}\n Calendar_df.type\n{}'.format(Calendar_df, Calendar_df.shape[0]))
