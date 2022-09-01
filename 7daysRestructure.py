@@ -132,7 +132,7 @@ sample_data = model.get_sample(Order, BOM, 7)
 #  开始建模过程
 # 1）模型参数初始化
 
-LOCK_NUM = produce_data_list['lockDays']  # TODO(根据修改的命名，进行了更改)
+LOCK_NUM = produce_data_list['lockDays']  # TODO(这里是否需要函数)
 PACK_RANGE = 7  # 分装天数
 T = range(1, PACK_RANGE + 1)
 # FIX_NUM = lambda add_day_num: add_day_num if add_day_num > 0 else 0

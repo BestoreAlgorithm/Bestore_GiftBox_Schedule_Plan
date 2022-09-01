@@ -11,8 +11,13 @@ import copy
 
 
 # TODO 很多函数 return 0的问题需要逐个排查
-def init_model_parameters():
-    pass
+def init_model_parameters(pack_range, *, lock_num=0, fix_num=0, cover_num=0):
+    if pack_range == 7:
+        if fix_num < 0:
+            fix_num = 0
+        return lock_num, fix_num
+    if pack_range == 14:
+        return cover_num
 
 
 def get_demand(df, i_d, pack, n, k, s_t, o_t, flag=3):
