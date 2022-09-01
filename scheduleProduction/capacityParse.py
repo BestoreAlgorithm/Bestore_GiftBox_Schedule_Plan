@@ -17,7 +17,6 @@ def pc_data_parse(category, df_capacity, Calendar_df, list_date):
                                   'productCode': 'package',
                                   'repackagingAbility': 'num',
                                   'manHour': 'hours'}, inplace=True)
-    # TODO（新增标记）
     pc = pd.DataFrame(columns=['warehouse', 'line', 'package', 'num', 'hours', 't'])
     Calendar_df.rename(columns={'dayOff': 't', 'packingFactoryCode': 'warehouse'}, inplace=True)
 
@@ -27,39 +26,30 @@ def pc_data_parse(category, df_capacity, Calendar_df, list_date):
         data_capacity['sup'] = 1
         df_date = pd.DataFrame(list_date, columns=['t'])
         df_date['sup'] = 1
+        Calendar_df['sup'] = 1
         Capacity_date_df = pd.merge(data_capacity, df_date, how='outer', on='sup')
         Capacity_date_df.drop(['sup'], axis=1, inplace=True)
-        # Capacity_date_Calendar = pd.merge(Capacity_date_df, Calendar_df, how='left', on=['warehouse', 't'])
-        # print('Capacity_date_Calendar：\n{}'.format(Capacity_date_Calendar.head(20)))
-        # TODO 江南 完善
-        for i in range(Capacity_date_df.shape[0]):
-            for j in range(Calendar_df.shape[0]):
-                if Calendar_df.loc[j, 'warehouse'] == Capacity_date_df.loc[i, 'warehouse'] and Calendar_df.loc[j, 't'] == Capacity_date_df.loc[i, 't']:
-                    Capacity_date_df.loc[i, 'hours'] = 0
-            date_in_Capacity = datetime.datetime.strptime(Capacity_date_df.loc[i, 't'], "%Y-%m-%d").date()
+        print('Capacity_date_df：\n{}'.format(Capacity_date_df.head(20)))
+        Capacity_date_Calendar = pd.merge(Capacity_date_df, Calendar_df, how='left', on=['warehouse', 't'])
+        print('Capacity_date_Calendar：\n{}'.format(Capacity_date_Calendar.head(20)))
+        Capacity_date_Calendar.loc[Capacity_date_Calendar[Capacity_date_Calendar.sup == 1].index.tolist(), 'hours'] = 0
+        Capacity_date_Calendar.drop(['sup'], axis=1, inplace=True)
+
+        for i in range(Capacity_date_Calendar.shape[0]):
+            date_in_Capacity = datetime.datetime.strptime(Capacity_date_Calendar.loc[i, 't'], "%Y-%m-%d").date()
             date_to_t = (date_in_Capacity - now_time).days
-            Capacity_date_df.loc[i, 't'] = date_to_t
-        pc = pd.DataFrame(Capacity_date_df, columns=['warehouse', 'line', 'package', 'num', 'hours', 't'])
-        '''
-        for i in range(data_capacity.shape[0]):
-            for j in range(len(list_date)):
-                the_warehouse = data_capacity.loc[i, 'warehouse']
-                real_hour = data_capacity.loc[i, 'hours']
-                the_date = list_date[j]
-                check_off_flag = 0
-                for k in range(len(calendar_list)):
-                    if calendar_list[k]['packingFactoryCode'] == the_warehouse:
-                        for d in range(len(calendar_list[k]['dayOff'])):
-                            if calendar_list[k]['dayOff'][d] == the_date:
-                                check_off_flag = 1
-                                break
-                if check_off_flag == 1:
-                    real_hour = 0
-                pc = pd.concat([pc, pd.DataFrame(
-                    {'warehouse': str(data_capacity.loc[i, 'warehouse']), 'line': str(data_capacity.loc[i, 'line']),
-                     'package': str(data_capacity.loc[i, 'package']), 'num': int(data_capacity.loc[i, 'num']),
-                     'hours': real_hour, 't': (j + 1)}, index=[0])], ignore_index=True)
-        '''
+            Capacity_date_Calendar.loc[i, 't'] = date_to_t
+        pc = pd.DataFrame(Capacity_date_Calendar, columns=['warehouse', 'line', 'package', 'num', 'hours', 't'])
+        print('pc：\n{}'.format(pc.head(20)))
+
+        # for i in range(Capacity_date_df.shape[0]):
+        #     for j in range(Calendar_df.shape[0]):
+        #         if Calendar_df.loc[j, 'warehouse'] == Capacity_date_df.loc[i, 'warehouse'] and Calendar_df.loc[j, 't'] == Capacity_date_df.loc[i, 't']:
+        #             Capacity_date_df.loc[i, 'hours'] = 0
+        #     date_in_Capacity = datetime.datetime.strptime(Capacity_date_df.loc[i, 't'], "%Y-%m-%d").date()
+        #     date_to_t = (date_in_Capacity - now_time).days
+        #     Capacity_date_df.loc[i, 't'] = date_to_t
+        # pc = pd.DataFrame(Capacity_date_df, columns=['warehouse', 'line', 'package', 'num', 'hours', 't'])
     elif category == 13:
         the_first_week_date = datetime.datetime.strptime(list_date[0], "%Y-%m-%d").date()
         days_before_date = the_first_week_date + datetime.timedelta(days=-7)  # 第一周的前一周日期(特殊情况) # TODO(新增标记)

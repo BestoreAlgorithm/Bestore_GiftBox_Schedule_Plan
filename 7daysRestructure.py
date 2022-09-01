@@ -93,7 +93,6 @@ with open(Bom, "r", encoding="utf-8") as f_json_bom:
 BOM = bomsParse.bom_data_parse(df_bom, Order)
 
 # calendar基础数据日历(休息日)读入与解析
-# test
 with open(Calendar, "r", encoding="utf-8") as f_json:
     info = f_json.read()
     data_list_calendar = json.loads(info)

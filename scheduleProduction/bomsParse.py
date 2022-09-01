@@ -6,11 +6,11 @@
 import pandas as pd
 
 
-def bom_data_parse(df_bom, data_orders):  # TODO(改动标记),rename, 周和日的区别在输入的orders.pd
+def bom_data_parse(df_bom, data_orders):
     '''
+    周和日的区别在输入的orders.pd
     变量的命名规范问题很大，这里我们将boms写成bom
     '''
-    # TODO （江南）： 01读入成 1
     df_bom["bomVersion"] = df_bom["bomVersion"].astype(str)  # 将bomVersion列转化为字符串
     df_bom["productCode"] = df_bom["productCode"].astype(str)  # 将productCode列转化为字符串
     df_bom["subCode"] = df_bom["subCode"].astype(str)  # 将subCode列转化为字符串
