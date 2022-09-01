@@ -11,6 +11,7 @@ import json
 import datetime
 import os
 import itertools
+import sys
 from scheduleProduction import shareFunction
 from scheduleProduction import bomsParse
 from scheduleProduction import capacityParse
@@ -41,13 +42,17 @@ Bom = jsons_data_path + '\\' + 'Bom.json'
 Capacity = jsons_data_path + '\\' + 'Capacity.json'
 Priority = jsons_data_path + '\\' + 'Priority.json'
 Calendar = jsons_data_path + '\\' + 'Calendar.json'  # TODO (新增标记)
+ScheduleProductionResult = result_data_path + '\\' + '13weeks_schedule_plan_result.json'
+ExecLog = result_data_path + '\\' + 'exec_13weeks.log'
+# 添加log记录
+sys.stdout = open(ExecLog, mode='w', encoding='utf-8')
 print('json数据所在的文件夹路径：', jsons_data_path)
 print('排产计划数据所在的文件夹路径：', ProducePlan)
 print('Bom主数据所在的文件夹路径：', Bom)
 print('产能主数据所在的文件夹路径：', Capacity)
 print('优先级主数据所在的文件夹路径：', Priority)
 print('日历主数据所在的文件路径：', Calendar)  # TODO（新增标记）
-ScheduleProductionResult = result_data_path + '\\' + '13weeks_schedule_plan_result.json'
+
 
 now_time = datetime.date.today()  # 当日日期
 # 日期处理：生成13周的str日期和date日期

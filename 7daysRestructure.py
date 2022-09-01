@@ -13,6 +13,7 @@ import datetime
 import json
 import os
 import itertools
+import sys
 from ortools.linear_solver import pywraplp
 from scheduleProduction import shareFunction
 from scheduleProduction import ProducePlanParse
@@ -44,6 +45,9 @@ Capacity = jsons_data_path + '\\' + 'Capacity.json'
 Priority = jsons_data_path + '\\' + 'Priority.json'
 Calendar = jsons_data_path + '\\' + 'Calendar.json'
 ScheduleProductionResult = result_data_path + '\\' + '7days_schedule_plan_result.json'
+ExecLog = result_data_path + '\\' + 'exec_7days.log'
+# 添加log记录
+sys.stdout = open(ExecLog, mode='w', encoding='utf-8')
 print('json数据所在的文件夹路径：', jsons_data_path)
 print('排产计划数据所在的文件夹路径：', ProducePlan)
 print('Bom主数据所在的文件夹路径：', Bom)
@@ -57,6 +61,7 @@ print('日历主数据所在的文件路径：', Calendar)
 1、创建日期列表（从今天到未来滚动七天）
 2、 创建日期字符串列表（从今天到未来滚动七天）
 '''
+
 
 now_time = datetime.date.today()
 list_date_time, list_date = shareFunction.data_list_create(7, now_time, 7)
