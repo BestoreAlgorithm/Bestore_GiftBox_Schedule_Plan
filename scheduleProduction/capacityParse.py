@@ -35,7 +35,7 @@ def pc_data_parse(category, df_capacity, Calendar_df, list_date):
         for i in range(Capacity_date_df.shape[0]):
             for j in range(Calendar_df.shape[0]):
                 if Calendar_df.loc[j, 'warehouse'] == Capacity_date_df.loc[i, 'warehouse'] and Calendar_df.loc[j, 't'] == Capacity_date_df.loc[i, 't']:
-                    Capacity_date_df.loc[j, 'hours'] = 0
+                    Capacity_date_df.loc[i, 'hours'] = 0
             date_in_Capacity = datetime.datetime.strptime(Capacity_date_df.loc[i, 't'], "%Y-%m-%d").date()
             date_to_t = (date_in_Capacity - now_time).days
             Capacity_date_df.loc[i, 't'] = date_to_t
