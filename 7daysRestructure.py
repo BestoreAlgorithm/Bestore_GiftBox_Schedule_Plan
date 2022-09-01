@@ -35,12 +35,15 @@ data_prepare_start = time.time()  # 数据准备时间开始函数
 # 设置数据路径全局变量
 project_path = os.getcwd()  # 当前路径
 jsons_filename = 'jsons'  # 存放数据的文件夹的名称
+result_filename = 'result'  # 结果数据的文件夹的名称
 jsons_data_path = project_path + '\\' + jsons_filename  # 原始数据的路径
+result_data_path = project_path + '\\' + result_filename  # 结果数据的路径
 ProducePlan = jsons_data_path + '\\' + 'ProducePlan.json'
 Bom = jsons_data_path + '\\' + 'Bom.json'
 Capacity = jsons_data_path + '\\' + 'Capacity.json'
 Priority = jsons_data_path + '\\' + 'Priority.json'
 Calendar = jsons_data_path + '\\' + 'Calendar.json'
+ScheduleProductionResult = result_data_path + '\\' + '7days_schedule_plan_result.json'
 print('json数据所在的文件夹路径：', jsons_data_path)
 print('排产计划数据所在的文件夹路径：', ProducePlan)
 print('Bom主数据所在的文件夹路径：', Bom)
@@ -124,16 +127,11 @@ add_day_num = (add_date - now_time).days  # 转化为第n天，今天24，数据
 sample_data = model.get_sample(Order, BOM, 7)
 
 #  开始建模过程
-# 1）模型参数准备
-
-#  开始建模过程
 # 1）模型参数初始化
 
 LOCK_NUM = data_list['lockDays']  # 锁定三天
 PACK_RANGE = 7  # 分装天数
 T = range(1, PACK_RANGE + 1)
-# FIX_NUM = lambda add_day_num: add_day_num if add_day_num > 0 else 0
-
 FIX_NUM = add_day_num
 if FIX_NUM < 0:
     FIX_NUM = 0
@@ -154,10 +152,9 @@ X_INDEX, X1_INDEX = model.get_xindex_x1index(ORDER_ID, OrderFull, T, PACK_RANGE,
 PackSample = model.get_package_sample(BOM, PACKAGE)
 
 data_prepare_end = time.time()  # 数据准备时间结束函数
-# print('parameters are ready, time cost are: {0}s'.format(str(data_prepare_end - data_prepare_start)))
+print('parameters are ready, time cost are: {0}s'.format(str(data_prepare_end - data_prepare_start)))
 
 # 2） 模型变量创建
-model_train_start = time.time()  # 模型训练开始时间函数
 # 声明求解器(实例化求解器)
 solver = pywraplp.Solver.CreateSolver('SCIP')  # 创建一个基于GLOP后端的线性求解器
 if not solver:
@@ -268,25 +265,24 @@ for k, s, t in itertools.product(WAREHOUSE, SAMPLE, T):
 solver.Minimize(delaySum + loseSum + h_c / INVENTORY_SCALE)
 print('Objective function setting done ！')
 
-print('Lock : \n {}'.format(Lock))
-
 print(FIX_NUM)
 # 5）开始训练
 print('Optimizing...')
 result_status = solver.Solve()
 if result_status == solver.OPTIMAL:
-    model_train_end = time.time()  # # 模型训练结束时间函数
     assert solver.VerifySolution(1e-7, True)
     print('Number of variables =', solver.NumVariables())
     print('Number of constraints =', solver.NumConstraints())
     # The objective value of the solution.
     print('Optimal objective value = %d' % solver.Objective().Value())
-    print('Optimal solution are ready, time cost are: {0}s'.format(str(model_train_end - model_train_start)))
+    print('\nAdvanced usage:')
+    print('Problem solved in %f milliseconds' % solver.wall_time())
+    print('Problem solved in %d iterations' % solver.iterations())
     # 6）开始写结果
     # 创建Json格式文件， 结果写入data当中
-    request_id = data_list['requestId']  # TODO(新增标记)
+    request_id = data_list['requestId']
     res = {'code': 200, 'msg': "success", 'requestId': request_id, 'data': []}
-
+    # TODO (杨江南)： 这个输出文件需要优化
     for i_d in ORDER_ID:
         for i in X_INDEX[i_d]:
             if x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['t']].solution_value() > 0:
@@ -345,7 +341,7 @@ if result_status == solver.OPTIMAL:
                         }
                         res['data'].append(mid_res)
     # 保存Json文件到7days_schedule_plan_result.json当中
-    with open("7days_schedule_plan_result.json", 'w', encoding='utf-8') as write_f:
+    with open(ScheduleProductionResult, 'w', encoding='utf-8') as write_f:
         write_f.write(json.dumps(res, indent=4, ensure_ascii=False))
     print('the result is be saved!')
 elif (result_status == solver.FEASIBLE):
@@ -359,6 +355,4 @@ elif (result_status == solver.ABNORMAL):
 elif (result_status == solver.NOT_SOLVED):
     print("Problem is not solved")
 
-print('\nAdvanced usage:')
-print('Problem solved in %f milliseconds' % solver.wall_time())
-print('Problem solved in %d iterations' % solver.iterations())
+

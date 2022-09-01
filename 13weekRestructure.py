@@ -32,7 +32,9 @@ data_prepare_start = time.time()  # 数据准备时间开始函数
 # 设置数据路径全局变量
 project_path = os.getcwd()  # 当前路径
 jsons_filename = 'jsons'  # 存放数据的文件夹的名称
+result_filename = 'result'  # 结果数据的文件夹的名称
 jsons_data_path = project_path + '\\' + jsons_filename  # 原始数据的路径
+result_data_path = project_path + '\\' + result_filename  # 结果数据的路径
 ProducePlan = jsons_data_path + '\\' + 'ProducePlan.json'
 PackPlan = jsons_data_path + '\\' + 'PackPlan.json'
 Bom = jsons_data_path + '\\' + 'Bom.json'
@@ -45,6 +47,7 @@ print('Bom主数据所在的文件夹路径：', Bom)
 print('产能主数据所在的文件夹路径：', Capacity)
 print('优先级主数据所在的文件夹路径：', Priority)
 print('日历主数据所在的文件路径：', Calendar)  # TODO（新增标记）
+ScheduleProductionResult = result_data_path + '\\' + '13weeks_schedule_plan_result.json'
 
 now_time = datetime.date.today()  # 当日日期
 # 日期处理：生成13周的str日期和date日期
@@ -293,109 +296,94 @@ print('Optimizing...')
 status = solver.Solve()
 if status == pywraplp.Solver.OPTIMAL:
     model_train_end = time.time()  # # 模型训练结束时间函数
-    print('Optimal solution are ready, time cost are: {0}s'.format(str(model_train_end - model_train_start)))
-else:
-    print('The problem does not have an optimal solution.')
+    assert solver.VerifySolution(1e-7, True)
+    print('Number of variables =', solver.NumVariables())
+    print('Number of constraints =', solver.NumConstraints())
+    # The objective value of the solution.
+    print('Optimal objective value = %d' % solver.Objective().Value())
+    print('\nAdvanced usage:')
+    print('Problem solved in %f milliseconds' % solver.wall_time())
+    print('Problem solved in %d iterations' % solver.iterations())
+    y_demand = tupledict()
+    request_id = data_list['requestId']
+    res = {'code': 200, 'msg': "success",
+           'data': {'packingPlanInfo': [], 'subSupplyPlanInfo': [], 'requestId': request_id}}
+    # TODO (杨江南)： 这个输出文件需要优化
+    for i_d in ORDER_ID:
+        for i in X_INDEX[i_d]:
+            if x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']].solution_value() > 0:
+                print((i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']),
+                      x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']].solution_value())
+                if i['t'] == -1:
+                    real_pack_t = days_before  # TODO(新增标记)
+                elif i['t'] == 14:
+                    real_pack_t_time = list_date_time[12] + datetime.timedelta(days=7)
+                    real_pack_t = real_pack_t_time.strftime('%Y-%m-%d')
+                else:
+                    real_pack_t = list_date[i['t'] - 1]
+                for od in range(Order.shape[0]):
+                    if i['id'] == Order.loc[od, 'id']:  # TODO(改动标记)
+                        if df_bom[(df_bom["productCode"] == i['m']) &
+                                  (df_bom["bomVersion"] == Order.loc[od, 'bom'])]["productName"].shape[0] == 0:
+                            product_name = "null"
+                        else:
+                            product_name = \
+                                df_bom[
+                                    (df_bom["productCode"] == i['m']) & (df_bom["bomVersion"] == Order.loc[od, 'bom'])][
+                                    "productName"].values[0]
+                        mid_res = {'packingPlanId': str(df_orders.loc[od, 'packingPlanId']),
+                                   'packingPlanSerialNum': int(df_orders.loc[od, 'packingPlanSerialNum']),
+                                   'oldPackingPlanVersion': str(df_orders.loc[od, 'packingPlanVersion']),
+                                   'demandCommitDate': df_orders.loc[od, 'demandCommitDate'],
+                                   'requireOutWeek': df_orders.loc[od, 'requireOutWeek'],
+                                   'oldPackingPlanWeekNum': df_orders.loc[od, 'packingPlanWeekNum'],
+                                   'packingPlanWeekNum': real_pack_t,  # TODO(改变标记)
+                                   'bu': df_orders.loc[od, 'bu'],
+                                   'subChannel': df_orders.loc[od, 'subChannel'],
+                                   'warehouse': df_orders.loc[od, 'warehouse'],
+                                   'productCode': df_orders.loc[od, 'productCode'],
+                                   'productName': product_name,
+                                   'bomVersion': str(df_orders.loc[od, 'bomVersion']),
+                                   'oldPlanPackingQuantity': int(df_orders.loc[od, 'planPackingQuantity']),
+                                   'planPackingQuantity': int(x[i['id'], i['m'], i['n'], i['k'], i['s_t'],
+                                                                i['o_t'], i['f'], i['t']].solution_value()),
+                                   'lockIdentifier': str(df_orders.loc[od, 'lockIdentifier'])}
+                        res['data']['packingPlanInfo'].append(mid_res)
+                        for s in PackSample[i['m']]:  # TODO(新增标记)
+                            y_demand[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t'], s] \
+                                = x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'],
+                                    i['t']].solution_value() * model.get_bom(BOM, i['m'], s)
+                            print((i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t'], s),
+                                  round(
+                                      y_demand[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t'], s],
+                                      3))
+                            sub_name = df_bom[df_bom["subCode"] == str(s)]["subName"].values[0]
+                            mid_sample = {'oldPackingPlanVersion': str(df_orders.loc[od, 'packingPlanVersion']),
+                                          'packingPlanId': str(df_orders.loc[od, 'packingPlanId']),
+                                          'packingPlanSerialNum': int(df_orders.loc[od, 'packingPlanSerialNum']),
+                                          'demandCommitDate': df_orders.loc[od, 'demandCommitDate'],
+                                          'requireOutWeek': df_orders.loc[od, 'requireOutWeek'],
+                                          'packingPlanWeekNum': real_pack_t,
+                                          'bu': df_orders.loc[od, 'bu'],
+                                          'subChannel': str(df_orders.loc[od, 'subChannel']),
+                                          'warehouse': df_orders.loc[od, 'warehouse'],
+                                          'subCode': s,
+                                          'subName': sub_name,
+                                          'subDemandQuantity': round(y_demand[i['id'], i['m'], i['n'], i['k'], i['s_t'],
+                                                                              i['o_t'], i['f'], i['t'], s], 3),
+                                          'subDemandPlanDate': real_pack_t}
+                            res['data']['subSupplyPlanInfo'].append(mid_sample)
+    with open(ScheduleProductionResult, 'w', encoding='utf-8') as write_f:
+        write_f.write(json.dumps(res, indent=4, ensure_ascii=False))
+elif (result_status == solver.FEASIBLE):
+    print('A potentially suboptimal solution was found.')  # 发现了一个潜在的次优解决方案
+elif (result_status == solver.INFEASIBLE):
+    print("Problem is infeasible")
+elif (result_status == solver.UNBOUNDED):
+    print("Problem is unbounded")
+elif (result_status == solver.ABNORMAL):
+    print("Problem is abnormal")
+elif (result_status == solver.NOT_SOLVED):
+    print("Problem is not solved")
 
-y_demand = tupledict()
-request_id = data_list['requestId']  # TODO(新增标记)
-res = {'code': 200, 'msg': "success", 'data': {'packingPlanInfo': [], 'subSupplyPlanInfo': [], 'requestId': request_id}}
-for i_d in ORDER_ID:
-    for i in X_INDEX[i_d]:
-        if x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']].solution_value() > 0:
-            print((i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']), x[i['id'], i['m'], i['n'],
-                                                                                           i['k'], i['s_t'], i['o_t'],
-                                                                                           i['f'], i[
-                                                                                               't']].solution_value())
-            if i['t'] == -1:
-                real_pack_t = days_before  # TODO(新增标记)
-            elif i['t'] == 14:
-                real_pack_t_time = list_date_time[12] + datetime.timedelta(days=7)
-                real_pack_t = real_pack_t_time.strftime('%Y-%m-%d')
-            else:
-                real_pack_t = list_date[i['t'] - 1]
-            for od in range(Order.shape[0]):
-                if i['id'] == Order.loc[od, 'id']:  # TODO(改动标记)
-                    if df_bom[(df_bom["productCode"] == i['m']) &
-                              (df_bom["bomVersion"] == Order.loc[od, 'bom'])]["productName"].shape[0] == 0:
-                        product_name = "null"
-                    else:
-                        product_name = \
-                            df_bom[(df_bom["productCode"] == i['m']) & (df_bom["bomVersion"] == Order.loc[od, 'bom'])][
-                                "productName"].values[0]
-                    mid_res = {'packingPlanId': str(df_orders.loc[od, 'packingPlanId']),
-                               'packingPlanSerialNum': int(df_orders.loc[od, 'packingPlanSerialNum']),
-                               'oldPackingPlanVersion': str(df_orders.loc[od, 'packingPlanVersion']),
-                               'demandCommitDate': df_orders.loc[od, 'demandCommitDate'],
-                               'requireOutWeek': df_orders.loc[od, 'requireOutWeek'],
-                               'oldPackingPlanWeekNum': df_orders.loc[od, 'packingPlanWeekNum'],
-                               'packingPlanWeekNum': real_pack_t,  # TODO(改变标记)
-                               'bu': df_orders.loc[od, 'bu'],
-                               'subChannel': df_orders.loc[od, 'subChannel'],
-                               'warehouse': df_orders.loc[od, 'warehouse'],
-                               'productCode': df_orders.loc[od, 'productCode'],
-                               'productName': product_name,
-                               'bomVersion': str(df_orders.loc[od, 'bomVersion']),
-                               'oldPlanPackingQuantity': int(df_orders.loc[od, 'planPackingQuantity']),
-                               'planPackingQuantity': int(x[i['id'], i['m'], i['n'], i['k'], i['s_t'],
-                                                            i['o_t'], i['f'], i['t']].solution_value()),
-                               'lockIdentifier': str(df_orders.loc[od, 'lockIdentifier'])}
-                    res['data']['packingPlanInfo'].append(mid_res)
-                    for s in PackSample[i['m']]:  # TODO(新增标记)
-                        y_demand[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t'], s] = x[i['id'], i[
-                            'm'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']].solution_value() * model.get_bom(
-                            BOM, i['m'], s)
-                        print((i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t'], s),
-                              round(y_demand[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t'], s],
-                                    3))
-                        sub_name = df_bom[df_bom["subCode"] == str(s)]["subName"].values[0]
-                        mid_sample = {'oldPackingPlanVersion': str(df_orders.loc[od, 'packingPlanVersion']),
-                                      'packingPlanId': str(df_orders.loc[od, 'packingPlanId']),
-                                      'packingPlanSerialNum': int(df_orders.loc[od, 'packingPlanSerialNum']),
-                                      'demandCommitDate': df_orders.loc[od, 'demandCommitDate'],
-                                      'requireOutWeek': df_orders.loc[od, 'requireOutWeek'],
-                                      'packingPlanWeekNum': real_pack_t,
-                                      'bu': df_orders.loc[od, 'bu'],
-                                      'subChannel': str(df_orders.loc[od, 'subChannel']),
-                                      'warehouse': df_orders.loc[od, 'warehouse'],
-                                      'subCode': s,
-                                      'subName': sub_name,
-                                      'subDemandQuantity': round(y_demand[i['id'], i['m'], i['n'], i['k'], i['s_t'],
-                                                                          i['o_t'], i['f'], i['t'], s], 3),
-                                      'subDemandPlanDate': real_pack_t}
-                        res['data']['subSupplyPlanInfo'].append(mid_sample)
 
-'''
-for i_d in p_id:
-    for i in yIndex[i_d]:
-        if y[i['s'], i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']].solution_value() > 0:
-            print((i['s'], i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']),
-                  y[i['s'], i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']].solution_value())
-            sub_name = df_bom[df_bom["subCode"] == str(i['s'])]["subName"].values[0]
-            for od in range(Order.shape[0]):
-                if i['id'] == Order.loc[od, 'id']:
-                    mid_sample = {'oldPackingPlanVersion': str(df_orders.loc[od, 'packingPlanVersion']),
-                                  'packingPlanId': str(df_orders.loc[od, 'packingPlanId']),
-                                  'packingPlanSerialNum': int(df_orders.loc[od, 'packingPlanSerialNum']),
-                                  'demandCommitDate': df_orders.loc[od, 'demandCommitDate'],
-                                  'requireOutWeek': df_orders.loc[od, 'requireOutWeek'],
-                                  'packingPlanWeekNum': df_orders.loc[od, 'packingPlanWeekNum'],
-                                  'bu': df_orders.loc[od, 'bu'],
-                                  'subChannel': str(df_orders.loc[od, 'subChannel']),
-                                  'warehouse': df_orders.loc[od, 'warehouse'], 'subCode': i['s'], 'subName': sub_name,
-                                  'subDemandQuantity': y[
-                                      i['s'], i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i[
-                                          't']].solution_value(),
-                                  'subDemandPlanDate': list_date[i['t'] - 1]}
-                    res['data']['subSupplyPlanInfo'].append(mid_sample)
-                    check_null_flag = 1
-if check_null_flag == 0:
-    mid_sample = {'oldPackingPlanVersion': "null", 'packingPlanId': "null", 'packingPlanSerialNum': 0,
-                  'demandCommitDate': "null", 'requireOutWeek': "null", 'packingPlanWeekNum': "null", 'bu': "null",
-                  'subChannel': "null", 'warehouse': "null", 'subCode': "null", 'subName': "null",
-                  'subDemandQuantity': 0, 'subDemandPlanDate': "null"}
-    res['data']['subSupplyPlanInfo'].append(mid_sample)
-'''
-
-with open("13weeks_schedule_plan_result.json", 'w', encoding='utf-8') as write_f:
-    write_f.write(json.dumps(res, indent=4, ensure_ascii=False))
