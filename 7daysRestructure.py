@@ -56,7 +56,6 @@ print('日历主数据所在的文件路径：', Calendar)
 2、 创建日期字符串列表（从今天到未来滚动七天）
 '''
 
-
 now_time = datetime.date.today()
 list_date_time, list_date = shareFunction.data_list_create(7, now_time, 7)
 
@@ -101,9 +100,6 @@ with open(Calendar, "r", encoding="utf-8") as f_json:
 print('Calendar_df\n: {}\n Calendar_df.type\n{}'.format(Calendar_df, Calendar_df.shape[0]))
 
 # capacity基础数据分装产能读入与解析
-'''
-df_capacity = pd.read_json(capacity, encoding="utf-8", orient='records')
-'''
 with open(Capacity, "r", encoding="utf-8") as f_json_capacity:
     info_capacity = f_json_capacity.read()
     data_list_capacity = json.loads(info_capacity)
@@ -123,7 +119,6 @@ sample_data = model.get_sample(Order, BOM, 7)
 
 #  开始建模过程
 # 1）模型参数初始化
-
 LOCK_NUM = data_list['lockDays']  # 锁定三天
 PACK_RANGE = 7  # 分装天数
 T = range(1, PACK_RANGE + 1)

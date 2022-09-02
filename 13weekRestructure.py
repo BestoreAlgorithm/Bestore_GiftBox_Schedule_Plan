@@ -3,8 +3,6 @@
 # @Author  : zhou_jian.Pray
 # @FileName: 13weekRestructure.py
 # @Software: PyCharm
-from ortools.linear_solver import pywraplp
-from gurobipy import tupledict
 import pandas as pd
 import time
 import json
@@ -12,6 +10,8 @@ import datetime
 import os
 import itertools
 import sys
+from gurobipy import tupledict
+from ortools.linear_solver import pywraplp
 from scheduleProduction import shareFunction
 from scheduleProduction import bomsParse
 from scheduleProduction import capacityParse
@@ -23,11 +23,6 @@ from scheduleProduction import model
 pd.set_option('display.unicode.ambiguous_as_wide', True)
 pd.set_option('display.unicode.east_asian_width', True)
 # 全局变量
-'''
-1. 这个地方需要修改文件夹的路径的转义符
-2. 变量命名的定义：大小写问题(ProducePlan, capacity)
-
-'''
 data_prepare_start = time.time()  # 数据准备时间开始函数
 
 # 设置数据路径全局变量
@@ -67,11 +62,11 @@ with open(PackPlan, "r", encoding="utf-8") as f_json:
 df_orders, df_samples = PackPlanParse.orders_data_parse(data_list)
 print('df_orders:\n {0}\n df_samples:\n {1}'.format(df_orders.head(), df_samples.head()))
 print('df_orders_type:\n {0}'.format(df_orders.dtypes))
+print('df_samplesType: {}'.format(type(df_samples)))
 
 # 从df_orders中清洗出Order
 Order = PackPlanParse.data_orders_clean(df_orders, now_time, list_date)
 print('Order:\n {}\n Order:\n {}'.format(Order.head(), Order.dtypes))
-print('df_samplesType: {}'.format(type(df_samples)))
 df_samples.fillna(0, inplace=True)  # 子件供应计划预处理 TODO(新增标记)
 print('df_samplesType_change: {}'.format(type(df_samples)))
 # inventory
@@ -98,7 +93,6 @@ with open(Calendar, "r", encoding="utf-8") as f_json:
     Calendar_df = Calendar_df_1.explode('dayOff')
     Calendar_df.reset_index(drop=True, inplace=True)
 print('Calendar_df\n: {}\n Calendar_df.type\n{}'.format(Calendar_df, Calendar_df.shape[0]))
-
 
 with open(Capacity, "r", encoding="utf-8") as f_json_capacity:
     info_capacity = f_json_capacity.read()
@@ -142,12 +136,10 @@ data_prepare_end = time.time()  # 数据准备时间结束函数
 print('parameters are ready, time cost are: {0}s'.format(str(data_prepare_end - data_prepare_start)))
 
 # 2） 模型变量创建
-model_train_start = time.time()  # 模型训练开始时间函数
 # 声明求解器(实例化求解器)
 solver = pywraplp.Solver.CreateSolver('SCIP')  # 创建一个基于GLOP后端的线性求解器
 if not solver:
     print('solver setup failed!!')
-
 INFINITY = solver.infinity()
 # 初始化[x]tupledict变量子集
 x = model.create_x_tupledict(ORDER_ID, X_INDEX, solver, INFINITY, PACK_RANGE)
@@ -295,7 +287,6 @@ print('Objective function setting done ！')
 print('Optimizing...')
 status = solver.Solve()
 if status == pywraplp.Solver.OPTIMAL:
-    model_train_end = time.time()  # # 模型训练结束时间函数
     assert solver.VerifySolution(1e-7, True)
     print('Number of variables =', solver.NumVariables())
     print('Number of constraints =', solver.NumConstraints())
@@ -376,7 +367,7 @@ if status == pywraplp.Solver.OPTIMAL:
     with open(ScheduleProductionResult, 'w', encoding='utf-8') as write_f:
         write_f.write(json.dumps(res, indent=4, ensure_ascii=False))
 elif (result_status == solver.FEASIBLE):
-    print('A potentially suboptimal solution was found.')  # 发现了一个潜在的次优解决方案
+    print('A potentially suboptimal solution was found.')
 elif (result_status == solver.INFEASIBLE):
     print("Problem is infeasible")
 elif (result_status == solver.UNBOUNDED):

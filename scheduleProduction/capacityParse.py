@@ -41,15 +41,6 @@ def pc_data_parse(category, df_capacity, Calendar_df, list_date):
             Capacity_date_Calendar.loc[i, 't'] = date_to_t
         pc = pd.DataFrame(Capacity_date_Calendar, columns=['warehouse', 'line', 'package', 'num', 'hours', 't'])
         print('pc：\n{}'.format(pc.head(20)))
-
-        # for i in range(Capacity_date_df.shape[0]):
-        #     for j in range(Calendar_df.shape[0]):
-        #         if Calendar_df.loc[j, 'warehouse'] == Capacity_date_df.loc[i, 'warehouse'] and Calendar_df.loc[j, 't'] == Capacity_date_df.loc[i, 't']:
-        #             Capacity_date_df.loc[i, 'hours'] = 0
-        #     date_in_Capacity = datetime.datetime.strptime(Capacity_date_df.loc[i, 't'], "%Y-%m-%d").date()
-        #     date_to_t = (date_in_Capacity - now_time).days
-        #     Capacity_date_df.loc[i, 't'] = date_to_t
-        # pc = pd.DataFrame(Capacity_date_df, columns=['warehouse', 'line', 'package', 'num', 'hours', 't'])
     elif category == 13:
         the_first_week_date = datetime.datetime.strptime(list_date[0], "%Y-%m-%d").date()
         days_before_date = the_first_week_date + datetime.timedelta(days=-7)  # 第一周的前一周日期(特殊情况)

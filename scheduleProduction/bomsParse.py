@@ -29,7 +29,6 @@ def bom_data_parse(df_bom, data_orders):
 
 
 def bom_data_parse_week(df_bom):
-
     df_bom["bomVersion"] = df_bom["bomVersion"].astype(str)  # 将bomVersion列转化为字符串
     df_bom["productCode"] = df_bom["productCode"].astype(str)  # 将productCode列转化为字符串
     df_bom["subCode"] = df_bom["subCode"].astype(str)  # 将subCode列转化为字符串

@@ -8,20 +8,6 @@ import datetime
 
 def data_list_create(days, now_time, category):
     if category == 7:
-        '''
-        list_date_time = []  # 日期列表
-        list_date_time.append(now_time)
-
-        list_date = []  # 日期字符串列表
-        str_date = now_time.strftime('%Y-%m-%d')
-        list_date.append(str_date)
-        day_num = days - 1
-        for i in range(day_num):
-            days_after = list_date_time[i] + datetime.timedelta(days=1)
-            list_date_time.append(days_after)
-            str_date = days_after.strftime('%Y-%m-%d')
-            list_date.append(str_date)
-        '''
         # 规划期的第一天由当天更改为明天
         list_date_time = []  # 日期列表
         delta = datetime.timedelta(days=1)  # 延迟日期
