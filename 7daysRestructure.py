@@ -26,11 +26,6 @@ from scheduleProduction import model
 pd.set_option('display.unicode.ambiguous_as_wide', True)
 pd.set_option('display.unicode.east_asian_width', True)
 # 全局变量
-'''
-1. 这个地方需要修改文件夹的路径的转义符
-2. 变量命名的定义：大小写问题(ProducePlan, capacity)
-
-'''
 data_prepare_start = time.time()  # 数据准备时间开始函数
 
 # 设置数据路径全局变量
@@ -43,11 +38,10 @@ ProducePlan = jsons_data_path + '\\' + 'ProducePlan.json'
 Bom = jsons_data_path + '\\' + 'Bom.json'
 Capacity = jsons_data_path + '\\' + 'Capacity.json'
 Priority = jsons_data_path + '\\' + 'Priority.json'
-Calendar = jsons_data_path + '\\' + 'calendar.json'
+Calendar = jsons_data_path + '\\' + 'Calendar.json'
 ScheduleProductionResult = result_data_path + '\\' + '7days_schedule_plan_result.json'
 ExecLog = result_data_path + '\\' + 'exec_7days.log'
-# 添加log记录
-sys.stdout = open(ExecLog, mode='w', encoding='utf-8')
+sys.stdout = open(ExecLog, mode='w', encoding='utf-8')  # 添加log记录
 print('json数据所在的文件夹路径：', jsons_data_path)
 print('排产计划数据所在的文件夹路径：', ProducePlan)
 print('Bom主数据所在的文件夹路径：', Bom)
@@ -91,14 +85,11 @@ InventoryInitial = ProducePlanParse.I_0_data_inventory_parse(df_inventory)  # �
 Arr = ProducePlanParse.arr_data_parse(df_arrival, now_time, arrive_interval_days)  # 解析到货信息
 
 # BOM基础数据json信息读入与解析
-'''
-df_bom = pd.read_json(Bom, encoding="utf-8", orient='records')
-'''
 with open(Bom, "r", encoding="utf-8") as f_json_bom:
     info_bom = f_json_bom.read()
     data_list_bom = json.loads(info_bom)
     df_bom = pd.DataFrame(data_list_bom)
-BOM = bomsParse.bom_data_parse(df_bom, OrderFull)
+BOM = bomsParse.bom_data_parse(df_bom, OrderFull)  # Order -> OrderFull
 
 # calendar基础数据日历(休息日)读入与解析
 with open(Calendar, "r", encoding="utf-8") as f_json:

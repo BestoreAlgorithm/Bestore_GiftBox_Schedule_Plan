@@ -1,9 +1,9 @@
-json数据所在的文件夹路径： C:\Users\12539\PycharmProjects\Bestore_GiftBox_Schedule_Plan\jsons
-排产计划数据所在的文件夹路径： C:\Users\12539\PycharmProjects\Bestore_GiftBox_Schedule_Plan\jsons\ProducePlan.json
-Bom主数据所在的文件夹路径： C:\Users\12539\PycharmProjects\Bestore_GiftBox_Schedule_Plan\jsons\Bom.json
-产能主数据所在的文件夹路径： C:\Users\12539\PycharmProjects\Bestore_GiftBox_Schedule_Plan\jsons\Capacity.json
-优先级主数据所在的文件夹路径： C:\Users\12539\PycharmProjects\Bestore_GiftBox_Schedule_Plan\jsons\Priority.json
-日历主数据所在的文件路径： C:\Users\12539\PycharmProjects\Bestore_GiftBox_Schedule_Plan\jsons\Calendar.json
+json数据所在的文件夹路径： E:\BESTORE\Algorithm\GiftBoxSchedulePlan\ortools_v2\jsons
+排产计划数据所在的文件夹路径： E:\BESTORE\Algorithm\GiftBoxSchedulePlan\ortools_v2\jsons\ProducePlan.json
+Bom主数据所在的文件夹路径： E:\BESTORE\Algorithm\GiftBoxSchedulePlan\ortools_v2\jsons\Bom.json
+产能主数据所在的文件夹路径： E:\BESTORE\Algorithm\GiftBoxSchedulePlan\ortools_v2\jsons\Capacity.json
+优先级主数据所在的文件夹路径： E:\BESTORE\Algorithm\GiftBoxSchedulePlan\ortools_v2\jsons\Priority.json
+日历主数据所在的文件路径： E:\BESTORE\Algorithm\GiftBoxSchedulePlan\ortools_v2\jsons\Calendar.json
 df_last_produce:
     packingPlanId  packingPlanSerialNum  ... deliveryFactory  isLock
 0        1000002                     1  ...           df3-1    True
@@ -158,7 +158,7 @@ index_m:
  dict_keys(['10000028-2', '10000019-2']), 
  xindex: 
  dict_values([[{'id': '10000028-2', 'm': '11009460', 'n': '2003', 'k': 'D303', 's_t': -5, 'o_t': 2, 't': 1}, {'id': '10000028-2', 'm': '11009460', 'n': '2003', 'k': 'D303', 's_t': -5, 'o_t': 2, 't': 2}, {'id': '10000028-2', 'm': '11009460', 'n': '2003', 'k': 'D303', 's_t': -5, 'o_t': 2, 't': 3}, {'id': '10000028-2', 'm': '11009460', 'n': '2003', 'k': 'D303', 's_t': -5, 'o_t': 2, 't': 4}, {'id': '10000028-2', 'm': '11009460', 'n': '2003', 'k': 'D303', 's_t': -5, 'o_t': 2, 't': 5}, {'id': '10000028-2', 'm': '11009460', 'n': '2003', 'k': 'D303', 's_t': -5, 'o_t': 2, 't': 6}, {'id': '10000028-2', 'm': '11009460', 'n': '2003', 'k': 'D303', 's_t': -5, 'o_t': 2, 't': 7}], [{'id': '10000019-2', 'm': '11009460', 'n': '3001', 'k': 'D303', 's_t': -5, 'o_t': 2, 't': 1}, {'id': '10000019-2', 'm': '11009460', 'n': '3001', 'k': 'D303', 's_t': -5, 'o_t': 2, 't': 2}, {'id': '10000019-2', 'm': '11009460', 'n': '3001', 'k': 'D303', 's_t': -5, 'o_t': 2, 't': 3}, {'id': '10000019-2', 'm': '11009460', 'n': '3001', 'k': 'D303', 's_t': -5, 'o_t': 2, 't': 4}, {'id': '10000019-2', 'm': '11009460', 'n': '3001', 'k': 'D303', 's_t': -5, 'o_t': 2, 't': 5}, {'id': '10000019-2', 'm': '11009460', 'n': '3001', 'k': 'D303', 's_t': -5, 'o_t': 2, 't': 6}, {'id': '10000019-2', 'm': '11009460', 'n': '3001', 'k': 'D303', 's_t': -5, 'o_t': 2, 't': 7}]])
-parameters are ready, time cost are: 0.28028178215026855s
+parameters are ready, time cost are: 0.3640575408935547s
 i_d in p_id: 
  ['10000028-2', '10000019-2'] 
  iterIndex: 
@@ -180,7 +180,7 @@ Number of constraints = 126
 Optimal objective value = 4220496
 
 Advanced usage:
-Problem solved in 372.000000 milliseconds
+Problem solved in 376.000000 milliseconds
 Problem solved in 4 iterations
 ('10000028-2', '11009460', '2003', 'D303', -5, 2, 1) 800.0
 ('10000028-2', '11009460', '2003', 'D303', -5, 2, 2) 800.0

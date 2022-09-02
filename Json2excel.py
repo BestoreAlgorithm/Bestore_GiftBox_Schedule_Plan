@@ -27,9 +27,8 @@ print('产能主数据所在的文件夹路径：', Capacity)
 print('优先级主数据所在的文件夹路径：', Priority)
 print('日历主数据所在的文件路径：', Calendar)  # TODO（新增标记）
 
-# ProducePlan.json
-filename = ProducePlan
-with open(filename, "r", encoding="utf-8") as f_json:
+# ProducePlan.json解析
+with open(ProducePlan, "r", encoding="utf-8") as f_json:
     info = f_json.read()
     data_list = json.loads(info)
     df_orders = pd.DataFrame(data_list["packingPlanRequest"])  # 分装需求
@@ -39,13 +38,13 @@ with open(filename, "r", encoding="utf-8") as f_json:
 
 
 # boms.json解析
-with open(Bom, "r", encoding="utf-8") as f_json_bom:  # TODO（改动标记）
+with open(Bom, "r", encoding="utf-8") as f_json_bom:
     info_bom = f_json_bom.read()
     data_list_bom = json.loads(info_bom)
     df_bom = pd.DataFrame(data_list_bom)
 
 # capacity.json解析
-with open(Capacity, "r", encoding="utf-8") as f_json_capacity:  # TODO(改动标记)
+with open(Capacity, "r", encoding="utf-8") as f_json_capacity:
     info_capacity = f_json_capacity.read()
     data_list_capacity = json.loads(info_capacity)
     df_capacity = pd.DataFrame(data_list_capacity)
