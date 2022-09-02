@@ -115,7 +115,7 @@ def arrive_data_clean(df_samples, list_date_time):
                 arr.loc[i, 't'] = j + 1
                 break
     '''
-    for i in range(arr.shape[0]):  # TODO(改动标记)
+    for i in range(arr.shape[0]):
         arr_date = datetime.datetime.strptime(arr.loc[i, 't'], "%Y-%m-%d").date()
         the_first_week = list_date_time[0]
         tmp_dis_day = (arr_date - the_first_week).days
@@ -123,6 +123,6 @@ def arrive_data_clean(df_samples, list_date_time):
         if arr_dis_day <= 0:
             arr_dis_day = arr_dis_day - 1
         arr.loc[i, 't'] = arr_dis_day
-    arr['t'] = arr['t'].astype(int)  # TODO(新增标记)
+    arr['t'] = arr['t'].astype(int)
     return arr
 

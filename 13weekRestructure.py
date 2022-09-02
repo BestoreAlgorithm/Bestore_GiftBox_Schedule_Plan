@@ -41,7 +41,7 @@ PackPlan = jsons_data_path + '\\' + 'PackPlan.json'
 Bom = jsons_data_path + '\\' + 'Bom.json'
 Capacity = jsons_data_path + '\\' + 'Capacity.json'
 Priority = jsons_data_path + '\\' + 'Priority.json'
-Calendar = jsons_data_path + '\\' + 'Calendar.json'  # TODO (新增标记)
+Calendar = jsons_data_path + '\\' + 'Calendar.json'
 ScheduleProductionResult = result_data_path + '\\' + '13weeks_schedule_plan_result.json'
 ExecLog = result_data_path + '\\' + 'exec_13weeks.log'
 # 添加log记录
@@ -51,13 +51,12 @@ print('排产计划数据所在的文件夹路径：', ProducePlan)
 print('Bom主数据所在的文件夹路径：', Bom)
 print('产能主数据所在的文件夹路径：', Capacity)
 print('优先级主数据所在的文件夹路径：', Priority)
-print('日历主数据所在的文件路径：', Calendar)  # TODO（新增标记）
+print('日历主数据所在的文件路径：', Calendar)
 
 
 now_time = datetime.date.today()  # 当日日期
 # 日期处理：生成13周的str日期和date日期
 list_date_time, list_date = shareFunction.data_list_create(13, now_time, 13)
-# TODO（新增标记）
 days_before_date = list_date_time[0] + datetime.timedelta(days=-7)  # 第一周的前一周日期(特殊情况)
 days_before = days_before_date.strftime('%Y-%m-%d')  # str形式的日期
 
@@ -72,15 +71,15 @@ print('df_orders_type:\n {0}'.format(df_orders.dtypes))
 # 从df_orders中清洗出Order
 Order = PackPlanParse.data_orders_clean(df_orders, now_time, list_date)
 print('Order:\n {}\n Order:\n {}'.format(Order.head(), Order.dtypes))
-
+print('df_samplesType: {}'.format(type(df_samples)))
 df_samples.fillna(0, inplace=True)  # 子件供应计划预处理 TODO(新增标记)
-
+print('df_samplesType_change: {}'.format(type(df_samples)))
 # inventory
 InventoryInitial = PackPlanParse.I_0_data_clean(df_samples)  # 解析库存数据Inventory
 print('InventoryInitial:\n {}\n InventoryInitial_type:\n {}'.format(InventoryInitial.head(), InventoryInitial.dtypes))
-Trans = PackPlanParse.trans_data_clean(df_samples, list_date_time)  # TODO(改动标记)
+Trans = PackPlanParse.trans_data_clean(df_samples, list_date_time)
 print('Trans:\n {}\n Trans_type:\n {}'.format(Trans.head(), Trans.dtypes))
-Arr = PackPlanParse.arrive_data_clean(df_samples, list_date_time)  # 解析到货信息  # TODO(改动标记)
+Arr = PackPlanParse.arrive_data_clean(df_samples, list_date_time)  # 解析到货信息
 print('Arr:\n {}\n Arr_type:\n {}'.format(Arr.head(), Arr.dtypes))
 
 # BOM基础数据json信息读入与解析
@@ -88,14 +87,10 @@ with open(Bom, "r", encoding="utf-8") as f_json_bom:
     info_bom = f_json_bom.read()
     data_list_bom = json.loads(info_bom)
     df_bom = pd.DataFrame(data_list_bom)
-# TODO 这个地方day 和 week的输入参数不同，可以重构 目前了 bomsParse文件中
-BOM = bomsParse.bom_data_parse(df_bom, Order)  # TODO(改动标记)
+BOM = bomsParse.bom_data_parse(df_bom, Order)
 print('BOM:\n {}\n BOM_type:\n {}'.format(BOM.head(), BOM.dtypes))
 
 # capacity基础数据分装产能读入与解析
-# TODO(新增标记)
-# with open(Calendar, 'r', encoding='UTF-8') as cal_f:
-#    calendar_list = json.load(cal_f)
 with open(Calendar, "r", encoding="utf-8") as f_json:
     info_calendar = f_json.read()
     data_list_calendar = json.loads(info_calendar)
@@ -103,7 +98,8 @@ with open(Calendar, "r", encoding="utf-8") as f_json:
     Calendar_df = Calendar_df_1.explode('dayOff')
     Calendar_df.reset_index(drop=True, inplace=True)
 print('Calendar_df\n: {}\n Calendar_df.type\n{}'.format(Calendar_df, Calendar_df.shape[0]))
-# TODO(改动标记)
+
+
 with open(Capacity, "r", encoding="utf-8") as f_json_capacity:
     info_capacity = f_json_capacity.read()
     data_list_capacity = json.loads(info_capacity)
@@ -111,7 +107,6 @@ with open(Capacity, "r", encoding="utf-8") as f_json_capacity:
 PackingCapacity = capacityParse.pc_data_parse(13, df_capacity, Calendar_df, list_date)
 
 # priority优先级json信息读入与解析
-# TODO(改动标记)
 with open(Priority, "r", encoding="utf-8") as f_json_priority:
     info_priority = f_json_priority.read()
     data_list_priority = json.loads(info_priority)
@@ -121,7 +116,7 @@ Wei = priorityParse.wei_data_parse(df_priority)
 sample_data = model.get_sample(Order, BOM, 13)
 print('sample_data:\n {}\n sample_data_type:\n {}'.format(sample_data.head(), sample_data.dtypes))
 
-# TODO 变量含义待确定
+# TODO(黃爽)：变量含义待确定
 # parameter
 COVER_NUM = int(df_orders.loc[0, 'coverageWeekNum']) - 1
 PACK_RANGE = 14
@@ -246,7 +241,7 @@ for i_d in ORDER_ID:
                            model.get_demand(Order, i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f']))
 
 # 供应量约束
-# TODO supply_c这个函数明显有问题
+# TODO(黃爽): supply_c这个函数明显有问题
 for s, t in itertools.product(SAMPLE, T):
     y_sum = 0
     for i_d in ORDER_ID:
@@ -320,14 +315,14 @@ if status == pywraplp.Solver.OPTIMAL:
                 print((i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']),
                       x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']].solution_value())
                 if i['t'] == -1:
-                    real_pack_t = days_before  # TODO(新增标记)
+                    real_pack_t = days_before
                 elif i['t'] == 14:
                     real_pack_t_time = list_date_time[12] + datetime.timedelta(days=7)
                     real_pack_t = real_pack_t_time.strftime('%Y-%m-%d')
                 else:
                     real_pack_t = list_date[i['t'] - 1]
                 for od in range(Order.shape[0]):
-                    if i['id'] == Order.loc[od, 'id']:  # TODO(改动标记)
+                    if i['id'] == Order.loc[od, 'id']:
                         if df_bom[(df_bom["productCode"] == i['m']) &
                                   (df_bom["bomVersion"] == Order.loc[od, 'bom'])]["productName"].shape[0] == 0:
                             product_name = "null"
@@ -342,7 +337,7 @@ if status == pywraplp.Solver.OPTIMAL:
                                    'demandCommitDate': df_orders.loc[od, 'demandCommitDate'],
                                    'requireOutWeek': df_orders.loc[od, 'requireOutWeek'],
                                    'oldPackingPlanWeekNum': df_orders.loc[od, 'packingPlanWeekNum'],
-                                   'packingPlanWeekNum': real_pack_t,  # TODO(改变标记)
+                                   'packingPlanWeekNum': real_pack_t,
                                    'bu': df_orders.loc[od, 'bu'],
                                    'subChannel': df_orders.loc[od, 'subChannel'],
                                    'warehouse': df_orders.loc[od, 'warehouse'],
@@ -354,7 +349,7 @@ if status == pywraplp.Solver.OPTIMAL:
                                                                 i['o_t'], i['f'], i['t']].solution_value()),
                                    'lockIdentifier': str(df_orders.loc[od, 'lockIdentifier'])}
                         res['data']['packingPlanInfo'].append(mid_res)
-                        for s in PackSample[i['m']]:  # TODO(新增标记)
+                        for s in PackSample[i['m']]:
                             y_demand[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t'], s] \
                                 = x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'],
                                     i['t']].solution_value() * model.get_bom(BOM, i['m'], s)

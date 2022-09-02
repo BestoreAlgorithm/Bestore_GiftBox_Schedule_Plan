@@ -22,8 +22,7 @@ def data_list_create(days, now_time, category):
             str_date = days_after.strftime('%Y-%m-%d')
             list_date.append(str_date)
         '''
-        # TODO(改动标记)
-        # 规划期的第一天由当天更改为明天:
+        # 规划期的第一天由当天更改为明天
         list_date_time = []  # 日期列表
         delta = datetime.timedelta(days=1)  # 延迟日期
         the_first_date = now_time + delta  # 规划日第一天日期为当天的后一天

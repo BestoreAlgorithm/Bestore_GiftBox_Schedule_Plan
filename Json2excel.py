@@ -13,10 +13,10 @@ project_path = os.getcwd()  # 当前路径
 jsons_filename = 'jsons'  # 存放数据的文件夹的名称
 jsons_data_path = project_path + '\\' + jsons_filename  # 原始数据的路径
 ProducePlan = jsons_data_path + '\\' + 'ProducePlan.json'
-Bom = jsons_data_path + '\\' + 'boms.json'
-Capacity = jsons_data_path + '\\' + 'capacity.json'
-Priority = jsons_data_path + '\\' + 'priority.json'
-Calendar = jsons_data_path + '\\' + 'calendar.json'  # TODO (新增标记)
+Bom = jsons_data_path + '\\' + 'Bom.json'
+Capacity = jsons_data_path + '\\' + 'Capacity.json'
+Priority = jsons_data_path + '\\' + 'Priority.json'
+Calendar = jsons_data_path + '\\' + 'Calendar.json'
 PackPlan = jsons_data_path + '\\' + 'PackPlan.json'
 seven_days_result = '7days_schedule_plan_result.json'  # 7天的排产结果
 fourteen_weeks_result = '13weeks_schedule_plan_result.json'  # 13周的排产结果
@@ -25,7 +25,7 @@ print('排产计划数据所在的文件夹路径：', ProducePlan)
 print('Bom主数据所在的文件夹路径：', Bom)
 print('产能主数据所在的文件夹路径：', Capacity)
 print('优先级主数据所在的文件夹路径：', Priority)
-print('日历主数据所在的文件路径：', Calendar)  # TODO（新增标记）
+print('日历主数据所在的文件路径：', Calendar)
 
 # ProducePlan.json解析
 with open(ProducePlan, "r", encoding="utf-8") as f_json:

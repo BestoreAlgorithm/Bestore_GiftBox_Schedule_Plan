@@ -108,15 +108,14 @@ with open(Capacity, "r", encoding="utf-8") as f_json_capacity:
     info_capacity = f_json_capacity.read()
     data_list_capacity = json.loads(info_capacity)
     df_capacity = pd.DataFrame(data_list_capacity)
-PackingCapacity = capacityParse.pc_data_parse(7, df_capacity, Calendar_df, list_date)  # TODO(改动标记)
+PackingCapacity = capacityParse.pc_data_parse(7, df_capacity, Calendar_df, list_date)
 
 # priority优先级json信息读入与解析
-# TODO(改动标记)
 with open(Priority, "r", encoding="utf-8") as f_json_priority:
     info_priority = f_json_priority.read()
     data_list_priority = json.loads(info_priority)
     df_priority = pd.DataFrame(data_list_priority)
-Wei = priorityParse.wei_data_parse(df_priority)  # TODO(江南)
+Wei = priorityParse.wei_data_parse(df_priority)
 add_date = datetime.datetime.strptime(data_list['fixedDate'], "%Y-%m-%d").date()  # 传入的锁定天数为一个日期，可能为可以加单日期或隔天可以加单？
 add_day_num = (add_date - now_time).days  # 转化为第n天，今天24，数据中为26号，则为排产的第二天
 # Sample
@@ -134,7 +133,7 @@ if FIX_NUM < 0:
 INVENTORY_SCALE = 10000000
 # lists
 # print('Order:\n{0},\n lock: \n {1}'.format(Order.head(), Lock.head()))
-lock_day_num = data_list['lockDays']  # TODO(新增标记)
+lock_day_num = data_list['lockDays']
 
 N = list(Order['n'].unique())  # 渠道数量
 WAREHOUSE = list(Order['warehouse'].unique())  # 仓库列表
@@ -308,7 +307,7 @@ if result_status == solver.OPTIMAL:
                             'bomVersion': str(df_last_produce.loc[od, 'bomVersion']),
                             'scheduleDate': df_last_produce.loc[od, 'scheduleDate'],
                             'planQuantity': int(df_last_produce.loc[od, 'planQuantity']),
-                            'batchRequire': str(df_last_produce.loc[od, 'batchRequire']),  # TODO(改动标记)
+                            'batchRequire': str(df_last_produce.loc[od, 'batchRequire']),
                             'deliveryFactory': str(df_last_produce.loc[od, 'deliveryFactory'])}
                         res['data'].append(last_res)
 
@@ -322,8 +321,8 @@ if result_status == solver.OPTIMAL:
                             'packingPlanId': int(df_orders.loc[od, 'packingPlanId']),
                             'packingPlanSerialNum': int(df_orders.loc[od, 'packingPlanSerialNum']),
                             'demandCommitDate': df_orders.loc[od, 'demandCommitDate'],
-                            'scheduleId': None,  # TODO(改动标记)
-                            'scheduleVersion': None,  # TODO(改动标记)
+                            'scheduleId': None,
+                            'scheduleVersion': None,
                             'warehouse': str(df_orders.loc[od, 'warehouse']),
                             'subChannel': str(df_orders.loc[od, 'subChannel']),
                             'productCode': str(df_orders.loc[od, 'giftBoxCode']),
@@ -332,7 +331,7 @@ if result_status == solver.OPTIMAL:
                             'scheduleDate': list_date[i['t'] - 1],
                             'planQuantity': int(x[i['id'], i['m'], i['n'],
                                                   i['k'], i['s_t'], i['o_t'], i['t']].solution_value()),
-                            'batchRequire': str(df_orders.loc[od, 'ageRequire']),  # TODO(改动标记)
+                            'batchRequire': str(df_orders.loc[od, 'ageRequire']),
                             'deliveryFactory': None
                         }
                         res['data'].append(mid_res)
