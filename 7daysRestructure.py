@@ -43,7 +43,7 @@ ProducePlan = jsons_data_path + '\\' + 'ProducePlan.json'
 Bom = jsons_data_path + '\\' + 'Bom.json'
 Capacity = jsons_data_path + '\\' + 'Capacity.json'
 Priority = jsons_data_path + '\\' + 'Priority.json'
-Calendar = jsons_data_path + '\\' + 'Calendar.json'
+Calendar = jsons_data_path + '\\' + 'calendar.json'
 ScheduleProductionResult = result_data_path + '\\' + '7days_schedule_plan_result.json'
 ExecLog = result_data_path + '\\' + 'exec_7days.log'
 # 添加log记录
@@ -98,7 +98,7 @@ with open(Bom, "r", encoding="utf-8") as f_json_bom:
     info_bom = f_json_bom.read()
     data_list_bom = json.loads(info_bom)
     df_bom = pd.DataFrame(data_list_bom)
-BOM = bomsParse.bom_data_parse(df_bom, Order)
+BOM = bomsParse.bom_data_parse(df_bom, OrderFull)
 
 # calendar基础数据日历(休息日)读入与解析
 with open(Calendar, "r", encoding="utf-8") as f_json:
