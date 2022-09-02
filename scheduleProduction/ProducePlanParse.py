@@ -102,11 +102,10 @@ def I_0_data_inventory_parse(df_inventory):
     仓库编码
     库存数量
     '''
-    # TODO(楊江南)：防止為空
-    data_inventory = {'sample': df_inventory["productCode"],
-                      'warehouse': df_inventory["warehouse"],
-                      'num': df_inventory["stockNum"]}
-    I_0 = pd.DataFrame(data_inventory)
+    data_inventory = pd.DataFrame(df_inventory, columns=['productCode', 'warehouse', 'stockNum'])
+    I_0 = data_inventory.rename(columns={'productCode': 'sample',
+                                         'warehouse': 'warehouse',
+                                         'stockNum': 'num'})
     I_0["sample"] = I_0["sample"].astype(str)
     I_0["warehouse"] = I_0["warehouse"].astype(str)
     I_0["num"] = I_0["num"].astype(float)

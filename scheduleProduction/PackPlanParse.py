@@ -59,7 +59,7 @@ def data_orders_clean(df_orders, now_time, list_date):
 
 
 def I_0_data_clean(df_samples):
-    data_inventory = pd.DataFrame(df_samples, columns=['subCode', 'factoryCode', 'currentStock'])
+    data_inventory = pd.DataFrame(df_samples, columns=['subCode', 'factoryCode', 'currentStock'])  # df_samples为空值时也支持
     data_inventory.rename(columns={'subCode': 'sample', 'factoryCode': 'warehouse', 'currentStock': 'num'},
                           inplace=True)
     I_0 = data_inventory.dropna()  # 删除含有空值的所有行
@@ -69,23 +69,12 @@ def I_0_data_clean(df_samples):
 
 
 def trans_data_clean(df_samples, list_date_time):
-    # TODO t为空值
     data_trans = pd.DataFrame(df_samples, columns=['subCode', 'factoryCode', 'appropriationPlanNum', 'planSupplyDate'])
     data_trans.rename(columns={'subCode': 'sample', 'factoryCode': 'warehouse', 'appropriationPlanNum': 'num',
                                'planSupplyDate': 't'}, inplace=True)
     trans = data_trans.dropna()
     trans.reset_index(drop=True, inplace=True)
     trans['sample'] = trans['sample'].astype(str)
-    '''
-    for i in range(trans.shape[0]):
-        trans_date = datetime.datetime.strptime(trans.loc[i, 't'], "%Y-%m-%d").date()
-        for j in range(len(list_date)):
-            list_day = datetime.datetime.strptime(list_date[j], "%Y-%m-%d").date()
-            dis_day = (list_day - trans_date).days
-            if (dis_day >= 0 and dis_day < 7):
-                trans.loc[i, 't'] = j + 1
-                break
-    '''
     for i in range(trans.shape[0]):
         trans_date = datetime.datetime.strptime(trans.loc[i, 't'], "%Y-%m-%d").date()  # 子件调拨到货日期
         the_first_week = list_date_time[0]
@@ -105,16 +94,6 @@ def arrive_data_clean(df_samples, list_date_time):
     arr = data_arrival.dropna()
     arr.reset_index(drop=True, inplace=True)
     arr['sample'] = arr['sample'].astype(str)
-    '''
-    for i in range(arr.shape[0]):
-        arr_date = datetime.datetime.strptime(arr.loc[i, 't'], "%Y-%m-%d").date()
-        for j in range(len(list_date)):
-            list_day = datetime.datetime.strptime(list_date[j], "%Y-%m-%d").date()
-            dis_day = (list_day - arr_date).days
-            if (dis_day >= 0 and dis_day < 7):
-                arr.loc[i, 't'] = j + 1
-                break
-    '''
     for i in range(arr.shape[0]):
         arr_date = datetime.datetime.strptime(arr.loc[i, 't'], "%Y-%m-%d").date()
         the_first_week = list_date_time[0]
