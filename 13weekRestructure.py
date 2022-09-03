@@ -328,9 +328,14 @@ if status == pywraplp.Solver.OPTIMAL:
                                 df_bom[
                                     (df_bom["productCode"] == i['m']) & (df_bom["bomVersion"] == Order.loc[od, 'bom'])][
                                     "productName"].values[0]
+                        # TODO(新增标记)
+                        if df_orders.loc[od, 'packingPlanVersion'] == '':  # 为满足输出要求新增
+                            old_packing_version = None
+                        else:
+                            old_packing_version = df_orders.loc[od, 'packingPlanVersion']
                         mid_res = {'packingPlanId': str(df_orders.loc[od, 'packingPlanId']),
                                    'packingPlanSerialNum': int(df_orders.loc[od, 'packingPlanSerialNum']),
-                                   'oldPackingPlanVersion': str(df_orders.loc[od, 'packingPlanVersion']),
+                                   'oldPackingPlanVersion': old_packing_version,
                                    'demandCommitDate': df_orders.loc[od, 'demandCommitDate'],
                                    'requireOutWeek': df_orders.loc[od, 'requireOutWeek'],
                                    'oldPackingPlanWeekNum': df_orders.loc[od, 'packingPlanWeekNum'],

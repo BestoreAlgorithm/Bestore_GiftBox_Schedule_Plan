@@ -17,7 +17,8 @@ def orders_data_parse(data_list):
 def data_orders_clean(df_orders, now_time, list_date):
     df_orders["packingPlanId"] = df_orders["packingPlanId"].astype(str)  # 将packingPlanId列转化为字符串
     df_orders["packingPlanSerialNum"] = df_orders["packingPlanSerialNum"].astype(int)  # 将packingPlanSerialNum列转化为整数
-    df_orders["packingPlanVersion"] = df_orders["packingPlanVersion"].astype(str)  # 将packingPlanVersion列转化为字符串
+    # TODO(修改输出的分装版本，去掉str转化)
+    # df_orders["packingPlanVersion"] = df_orders["packingPlanVersion"].astype(str)  # 将packingPlanVersion列转化为字符串
     df_orders["subChannel"] = df_orders["subChannel"].astype(str)  # 将subChannel列转化为字符串
     df_orders["productCode"] = df_orders["productCode"].astype(str)  # 将productCode列转化为字符串
     df_orders["bomVersion"] = df_orders["bomVersion"].astype(str)  # 将bomVersion列转化为字符串
@@ -27,6 +28,7 @@ def data_orders_clean(df_orders, now_time, list_date):
                                                    'warehouse', 'demandCommitDate', 'packingPlanWeekNum',
                                                    'specifyScheduleIdentifier', 'planPackingQuantity'])
     data_orders['demandCommitDate'].replace('', "9999-12-31", inplace=True)  # 分装计划中提报时间预处理
+    data_orders['demandCommitDate'].fillna("9999-12-31", inplace=True)  # 分装计划中提报时间预处理  # TODO(提报日期为空新增处理方案)
     data_orders.rename(columns={'productCode': 'package', 'bomVersion': 'bom',
                                 'subChannel': 'n', 'demandCommitDate': 's_t',
                                 'packingPlanWeekNum': 'o_t', 'specifyScheduleIdentifier': 'flag',

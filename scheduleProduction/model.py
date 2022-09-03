@@ -131,7 +131,7 @@ def supply_c(s, t):
     '''
     返回供应商产能，暂时不处理
     '''
-    return 100000
+    return 50000000
 
 
 def warehouse_s(df, k, m):
