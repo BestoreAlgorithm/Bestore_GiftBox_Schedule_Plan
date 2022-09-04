@@ -27,8 +27,8 @@ def data_orders_clean(df_orders, now_time, list_date):
     data_orders = pd.DataFrame(df_orders, columns=['id', 'productCode', 'bomVersion', 'subChannel',
                                                    'warehouse', 'demandCommitDate', 'packingPlanWeekNum',
                                                    'specifyScheduleIdentifier', 'planPackingQuantity'])
-    data_orders['demandCommitDate'].replace('', "9999-12-31", inplace=True)  # 分装计划中提报时间预处理
-    data_orders['demandCommitDate'].fillna("9999-12-31", inplace=True)  # 分装计划中提报时间预处理  # TODO(提报日期为空新增处理方案)
+    data_orders['demandCommitDate'].replace('', list_date[12], inplace=True)  # 分装计划中提报时间预处理  # TODO(改动标记)
+    data_orders['demandCommitDate'].fillna(list_date[12], inplace=True)  # 分装计划中提报时间预处理  # TODO(提报日期为空新增处理方案)
     data_orders.rename(columns={'productCode': 'package', 'bomVersion': 'bom',
                                 'subChannel': 'n', 'demandCommitDate': 's_t',
                                 'packingPlanWeekNum': 'o_t', 'specifyScheduleIdentifier': 'flag',

@@ -67,13 +67,12 @@ print('df_samplesType: {}'.format(type(df_samples)))
 # 从df_orders中清洗出Order
 Order = PackPlanParse.data_orders_clean(df_orders, now_time, list_date)
 print('Order:\n {}\n Order:\n {}'.format(Order.head(), Order.dtypes))
-df_samples.fillna(0, inplace=True)  # 子件供应计划预处理 TODO(新增标记)
-'''
+# df_samples.fillna(0, inplace=True)  # 子件供应计划预处理 TODO(新增标记)
 if df_samples.shape[0] > 0:
     df_samples['appropriationPlanNum'].fillna(0, inplace=True)
     df_samples['backToCargoPlanNum'].fillna(0, inplace=True)
     df_samples['currentStock'].fillna(0, inplace=True)
-'''
+
 print('df_samplesType_change: {}'.format(type(df_samples)))
 # inventory
 InventoryInitial = PackPlanParse.I_0_data_clean(df_samples)  # 解析库存数据Inventory
