@@ -347,4 +347,6 @@ elif (result_status == solver.ABNORMAL):
 elif (result_status == solver.NOT_SOLVED):
     print("Problem is not solved")
 
+print('Objective Value:{}'.format(solver.Objective().Value()))
+
 
