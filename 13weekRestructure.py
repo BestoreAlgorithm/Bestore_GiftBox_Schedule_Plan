@@ -120,6 +120,11 @@ print('sample_data:\n {}\n sample_data_type:\n {}'.format(sample_data.head(), sa
 COVER_NUM = int(df_orders.loc[0, 'coverageWeekNum']) - 1
 PACK_RANGE = 14
 T = range(1, PACK_RANGE + 1)
+# objective
+delaySum = 0
+loseSum = 0
+y = 0
+h_c = 0
 
 # lists
 print('Order:\n{0}\n Order_type:\n {1}'.format(Order.head(), Order.dtypes))
@@ -137,6 +142,9 @@ PackSample = model.get_package_sample(BOM, PACKAGE)
 Y_INDEX = model.get_yindex(X_INDEX, ORDER_ID, Order, PackSample)
 print('Y_INDEX: \n {}'.format(Y_INDEX))
 
+# 优化后的索引
+SUB_X_INDEX = model.get_sub_index(X_INDEX, ORDER_ID, WAREHOUSE, T)
+SUB_Y_INDEX = model.get_sub_index(Y_INDEX, ORDER_ID, WAREHOUSE, T)
 data_prepare_end = time.time()  # 数据准备时间结束函数
 print('parameters are ready, time cost are: {0}s'.format(str(data_prepare_end - data_prepare_start)))
 
@@ -160,64 +168,74 @@ x_2 = model.create_x_2_tupledict(ORDER_ID, X_INDEX, solver, INFINITY, PACK_RANGE
 # 3) 设置求解器约束
 # 添加x变量的锁定库存的约束
 # 添加库存约束(1)
-
-for k, s in itertools.product(WAREHOUSE, SAMPLE):
-    x_sum = 0
-    for i_d in ORDER_ID:
-        for i in X_INDEX[i_d]:
-            if k == i['k'] and (i['t'] == 1 or i['t'] == -1):
-                if s in PackSample[model.id2p(i_d, Order)]:
-                    bom_nums = model.get_bom(BOM, i['m'], s)
-                    x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']] * bom_nums
-    solver.Add(x_sum + invent[k, s, 1] ==
-               model.get_inventory(InventoryInitial, k, s) +
-               model.get_trans(Trans, k, s, 1) +
-               model.get_arr(Arr, k, s, 1))
+if COVER_NUM > 0:
+    for k, s in itertools.product(WAREHOUSE, SAMPLE):
+        x_sum = 0
+        for i in SUB_X_INDEX[k, 1]:
+            if s in PackSample[i['m']]:
+                bom_nums = model.get_bom(BOM, i['m'], s)
+                x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']] * bom_nums
+        solver.Add(x_sum + invent[k, s, 1] ==
+                   model.get_inventory(InventoryInitial, k, s) +
+                   model.get_trans(Trans, k, s, 1) +
+                   model.get_arr(Arr, k, s, 1))
 
 # 添加库存约束(2)
-for k, s, t in itertools.product(WAREHOUSE, SAMPLE, range(2, COVER_NUM + 1)):
-    x_sum = 0
-    for i_d in ORDER_ID:
-        for i in X_INDEX[i_d]:
-            if k == i['k'] and t == i['t']:
-                if s in PackSample[model.id2p(i_d, Order)]:
-                    bom_nums = model.get_bom(BOM, i['m'], s)
-                    # print('bom_nums: {0}\n, x: {1}'.format(bom_nums, type(bom_nums)))
-                    x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']] * bom_nums
-    solver.Add(x_sum + invent[k, s, t] ==
-               invent[k, s, t - 1] +
-               model.get_trans(Trans, k, s, t) +
-               model.get_arr(Arr, k, s, t))
+    for k, s, t in itertools.product(WAREHOUSE, SAMPLE, range(2, COVER_NUM + 1)):
+        x_sum = 0
+        for i in SUB_X_INDEX[k, t]:
+            if s in PackSample[i['m']]:
+                bom_nums = model.get_bom(BOM, i['m'], s)
+                x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']] * bom_nums
+        solver.Add(x_sum + invent[k, s, t] ==
+                   invent[k, s, t - 1] +
+                   model.get_trans(Trans, k, s, t) +
+                   model.get_arr(Arr, k, s, t))
 
 # 添加库存约束(3)
-for k, s, t in itertools.product(WAREHOUSE, SAMPLE, range(COVER_NUM + 1, T[-1] + 1)):
-    x_sum = 0
-    y_sum = 0
-    for i_d in ORDER_ID:
-        for i in X_INDEX[i_d]:
-            if k == i['k'] and t == i['t']:
-                if s in PackSample[model.id2p(i_d, Order)]:
-                    bom_nums = model.get_bom(BOM, i['m'], s)
-                    # print('bom_nums: {0}\n, x: {1}'.format(bom_nums, type(bom_nums)))
-                    x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']] * bom_nums
-        for j in Y_INDEX[i_d]:
-            if k == j['k'] and s == j['s'] and t == j['t']:
+    for k, s, t in itertools.product(WAREHOUSE, SAMPLE, range(COVER_NUM + 1, T[-1] + 1)):
+        x_sum = 0
+        y_sum = 0
+        for i in SUB_X_INDEX[k, t]:
+            if s in PackSample[i['m']]:
+                bom_nums = model.get_bom(BOM, i['m'], s)
+                x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']] * bom_nums
+        for j in SUB_Y_INDEX[k, t]:
+            if s == j['s']:
                 y_sum = y_sum + y[j['s'], j['id'], j['m'], j['n'], j['k'], j['s_t'], j['o_t'], j['f'], j['t']]
-    solver.Add(x_sum + invent[k, s, t] == invent[k, s, t - 1] + y_sum)
+        solver.Add(x_sum + invent[k, s, t] == invent[k, s, t - 1] + y_sum)
+
+else:
+    for k, s in itertools.product(WAREHOUSE, SAMPLE):
+        x_sum = 0
+        y_sum = 0
+        for i in SUB_X_INDEX[k, 1]:
+            if s in PackSample[i['m']]:
+                bom_nums = model.get_bom(BOM, i['m'], s)
+                x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']] * bom_nums
+        for j in SUB_Y_INDEX[k, t]:
+            if s == j['s']:
+                y_sum = y_sum + y[j['s'], j['id'], j['m'], j['n'], j['k'], j['s_t'], j['o_t'], j['f'], j['t']]
+        solver.Add(x_sum + invent[k, s, 1] == model.get_inventory(InventoryInitial, k, s) + y_sum)
+
+    for k, s, t in itertools.product(WAREHOUSE, SAMPLE, range(2, PACK_RANGE + 1)):
+        x_sum = 0
+        y_sum = 0
+        for i in SUB_X_INDEX[k, t]:
+            if s in PackSample[i['m']]:
+                bom_nums = model.get_bom(BOM, i['m'], s)
+                x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']] * bom_nums
+        for j in SUB_Y_INDEX[k, t]:
+            if s == j['s']:
+                y_sum = y_sum + y[j['s'], j['id'], j['m'], j['n'], j['k'], j['s_t'], j['o_t'], j['f'], j['t']]
+        solver.Add(x_sum + invent[k, s, t] == invent[k, s, t-1] + y_sum)
+
 
 # 添加需求约束
 for i_d in ORDER_ID:
     for i in X1_INDEX[i_d]:
-        x_sum = 0
-        if i['o_t'] <= COVER_NUM:
-            for pt in model.sum_range(0, i['o_t'] - 2, i['o_t'] + 1):
-                x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], pt]
-            solver.Add(x_sum + x_1[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f']] ==
-                       model.get_demand(Order, i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f']))
-        else:
-            for pt in model.sum_range(COVER_NUM, i['o_t'] - 2, i['o_t'] + 1):
-                x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], pt]
-            solver.Add(x_sum + x_1[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f']] ==
+        x_sum = x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'],i['o_t']]
+        solver.Add(x_sum + x_1[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f']] ==
                        model.get_demand(Order, i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f']))
 
 for i_d in ORDER_ID:
@@ -238,39 +256,39 @@ for i_d in ORDER_ID:
                            model.get_demand(Order, i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f']))
 
 # 供应量约束
-# TODO(黃爽): supply_c这个函数明显有问题
 for s, t in itertools.product(SAMPLE, T):
     y_sum = 0
-    for i_d in ORDER_ID:
-        for i in Y_INDEX[i_d]:
-            if i['s'] == s and i['t'] == t:
-                y_sum = y_sum + y[i['s'], i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']]
+    index_temp = []
+    for k in WAREHOUSE:
+        index_temp = index_temp + SUB_Y_INDEX[k, t]
+    for i in index_temp:
+        if i['s'] == s:
+            y_sum = y_sum + y[i['s'], i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']]
     solver.Add(y_sum <= model.supply_c(s, t))
 
 # 添加产能约束
 for k, t in itertools.product(WAREHOUSE, T):
     rate = 0
-    for i_d in ORDER_ID:
-        for i in X_INDEX[i_d]:
-            if i['k'] == k and i['t'] == t:
-                rate = rate + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']] / \
+    for i in SUB_X_INDEX[k, t]:
+        rate = rate + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']] / \
                        model.warehouse_s(PackingCapacity, k, i['m'])
     solver.Add(rate <= float(model.warehouse_c(PackingCapacity, k, t)))
 
 # 4) 设置目标函数
-delaySum = 0
+
 for i_d in ORDER_ID:
     for i in X1_INDEX[i_d]:
-        delaySum = delaySum + model.type_weight(i['m'], i['n'], i['k'], i['s_t'], i['o_t'], Wei, 1, i['f']) * \
+        delaySum = delaySum + model.objective_weight(i['m'], i['n'], i['k'], i['s_t'], i['o_t'], Wei, PACK_RANGE, 1,
+                                                     i['f']) * \
                    x_1[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f']]
 
-loseSum = 0
 for i_d in ORDER_ID:
     for i in X_INDEX[i_d]:
         if i['t'] > i['o_t']:
-            loseSum = loseSum + model.type_weight(i['m'], i['n'], i['k'], i['s_t'], i['o_t'], Wei, 2, i['f']) * \
+            loseSum = loseSum + model.objective_weight(i['m'], i['n'], i['k'], i['s_t'], i['o_t'], Wei, PACK_RANGE, 1,
+                                                       i['f']) * \
                       x_2[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']]
-y_sum = 0
+
 for i_d in ORDER_ID:
     for i in Y_INDEX[i_d]:
         y_sum = y_sum + y[i['s'], i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']] * \
@@ -285,12 +303,14 @@ for t in T:
                 h_t = h_t + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']]
     h_c = h_c + h_t
 
-solver.Minimize(delaySum + loseSum + 0.01 * y_sum + 0.001 * h_c)
+solver.Minimize(delaySum + loseSum + 0.0000001 * y_sum + 0.0000001 * h_c)
 print('Objective function setting done ！')
 
 # 5）开始训练
+parameters = pywraplp.MPSolverParameters()
+parameters.SetDoubleParam(pywraplp.MPSolverParameters.RELATIVE_MIP_GAP,  1e-8)
 print('Optimizing...')
-status = solver.Solve()
+status = solver.Solve(parameters)
 if status == pywraplp.Solver.OPTIMAL:
     assert solver.VerifySolution(1e-7, True)
     print('Number of variables =', solver.NumVariables())

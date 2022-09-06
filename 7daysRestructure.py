@@ -21,7 +21,7 @@ from scheduleProduction import bomsParse
 from scheduleProduction import capacityParse
 from scheduleProduction import priorityParse
 from scheduleProduction import model
-
+from ortools.linear_solver.linear_solver_natural_api import SumArray
 # 传统设置列名和列对齐
 pd.set_option('display.unicode.ambiguous_as_wide', True)
 pd.set_option('display.unicode.east_asian_width', True)
@@ -126,6 +126,10 @@ FIX_NUM = add_day_num
 if FIX_NUM < 0:
     FIX_NUM = 0
 INVENTORY_SCALE = 10000000
+# 目标函数
+loseSum = 0
+delaySum = 0
+h_c = 0
 # lists
 # print('Order:\n{0},\n lock: \n {1}'.format(Order.head(), Lock.head()))
 lock_day_num = data_list['lockDays']
@@ -235,30 +239,28 @@ for k, t in itertools.product(WAREHOUSE, T):
     solver.Add(rate <= float(model.warehouse_c(PackingCapacity, k, t)))
 
 # 4) 设置目标函数
-delaySum = 0
 for i_d in ORDER_ID:
     for i in X1_INDEX[i_d]:
-        delaySum = delaySum + model.type_weight(i['m'], i['n'], i['k'], i['s_t'], i['o_t'], Wei, 1) * \
+        delaySum = delaySum + model.objective_weight(i['m'], i['n'], i['k'], i['s_t'], i['o_t'], Wei, PACK_RANGE, 1) * \
                    x_1[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t']]
 
-loseSum = 0
 for i_d in ORDER_ID:
     for i in X_INDEX[i_d]:
         if i['t'] > i['o_t']:
-            loseSum = loseSum + model.type_weight(i['m'], i['n'], i['k'], i['s_t'], i['o_t'], Wei, 2) * \
+            loseSum = loseSum + model.objective_weight(i['m'], i['n'], i['k'], i['s_t'], i['o_t'], Wei, PACK_RANGE, 1) * \
                       x_2[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['t']]
 
-h_c = 0
 for k, s, t in itertools.product(WAREHOUSE, SAMPLE, T):
     h_c = h_c + invent[k, s, t]
 
 solver.Minimize(delaySum + loseSum + h_c / INVENTORY_SCALE)
 print('Objective function setting done ！')
 
-print(FIX_NUM)
 # 5）开始训练
+parameters = pywraplp.MPSolverParameters()
+parameters.SetDoubleParam(pywraplp.MPSolverParameters.RELATIVE_MIP_GAP,  1e-8)
 print('Optimizing...')
-result_status = solver.Solve()
+result_status = solver.Solve(parameters)
 if result_status == solver.OPTIMAL:
     assert solver.VerifySolution(1e-7, True)
     print('Number of variables =', solver.NumVariables())

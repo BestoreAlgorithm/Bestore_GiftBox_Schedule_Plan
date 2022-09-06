@@ -7,7 +7,7 @@
 import pandas as pd
 from gurobipy import tupledict
 import itertools
-import copy
+import copy as cy
 
 
 def init_model_parameters(pack_range, *, lock_num=0, fix_num=0, cover_num=0):
@@ -199,7 +199,7 @@ def id2p(i_d, orders_f):
     return orders_f[orders_f['id'] == i_d]['package'].values[0]
 
 
-def type_weight(m, n, k, s_t, o_t, wei, type, f=0):
+def objective_weight(m, n, k, s_t, o_t, wei, pack_range, type, f=0):
     '''
     这个地方 t 和 f 应该都是可选参数，需要处理
     将不同类型的优先级使用1，2，3分别表示delay，lose，holding
@@ -212,10 +212,16 @@ def type_weight(m, n, k, s_t, o_t, wei, type, f=0):
     :param type:
     :return:
     '''
-    if type == 1:
-        return f * 1000 + 700 / o_t + 70 / s_t + weight(wei, m, n)
-    elif type == 2:
-        return f * 100 + 70 / o_t + 7 / s_t + weight(wei, m, n)
+    if pack_range == 7:
+        if type == 1:
+            return 2000 / (s_t + 100) + 10 / (weight(wei, m, n) + 1)
+        elif type == 2:
+            return 200 / (s_t + 100) + 1 / (weight(wei, m, n) + 1)
+    elif pack_range == 14:
+        if type == 1:
+            return f * 1000 + 100 * (106 - s_t) / 140 + 10 / (weight(wei, m, n) + 1)
+        elif type == 2:
+            return f * 100 + 10 * (106 - s_t) / 140 + 1 / (weight(wei, m, n) + 1)
 
 
 def get_sample(data_orders, BOM, flag):
@@ -234,18 +240,42 @@ def get_sample(data_orders, BOM, flag):
 
 
 def packing_t(t, T_COVER, T):
-    if t > T_COVER:
-        if t - 2 > T_COVER:
-            return range(t - 2, T[-1] + 1)
-        else:
-            return range(T_COVER + 1, T[-1] + 1)
-    elif t - 2 <= 0:
-        return range(1, T[-1] + 1)
-    else:
-        return range(t - 2, T[-1] + 1)
+    return range(t, T[-1] + 1)
+
+
+def get_yindex(x_index, order_id, order, pack_sample):
+    '''
+
+    :param x_index:
+    :param order_id:
+    :param order:
+    :param pack_sample:
+    :return:
+    '''
+    index_temp = cy.deepcopy(x_index)
+    y_index = {}
+    for i_d in order_id:
+        y_index[i_d] = []
+        sample = pack_sample[order[order['id'] == i_d]['package'].values[0]]
+        for i in index_temp[i_d]:
+            for s in sample:
+                i['s'] = s
+                i_y = i.copy()
+                y_index[i_d].append(i_y)
+
+    return y_index
 
 
 def get_xindex_x1index(order_id, orders_f, pack_range, flag, fix_num):
+    '''
+
+    :param order_id:
+    :param orders_f:
+    :param pack_range:
+    :param flag:
+    :param fix_num:
+    :return:
+    '''
     xindex = {}
     x1index = {}
     if flag == 7:
@@ -291,18 +321,23 @@ def get_xindex_x1index(order_id, orders_f, pack_range, flag, fix_num):
     return xindex, x1index
 
 
-def get_yindex(iterIndex, p_id, data_orders, PackSample):
-    x_index = copy.deepcopy(iterIndex)
-    y_index = {}
-    for i_d in p_id:
-        y_index[i_d] = []
-        sample = PackSample[data_orders[data_orders['id'] == i_d]['package'].values[0]]
-        for i in x_index[i_d]:
-            for s in sample:
-                i['s'] = s
-                i_y = i.copy()
-                y_index[i_d].append(i_y)
-    return y_index
+def get_sub_index(index, order_id, warehouse, pack_range):
+    '''
+    返回按周期和长裤分块的索引
+    :param index: 原索引
+    :param order_id: 订单id list
+    :param warehouse: 仓库list
+    :param pack_range: 分装周期 list
+    :return: 分块的 index 字典
+    '''
+    sub_index = {}
+    for k, t in itertools.product(warehouse, pack_range):
+        sub_index[k, t] = []
+        for i_d in order_id:
+            for i in index[i_d]:
+                if k == i['k'] and t == i['t']:
+                    sub_index[k, t].append(i)
+    return sub_index
 
 
 def get_package_sample(BOM, package):
