@@ -106,3 +106,22 @@ def arrive_data_clean(df_samples, list_date_time):
         arr.loc[i, 't'] = arr_dis_day
     arr['t'] = arr['t'].astype(int)
     return arr
+
+
+def Cover_Add_num(df_orders_original, now_time, list_date_time):
+    T_cover_add_num = 0
+    list_report_time = []
+    for i in range(df_orders_original.shape[0]):
+        if df_orders_original.loc[i, 'demandCommitDate'] is not None and df_orders_original.loc[i, 'demandCommitDate'] != '':
+            list_report_time.append(df_orders_original.loc[i, 'demandCommitDate'])
+    list_report_date_num = []
+    for i in range(len(list_report_time)):
+        report_time_date = datetime.datetime.strptime(list_report_time[i], "%Y-%m-%d").date()  # 子件调拨到货日期
+        report_time_num = (report_time_date - now_time).days
+        list_report_date_num.append(report_time_num)
+    max_report_date_num = max(list_report_date_num)
+    max_report_date = now_time + datetime.timedelta(days=max_report_date_num)
+    max_report_weekday = max_report_date.weekday() + 1
+    max_report_this_week = max_report_date + datetime.timedelta(days=7 - max_report_weekday)
+    T_cover_add_num = (max_report_this_week - list_date_time[0]).days // 7  # 所要求得的内容
+    return T_cover_add_num

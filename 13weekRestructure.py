@@ -10,6 +10,7 @@ import datetime
 import os
 import itertools
 import sys
+import copy
 from gurobipy import tupledict
 from ortools.linear_solver import pywraplp
 from scheduleProduction import shareFunction
@@ -64,6 +65,9 @@ print('df_orders:\n {0}\n df_samples:\n {1}'.format(df_orders.head(), df_samples
 print('df_orders_type:\n {0}'.format(df_orders.dtypes))
 print('df_samplesType: {}'.format(type(df_samples)))
 
+# TODO(新增标记)
+df_orders_original = df_orders.copy()
+
 # 从df_orders中清洗出Order
 Order = PackPlanParse.data_orders_clean(df_orders, now_time, list_date)
 print('Order:\n {}\n Order:\n {}'.format(Order.head(), Order.dtypes))
@@ -81,6 +85,9 @@ Trans = PackPlanParse.trans_data_clean(df_samples, list_date_time)
 print('Trans:\n {}\n Trans_type:\n {}'.format(Trans.head(), Trans.dtypes))
 Arr = PackPlanParse.arrive_data_clean(df_samples, list_date_time)  # 解析到货信息
 print('Arr:\n {}\n Arr_type:\n {}'.format(Arr.head(), Arr.dtypes))
+
+# TODO(新增)
+T_cover_add_num = PackPlanParse.Cover_Add_num(df_orders_original, now_time, list_date_time)  # 解析库存数据Inventory
 
 # BOM基础数据json信息读入与解析
 with open(Bom, "r", encoding="utf-8") as f_json_bom:
@@ -117,7 +124,7 @@ print('sample_data:\n {}\n sample_data_type:\n {}'.format(sample_data.head(), sa
 
 # TODO(黃爽)：变量含义待确定
 # parameter
-COVER_NUM = int(df_orders.loc[0, 'coverageWeekNum']) - 1
+COVER_NUM = int(df_orders.loc[0, 'coverageWeekNum']) - 1 + T_cover_add_num  # TODO(新增标记)
 PACK_RANGE = 14
 T = range(1, PACK_RANGE + 1)
 # objective
@@ -355,7 +362,8 @@ if status == pywraplp.Solver.OPTIMAL:
                         mid_res = {'packingPlanId': str(df_orders.loc[od, 'packingPlanId']),
                                    'packingPlanSerialNum': int(df_orders.loc[od, 'packingPlanSerialNum']),
                                    'oldPackingPlanVersion': old_packing_version,
-                                   'demandCommitDate': df_orders.loc[od, 'demandCommitDate'],
+                                   # 'demandCommitDate': df_orders.loc[od, 'demandCommitDate'],
+                                   'demandCommitDate': df_orders_original.loc[od, 'demandCommitDate'],  # TODO(改变标记)
                                    'requireOutWeek': df_orders.loc[od, 'requireOutWeek'],
                                    'oldPackingPlanWeekNum': df_orders.loc[od, 'packingPlanWeekNum'],
                                    'packingPlanWeekNum': real_pack_t,
@@ -379,10 +387,12 @@ if status == pywraplp.Solver.OPTIMAL:
                                       y_demand[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t'], s],
                                       3))
                             sub_name = df_bom[df_bom["subCode"] == str(s)]["subName"].values[0]
-                            mid_sample = {'oldPackingPlanVersion': str(df_orders.loc[od, 'packingPlanVersion']),
+                            mid_sample = {'oldPackingPlanVersion': old_packing_version,  # TODO(改动标记)
                                           'packingPlanId': str(df_orders.loc[od, 'packingPlanId']),
                                           'packingPlanSerialNum': int(df_orders.loc[od, 'packingPlanSerialNum']),
-                                          'demandCommitDate': df_orders.loc[od, 'demandCommitDate'],
+                                          # 'demandCommitDate': df_orders.loc[od, 'demandCommitDate'],
+                                          # TODO(改变标记)
+                                          'demandCommitDate': df_orders_original.loc[od, 'demandCommitDate'],
                                           'requireOutWeek': df_orders.loc[od, 'requireOutWeek'],
                                           'packingPlanWeekNum': real_pack_t,
                                           'bu': df_orders.loc[od, 'bu'],
