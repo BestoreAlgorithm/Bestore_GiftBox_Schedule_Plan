@@ -11,6 +11,8 @@ from scheduleProduction import PackPlanParse
 # 设置数据路径全局变量
 project_path = os.getcwd()  # 当前路径
 jsons_filename = 'jsons'  # 存放数据的文件夹的名称
+result_filename = 'result'
+result_data_path = project_path + '\\' + result_filename
 jsons_data_path = project_path + '\\' + jsons_filename  # 原始数据的路径
 ProducePlan = jsons_data_path + '\\' + 'ProducePlan.json'
 Bom = jsons_data_path + '\\' + 'Bom.json'
@@ -18,8 +20,8 @@ Capacity = jsons_data_path + '\\' + 'Capacity.json'
 Priority = jsons_data_path + '\\' + 'Priority.json'
 Calendar = jsons_data_path + '\\' + 'Calendar.json'
 PackPlan = jsons_data_path + '\\' + 'PackPlan.json'
-seven_days_result = '7days_schedule_plan_result.json'  # 7天的排产结果
-fourteen_weeks_result = '13weeks_schedule_plan_result.json'  # 13周的排产结果
+seven_days_result = result_data_path + '\\' + '7days_schedule_plan_result.json'  # 7天的排产结果
+fourteen_weeks_result = result_data_path + '\\' + '13weeks_schedule_plan_result.json'  # 13周的排产结果
 print('json数据所在的文件夹路径：', jsons_data_path)
 print('排产计划数据所在的文件夹路径：', ProducePlan)
 print('Bom主数据所在的文件夹路径：', Bom)
