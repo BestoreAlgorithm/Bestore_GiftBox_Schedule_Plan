@@ -52,8 +52,8 @@ def lock_data_parse(df_last_produce, now_time):
     return lock
 
 
-def orders_f_data_parse(df_orders, lock, now_time):
-    the_first_date = now_time + datetime.timedelta(days=1)
+def orders_f_data_parse(df_orders, lock, list_date):
+    the_first_date = datetime.datetime.strptime(list_date[0], "%Y-%m-%d").date()
     # 2. 解析订单分装需求（df_orders）
     '''
     输出需求提报计划dataframe，同时和以往需求完成合并
@@ -64,6 +64,9 @@ def orders_f_data_parse(df_orders, lock, now_time):
     df_orders["bomVersion"] = df_orders["bomVersion"].astype(str)  # 将bomVersion列转化为字符串
     df_orders["packingPlanId"] = df_orders["packingPlanId"].astype(int)  # 将packingPlanId列转化为int
     df_orders["packingPlanSerialNum"] = df_orders["packingPlanSerialNum"].astype(int)
+    # TODO(新增标记)
+    df_orders['demandCommitDate'].replace('', list_date[6], inplace=True)
+    df_orders['demandCommitDate'].fillna(list_date[6], inplace=True)
     df_orders["id"] = df_orders["packingPlanId"].astype(str) + "-" + df_orders["packingPlanSerialNum"].astype(str)
     data_orders = pd.DataFrame(
         columns=['id', 'package', 'bom', 'n', 'warehouse', 's_t', 'o_t', 'num'])  # 创建一个data_orders数据帧
@@ -131,6 +134,9 @@ def arr_data_parse(df_arrival, now_time, arrive_interval_days):
     for i in range(df_arrival.shape[0]):
         date_arrival = datetime.datetime.strptime(df_arrival.loc[i, 'arrivalDate'], "%Y-%m-%d").date()
         dis_arr = (date_arrival - the_first_date).days + arrive_interval_days
+        # TODO(新增了到货日期的归并)
+        if dis_arr <= 0:
+            dis_arr = 1
         # 删除了使用到货的限定
         arr = pd.concat([arr, pd.DataFrame(
             {'warehouse': str(df_arrival.loc[i, 'warehouse']), 'sample': str(df_arrival.loc[i, 'productCode']),

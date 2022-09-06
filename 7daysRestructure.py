@@ -79,7 +79,7 @@ with open(ProducePlan, "r", encoding="utf-8") as f_json:
 
 print('df_last_produce:\n {}'.format(df_last_produce))
 Lock = ProducePlanParse.lock_data_parse(df_last_produce, now_time)  # 解析锁定的计划
-OrderFull, Order = ProducePlanParse.orders_f_data_parse(df_orders, Lock, now_time)  # 解析需求提报计划锁定数据
+OrderFull, Order = ProducePlanParse.orders_f_data_parse(df_orders, Lock, list_date)  # 解析需求提报计划锁定数据
 InventoryInitial = ProducePlanParse.I_0_data_inventory_parse(df_inventory)  # 解析库存数据Inventory
 Arr = ProducePlanParse.arr_data_parse(df_arrival, now_time, arrive_interval_days)  # 解析到货信息
 

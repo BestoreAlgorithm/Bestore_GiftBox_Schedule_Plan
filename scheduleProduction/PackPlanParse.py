@@ -81,9 +81,9 @@ def trans_data_clean(df_samples, list_date_time):
         trans_date = datetime.datetime.strptime(trans.loc[i, 't'], "%Y-%m-%d").date()  # 子件调拨到货日期
         the_first_week = list_date_time[0]
         tmp_dis_day = (trans_date - the_first_week).days  # 先与上一周的时间比较
-        trans_dis_day = (tmp_dis_day - 1) // 7 + 2
+        trans_dis_day = (tmp_dis_day - 1) // 7 + 3
         if trans_dis_day <= 0:
-            trans_dis_day = trans_dis_day - 1
+            trans_dis_day = 1
         trans.loc[i, 't'] = trans_dis_day
     trans['t'] = trans['t'].astype(int)
     return trans
@@ -100,10 +100,9 @@ def arrive_data_clean(df_samples, list_date_time):
         arr_date = datetime.datetime.strptime(arr.loc[i, 't'], "%Y-%m-%d").date()
         the_first_week = list_date_time[0]
         tmp_dis_day = (arr_date - the_first_week).days
-        arr_dis_day = (tmp_dis_day - 1) // 7 + 2
+        arr_dis_day = (tmp_dis_day - 1) // 7 + 3
         if arr_dis_day <= 0:
-            arr_dis_day = arr_dis_day - 1
+            arr_dis_day = 1
         arr.loc[i, 't'] = arr_dis_day
     arr['t'] = arr['t'].astype(int)
     return arr
-

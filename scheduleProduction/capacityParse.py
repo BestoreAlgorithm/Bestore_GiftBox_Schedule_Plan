@@ -126,7 +126,7 @@ def pc_data_parse(category, df_capacity, Calendar_df, list_date):
                                               'hours': deal_hour,
                                               't': the_t}, index=[0])], ignore_index=True)
         # 增加14周的无限产能
-        for i in range(start_pc.shape[0]):
+        for i in range(data_capacity.shape[0]):
             pc = pd.concat([pc, pd.DataFrame({'warehouse': str(data_capacity.loc[i, 'warehouse']),
                                               'line': str(data_capacity.loc[i, 'line']),
                                               'package': str(data_capacity.loc[i, 'package']),
