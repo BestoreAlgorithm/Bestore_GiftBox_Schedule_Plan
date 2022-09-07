@@ -170,7 +170,7 @@ def warehouse_c(df, k, t):
 
 def weight(df, m, n):
     if df[(df['package'] == m) & (df['n'] == n)]['w'].size == 0:
-        return 0
+        return 100
     else:
         return df[(df['package'] == m) & (df['n'] == n)]['w'].values[0]
 
@@ -217,9 +217,9 @@ def objective_weight(m, n, k, s_t, o_t, wei, pack_range, type, f=0):
     '''
     if pack_range == 7:
         if type == 1:
-            return 2000 / (s_t + 100) + 10 / (weight(wei, m, n) + 1)
+            return 2000 / (s_t + 100) + 10 / weight(wei, m, n)
         elif type == 2:
-            return 200 / (s_t + 100) + 1 / (weight(wei, m, n) + 1)
+            return 200 / (s_t + 100) + 1 / weight(wei, m, n)
     elif pack_range == 14:
         if type == 1:
             return f * 1000 + 100 * (106 - s_t) / 140 + 10 / (weight(wei, m, n) + 1)
