@@ -222,9 +222,9 @@ def objective_weight(m, n, k, s_t, o_t, wei, pack_range, type, f=0):
             return 200 / (s_t + 100) + 1 / weight(wei, m, n)
     elif pack_range == 14:
         if type == 1:
-            return f * 1000 + 100 * (106 - s_t) / 140 + 10 / (weight(wei, m, n) + 1)
+            return f * 1000 + 100 * (106 - s_t) / 140 + 10 / weight(wei, m, n)
         elif type == 2:
-            return f * 100 + 10 * (106 - s_t) / 140 + 1 / (weight(wei, m, n) + 1)
+            return f * 100 + 10 * (106 - s_t) / 140 + 1 / weight(wei, m, n)
 
 
 def get_sample(data_orders, BOM, flag):
