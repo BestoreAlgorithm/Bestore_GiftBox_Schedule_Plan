@@ -49,7 +49,6 @@ print('产能主数据所在的文件夹路径：', Capacity)
 print('优先级主数据所在的文件夹路径：', Priority)
 print('日历主数据所在的文件路径：', Calendar)
 
-
 now_time = datetime.date.today()  # 当日日期
 # 日期处理：生成13周的str日期和date日期
 list_date_time, list_date = shareFunction.data_list_create(13, now_time, 13)
@@ -123,7 +122,6 @@ Wei = priorityParse.wei_data_parse(df_priority)
 sample_data = model.get_sample(Order, BOM, 13)
 print('sample_data:\n {}\n sample_data_type:\n {}'.format(sample_data.head(), sample_data.dtypes))
 
-# TODO(黃爽)：变量含义待确定
 # parameter
 COVER_NUM = int(df_orders.loc[0, 'coverageWeekNum']) - 1 + T_cover_add_num  # TODO(新增标记)
 PACK_RANGE = 14
@@ -188,7 +186,7 @@ if COVER_NUM > 0:
                    model.get_trans(Trans, k, s, 1) +
                    model.get_arr(Arr, k, s, 1))
 
-# 添加库存约束(2)
+    # 添加库存约束(2)
     for k, s, t in itertools.product(WAREHOUSE, SAMPLE, range(2, COVER_NUM + 1)):
         x_sum = 0
         for i in SUB_X_INDEX[k, t]:
@@ -200,7 +198,7 @@ if COVER_NUM > 0:
                    model.get_trans(Trans, k, s, t) +
                    model.get_arr(Arr, k, s, t))
 
-# 添加库存约束(3)
+    # 添加库存约束(3)
     for k, s, t in itertools.product(WAREHOUSE, SAMPLE, range(COVER_NUM + 1, T[-1] + 1)):
         x_sum = 0
         y_sum = 0
@@ -236,15 +234,14 @@ else:
         for j in SUB_Y_INDEX[k, t]:
             if s == j['s']:
                 y_sum = y_sum + y[j['s'], j['id'], j['m'], j['n'], j['k'], j['s_t'], j['o_t'], j['f'], j['t']]
-        solver.Add(x_sum + invent[k, s, t] == invent[k, s, t-1] + y_sum)
-
+        solver.Add(x_sum + invent[k, s, t] == invent[k, s, t - 1] + y_sum)
 
 # 添加需求约束
 for i_d in ORDER_ID:
     for i in X1_INDEX[i_d]:
-        x_sum = x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'],i['o_t']]
+        x_sum = x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['o_t']]
         solver.Add(x_sum + x_1[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f']] ==
-                       model.get_demand(Order, i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f']))
+                   model.get_demand(Order, i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f']))
 
 for i_d in ORDER_ID:
     for i in X_INDEX[i_d]:
@@ -278,8 +275,10 @@ for s, t in itertools.product(SAMPLE, T):
 for k, t in itertools.product(WAREHOUSE, T):
     rate = 0
     for i in SUB_X_INDEX[k, t]:
+        if model.warehouse_s(PackingCapacity, k, i['m'], t) == 0:
+            print('packing capacity error: warehous:{} package:{} t:{}'.format(k, i['m'], t))
         rate = rate + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']] / \
-                       model.warehouse_s(PackingCapacity, k, i['m'])
+               model.warehouse_s(PackingCapacity, k, i['m'], t)
     solver.Add(rate <= float(model.warehouse_c(PackingCapacity, k, t)))
 
 # 4) 设置目标函数
@@ -316,7 +315,7 @@ print('Objective function setting done ！')
 
 # 5）开始训练
 parameters = pywraplp.MPSolverParameters()
-parameters.SetDoubleParam(pywraplp.MPSolverParameters.RELATIVE_MIP_GAP,  1e-8)
+parameters.SetDoubleParam(pywraplp.MPSolverParameters.RELATIVE_MIP_GAP, 1e-8)
 print('Optimizing...')
 status = solver.Solve(parameters)
 if status == pywraplp.Solver.OPTIMAL:
@@ -417,5 +416,3 @@ elif (result_status == solver.ABNORMAL):
     print("Problem is abnormal")
 elif (result_status == solver.NOT_SOLVED):
     print("Problem is not solved")
-
-
