@@ -7,6 +7,11 @@ import pandas as pd
 
 
 def wei_data_parse(df_priority):
+    '''
+    渠道礼盒优先级清洗函数
+    :param df_priority: DataFrame, 原渠道礼盒优先级数据
+    :return: DataFrame, 返回预处理后的渠道礼盒优先级数据帧
+    '''
     if df_priority.shape[0] == 0:
         df_priority = pd.DataFrame(columns=['bu', 'subChannel', 'productCode', 'productName', 'priority'])
     wei = pd.DataFrame(columns=['package', 'n', 'w'])

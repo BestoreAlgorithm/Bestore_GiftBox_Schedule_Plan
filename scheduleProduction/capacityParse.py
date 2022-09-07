@@ -13,7 +13,7 @@ import sys
 def pc_data_parse(category, df_capacity, Calendar_df, list_date):
     '''
     产能数据清洗函数, 会对产能按仓库和礼盒进行汇总。将工时进行归一处理, 并将工时数值转化到(乘数)礼盒生产速率上。
-    :param category: int, 可以根据不同的标识符生成相应的产能数据帧
+    :param category: int, 生成所需产能数据帧的标识符
             当 category == 7: 生成7天排产计划的产能数据帧
             当 category == 13: 生成13周分装计划的产能数据帧
     :param df_capacity: DataFrame, 原产能基础数据

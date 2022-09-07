@@ -7,6 +7,15 @@ import datetime
 
 
 def data_list_create(days, now_time, category):
+    '''
+    日期列表生成函数, 根据入参的category不同，生成不同算法所对应的日期列表
+    :param days: int, 所需生成的日期列表长度
+    :param now_time: datetime, 当前日期
+    :param category: int, 生成所需日期列表的标识符
+            当 category == 7: 生成7天排产计划的日期列表, 以天为单位, 生成的日期列表中的每个元素为连续的单日日期, 日期列表首个元素为当天的后一天。
+            当 category == 13: 生成13周分装计划的产能数据帧, 以周为单位, 生成的日期列表中的每个元素为连续的周日日期, 日期列表首个元素为当周周末日期。
+    :return: list['datetime'], list['str'], 返回不同算法所对应的日期列表
+    '''
     if category == 7:
         # 规划期的第一天由当天更改为明天
         list_date_time = []  # 日期列表

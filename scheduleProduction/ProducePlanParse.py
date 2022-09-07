@@ -12,6 +12,12 @@ pd.set_option('display.unicode.east_asian_width', True)
 
 
 def lock_data_parse(df_last_produce, now_time):
+    '''
+    获取7天排产计划算法中, 上一次七天排产计划数据中仍然位于规划期内的锁定订单数据
+    :param df_last_produce: DataFrame, 原上一七天排产计划数据
+    :param now_time: datetime, 当前日期
+    :return: DataFrame, 返回锁定标识为True且排产计划日期在日期列表中的锁定订单数据帧
+    '''
     if df_last_produce.shape[0] == 0:
         df_last_produce = pd.DataFrame(columns=['scheduleId', 'productCode', 'bomVersion', 'subChannel', 'warehouse',
                                                 'demandCommitDate', 'scheduleDate', 'planQuantity'])
@@ -53,6 +59,13 @@ def lock_data_parse(df_last_produce, now_time):
 
 
 def orders_f_data_parse(df_orders, lock, list_date):
+    '''
+    获取7天排产计划算法中锁定订单与近两周周度分装计划需求订单的并集数据帧, 与近两周周度分装计划需求订单的数据帧
+    :param df_orders: DataFrame, 原近两周周度分装计划数据帧
+    :param lock: DataFrame, 上一七天排产计划中锁定且有效的订单数据帧
+    :param list_date: list['str'], 7天排产计划所需规划的日期列表
+    :return: DataFrame, 返回锁定订单与近两周周度分装计划的并集数据帧, 近两周周度分装计划数据帧
+    '''
     the_first_date = datetime.datetime.strptime(list_date[0], "%Y-%m-%d").date()
     # 2. 解析订单分装需求（df_orders）
     '''
@@ -99,12 +112,12 @@ def orders_f_data_parse(df_orders, lock, list_date):
 
 
 def I_0_data_inventory_parse(df_inventory):
+    '''
+    解析子件库存数据
+    :param df_inventory: DataFrame, 原子件库存数据帧
+    :return: DataFrame, 预处理后的子件库存数据帧
+    '''
     # 3. 解析库存数据Inventory
-    '''
-    物料编码
-    仓库编码
-    库存数量
-    '''
     data_inventory = pd.DataFrame(df_inventory, columns=['productCode', 'warehouse', 'stockNum'])
     I_0 = data_inventory.rename(columns={'productCode': 'sample',
                                          'warehouse': 'warehouse',
@@ -118,13 +131,15 @@ def I_0_data_inventory_parse(df_inventory):
 
 def arr_data_parse(df_arrival, now_time, arrive_interval_days):
     '''
-    解析到货数据arrival
-    判别修改到货时间t,
-    输出仓库信息，
-    物料编码
-    物料数量
-    Add：arrive_interval_days 表示到货的间隔日期，如第一天到，则arrive_interval_days天后可用
-    Add：available_day 表示排产时允许使用到货子件的相对日期（1、2、3、4）
+    解析子件到货数据arrival
+    :param df_arrival: DataFrame, 原子件预约到货数据帧
+    :param now_time: datetime, 当前日期
+    :param arrive_interval_days: int, 表示到货的间隔日期，如第一天到，则arrive_interval_days天后可用
+    :return: DataFrame, 返回清洗后的子件到货数据:
+            仓库编码
+            物料编码
+            物料数量
+            可使用日期
     '''
     the_first_date = now_time + datetime.timedelta(days=1)
     arrive_interval_days = arrive_interval_days + 1  # 子件到货日期+1，用于转化为相对日期
@@ -141,12 +156,5 @@ def arr_data_parse(df_arrival, now_time, arrive_interval_days):
         arr = pd.concat([arr, pd.DataFrame(
             {'warehouse': str(df_arrival.loc[i, 'warehouse']), 'sample': str(df_arrival.loc[i, 'productCode']),
              'num': float(df_arrival.loc[i, 'arrivalNum']), 't': int(dis_arr)}, index=[0])], ignore_index=True)
-        '''
-        arr = arr.append(pd.DataFrame({'warehouse': df_arrival["warehouse"],
-                                       'sample': df_arrival["productCode"],
-                                       'num': df_arrival["arrivalNum"],
-                                       't': int(dis_arr)
-                                       }, index=[0]), ignore_index=True)
-        '''
     print('[4]: (arr)到货信息arr：{0}'.format(arr.head()))
     return arr
