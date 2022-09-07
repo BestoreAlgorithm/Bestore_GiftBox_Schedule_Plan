@@ -133,7 +133,7 @@ def supply_c(s, t):
     '''
     return 50000000
 
-
+# TODO(时间维度，mean->sum)
 def warehouse_s(df, k, m):
     '''
     返回仓库分装礼盒的速度
