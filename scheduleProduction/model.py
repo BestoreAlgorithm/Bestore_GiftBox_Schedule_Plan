@@ -134,7 +134,6 @@ def supply_c(s, t):
     return 50000000
 
 
-# TODO(时间维度，mean->sum)
 def warehouse_s(df, k, m, t):
     '''
     返回仓库分装礼盒的速度
@@ -163,7 +162,7 @@ def warehouse_c(df, k, t):
     '''
     if df[(df['warehouse'] == k) &
           (df['t'] == t)].size == 0:
-        return 0
+        return 1
     else:
         return df[df['warehouse'] == k]['hours'].values[0]
 
