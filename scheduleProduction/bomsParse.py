@@ -8,8 +8,13 @@ import pandas as pd
 
 def bom_data_parse(df_bom, data_orders):
     '''
-    周和日的区别在输入的orders.pd
-    变量的命名规范问题很大，这里我们将boms写成bom
+    获取分装计划中出现的礼盒(成品编码+bom版本号)Bom数据
+    :param df_bom: DataFrame, 原Bom单基础数据
+    :param data_orders: DataFrame, 清洗后的分装计划需求数据
+    :return: DataFrame, 分装计划中出现的礼盒Bom数据
+            返回的Bom数据仅包含成品编码、子件编码、子件数量三列
+    Tip:1.两个算法共用一个bom获取函数，只需要改变入参的data_orders, 对于7天排产计划算法，需要输入加上锁定后的总订单需求数据帧
+        2.分装计划中同一成品编码不会出现多个bom版本号的情况，因此返回的数据帧中舍去了bom版本号一列
     '''
     df_bom["bomVersion"] = df_bom["bomVersion"].astype(str)  # 将bomVersion列转化为字符串
     df_bom["productCode"] = df_bom["productCode"].astype(str)  # 将productCode列转化为字符串
@@ -29,6 +34,9 @@ def bom_data_parse(df_bom, data_orders):
 
 
 def bom_data_parse_week(df_bom):
+    '''
+    已舍弃, 确认未在其他地方使用后可删除
+    '''
     df_bom["bomVersion"] = df_bom["bomVersion"].astype(str)  # 将bomVersion列转化为字符串
     df_bom["productCode"] = df_bom["productCode"].astype(str)  # 将productCode列转化为字符串
     df_bom["subCode"] = df_bom["subCode"].astype(str)  # 将subCode列转化为字符串

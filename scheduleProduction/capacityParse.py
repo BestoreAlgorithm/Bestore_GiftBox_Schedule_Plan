@@ -11,6 +11,16 @@ import sys
 
 
 def pc_data_parse(category, df_capacity, Calendar_df, list_date):
+    '''
+    产能数据清洗函数, 会对产能按仓库和礼盒进行汇总。将工时进行归一处理, 并将工时数值转化到(乘数)礼盒生产速率上。
+    :param category: int, 可以根据不同的标识符生成相应的产能数据帧
+            当 category == 7: 生成7天排产计划的产能数据帧
+            当 category == 13: 生成13周分装计划的产能数据帧
+    :param df_capacity: DataFrame, 原产能基础数据
+    :param Calendar_df: DataFrame, 工厂日历基础数据
+    :param list_date: list['str'],  需要进行排产计划或分装计划的周次(周末)日期列表, 根据category的值不同而不同
+    :return: DataFrame, 不同算法所需的经过汇总处理的产能数据帧
+    '''
     now_time = datetime.date.today()
     df_capacity['productCode'] = df_capacity['productCode'].astype(str)
     data_capacity = pd.DataFrame(columns=['warehouse', 'line', 'package', 'num', 'hours',
@@ -66,6 +76,7 @@ def pc_data_parse(category, df_capacity, Calendar_df, list_date):
                                               'hours': deal_hour,
                                               't': Capacity_date_Calendar.loc[i, 't']}, index=[0])], ignore_index=True)
         print('pc：\n{}'.format(pc.head(20)))
+
     elif category == 13:
         the_first_week_date = datetime.datetime.strptime(list_date[0], "%Y-%m-%d").date()
         week_before_now = the_first_week_date + datetime.timedelta(days=-7)  # 第一周的前一周日期(特殊情况)
@@ -140,6 +151,14 @@ def pc_data_parse(category, df_capacity, Calendar_df, list_date):
 
 
 def capacity_check(orders, df_capacity, ScheduleProductionResult, request_id):
+    '''
+    检查产能是否与需求数据配套, 即排产、分装计划中出现的仓库和成品编码组合, 是否在产能基础数据中已经存在。
+    :param orders: DataFrame, 清洗后的需求数据(分装计划数据或7天排产计划中的锁定+需求数据)
+    :param df_capacity: DataFrame, 原产能基础数据
+    :param ScheduleProductionResult: 合法的结果json文件存放的路径
+    :param request_id: 每次运行的主数据requestId
+    :return:无返回值, 数据配套则继续，否则终止
+    '''
     for i in range(orders.shape[0]):
         check_flag = 0
         for j in range(df_capacity.shape[0]):
