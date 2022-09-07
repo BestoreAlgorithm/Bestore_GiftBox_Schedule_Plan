@@ -6,6 +6,8 @@
 
 import pandas as pd
 import datetime
+import json
+import sys
 
 
 def pc_data_parse(category, df_capacity, Calendar_df, list_date):
@@ -135,3 +137,21 @@ def pc_data_parse(category, df_capacity, Calendar_df, list_date):
                                               't': 14}, index=[0])], ignore_index=True)
     print('(capacity)产能数据\n{0}'.format(pc.head()))
     return pc
+
+
+def capacity_check(orders, df_capacity, ScheduleProductionResult, request_id):
+    for i in range(orders.shape[0]):
+        check_flag = 0
+        for j in range(df_capacity.shape[0]):
+            if orders.loc[i, 'warehouse'] == df_capacity.loc[j, 'warehouse'] and orders.loc[i, 'package'] == \
+                    df_capacity.loc[j, 'productCode']:
+                check_flag = 1
+                break
+        if check_flag == 0:
+            print("产能数据中没有礼盒{0}在工厂{1}中的产能信息".format(orders.loc[i, 'package'], orders.loc[i, 'warehouse']))
+            res = {'code': 701, 'msg': "产能基础数据中没有礼盒{0}在工厂{1}中的产能信息".format(orders.loc[i, 'package'], orders.loc[
+                                                                                                   i, 'warehouse']),
+                   'data': {'packingPlanInfo': [], 'subSupplyPlanInfo': [], 'requestId': request_id}}
+            with open(ScheduleProductionResult, 'w', encoding='utf-8') as write_f:
+                write_f.write(json.dumps(res, indent=4, ensure_ascii=False))
+            sys.exit(0)

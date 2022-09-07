@@ -128,6 +128,15 @@
   {
     "warehouse": "D303",
     "lineNo": "101",
+    "productCode": "11008765",
+    "repackagingAbility": 2000,
+    "manHour": 8,
+    "startDate": "2022-08-01",
+    "endDate": "9999-12-31"
+  },
+  {
+    "warehouse": "D303",
+    "lineNo": "101",
     "productCode": "11008916",
     "repackagingAbility": 2000,
     "manHour": 8,
@@ -263,6 +272,15 @@
   {
     "warehouse": "D303",
     "lineNo": "101",
+    "productCode": "11010321",
+    "repackagingAbility": 2000,
+    "manHour": 8,
+    "startDate": "2022-08-01",
+    "endDate": "9999-12-31"
+  },
+  {
+    "warehouse": "D303",
+    "lineNo": "101",
     "productCode": "11010322",
     "repackagingAbility": 2000,
     "manHour": 8,
@@ -345,6 +363,15 @@
     "warehouse": "D303",
     "lineNo": "101",
     "productCode": "11010415",
+    "repackagingAbility": 2000,
+    "manHour": 8,
+    "startDate": "2022-08-01",
+    "endDate": "9999-12-31"
+  },
+  {
+    "warehouse": "D303",
+    "lineNo": "101",
+    "productCode": "11010416",
     "repackagingAbility": 2000,
     "manHour": 8,
     "startDate": "2022-08-01",
@@ -552,6 +579,15 @@
     "warehouse": "D303",
     "lineNo": "101",
     "productCode": "11010645",
+    "repackagingAbility": 2000,
+    "manHour": 8,
+    "startDate": "2022-08-01",
+    "endDate": "9999-12-31"
+  },
+  {
+    "warehouse": "D303",
+    "lineNo": "101",
+    "productCode": "11010654",
     "repackagingAbility": 2000,
     "manHour": 8,
     "startDate": "2022-08-01",
@@ -821,6 +857,15 @@
   {
     "warehouse": "D303",
     "lineNo": "104",
+    "productCode": "11010321",
+    "repackagingAbility": 2000,
+    "manHour": 8,
+    "startDate": "2022-08-01",
+    "endDate": "9999-12-31"
+  },
+  {
+    "warehouse": "D303",
+    "lineNo": "104",
     "productCode": "11010322",
     "repackagingAbility": 2000,
     "manHour": 8,
@@ -903,6 +948,15 @@
     "warehouse": "D303",
     "lineNo": "104",
     "productCode": "11010415",
+    "repackagingAbility": 2000,
+    "manHour": 8,
+    "startDate": "2022-08-01",
+    "endDate": "9999-12-31"
+  },
+  {
+    "warehouse": "D303",
+    "lineNo": "104",
+    "productCode": "11010416",
     "repackagingAbility": 2000,
     "manHour": 8,
     "startDate": "2022-08-01",
@@ -1110,6 +1164,15 @@
     "warehouse": "D303",
     "lineNo": "104",
     "productCode": "11010645",
+    "repackagingAbility": 2000,
+    "manHour": 8,
+    "startDate": "2022-08-01",
+    "endDate": "9999-12-31"
+  },
+  {
+    "warehouse": "D303",
+    "lineNo": "104",
+    "productCode": "11010654",
     "repackagingAbility": 2000,
     "manHour": 8,
     "startDate": "2022-08-01",
@@ -1379,6 +1442,15 @@
   {
     "warehouse": "D332",
     "lineNo": "101",
+    "productCode": "11010321",
+    "repackagingAbility": 2000,
+    "manHour": 8,
+    "startDate": "2022-08-01",
+    "endDate": "9999-12-31"
+  },
+  {
+    "warehouse": "D332",
+    "lineNo": "101",
     "productCode": "11010322",
     "repackagingAbility": 2000,
     "manHour": 8,
@@ -1461,6 +1533,15 @@
     "warehouse": "D332",
     "lineNo": "101",
     "productCode": "11010415",
+    "repackagingAbility": 2000,
+    "manHour": 8,
+    "startDate": "2022-08-01",
+    "endDate": "9999-12-31"
+  },
+  {
+    "warehouse": "D332",
+    "lineNo": "101",
+    "productCode": "11010416",
     "repackagingAbility": 2000,
     "manHour": 8,
     "startDate": "2022-08-01",
@@ -1668,6 +1749,15 @@
     "warehouse": "D332",
     "lineNo": "101",
     "productCode": "11010645",
+    "repackagingAbility": 2000,
+    "manHour": 8,
+    "startDate": "2022-08-01",
+    "endDate": "9999-12-31"
+  },
+  {
+    "warehouse": "D332",
+    "lineNo": "101",
+    "productCode": "11010654",
     "repackagingAbility": 2000,
     "manHour": 8,
     "startDate": "2022-08-01",
@@ -1937,6 +2027,15 @@
   {
     "warehouse": "D332",
     "lineNo": "102",
+    "productCode": "11010321",
+    "repackagingAbility": 2000,
+    "manHour": 8,
+    "startDate": "2022-08-01",
+    "endDate": "9999-12-31"
+  },
+  {
+    "warehouse": "D332",
+    "lineNo": "102",
     "productCode": "11010322",
     "repackagingAbility": 2000,
     "manHour": 8,
@@ -2019,6 +2118,15 @@
     "warehouse": "D332",
     "lineNo": "102",
     "productCode": "11010415",
+    "repackagingAbility": 2000,
+    "manHour": 8,
+    "startDate": "2022-08-01",
+    "endDate": "9999-12-31"
+  },
+  {
+    "warehouse": "D332",
+    "lineNo": "102",
+    "productCode": "11010416",
     "repackagingAbility": 2000,
     "manHour": 8,
     "startDate": "2022-08-01",
@@ -2226,6 +2334,15 @@
     "warehouse": "D332",
     "lineNo": "102",
     "productCode": "11010645",
+    "repackagingAbility": 2000,
+    "manHour": 8,
+    "startDate": "2022-08-01",
+    "endDate": "9999-12-31"
+  },
+  {
+    "warehouse": "D332",
+    "lineNo": "102",
+    "productCode": "11010654",
     "repackagingAbility": 2000,
     "manHour": 8,
     "startDate": "2022-08-01",

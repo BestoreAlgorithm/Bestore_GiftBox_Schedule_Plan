@@ -110,6 +110,7 @@ with open(Capacity, "r", encoding="utf-8") as f_json_capacity:
     info_capacity = f_json_capacity.read()
     data_list_capacity = json.loads(info_capacity)
     df_capacity = pd.DataFrame(data_list_capacity)
+capacityParse.capacity_check(Order, df_capacity, ScheduleProductionResult, data_list['requestId'])
 PackingCapacity = capacityParse.pc_data_parse(13, df_capacity, Calendar_df, list_date)
 
 # priority优先级json信息读入与解析
