@@ -235,7 +235,7 @@ for k, t in itertools.product(WAREHOUSE, T):
         for i in X_INDEX[i_d]:
             if i['k'] == k and i['t'] == t:
                 rate = rate + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['t']] / \
-                       model.warehouse_s(PackingCapacity, k, i['m'])
+                       model.warehouse_s(PackingCapacity, k, i['m'], t)
     solver.Add(rate <= float(model.warehouse_c(PackingCapacity, k, t)))
 
 # 4) 设置目标函数
