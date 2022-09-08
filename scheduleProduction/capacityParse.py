@@ -19,7 +19,14 @@ def pc_data_parse(category, df_capacity, Calendar_df, list_date):
     :param df_capacity: DataFrame, 原产能基础数据
     :param Calendar_df: DataFrame, 工厂日历基础数据
     :param list_date: list['str'],  需要进行排产计划或分装计划的周次(周末)日期列表, 根据category的值不同而不同
-    :return: DataFrame, 不同算法所需的经过汇总处理的产能数据帧
+    :return: DataFrame, 不同算法所需的经过汇总处理的产能数据帧:
+                仓库编码
+                成品编码
+                产线编码
+                生产速率(汇总)
+                产线工时(归一)
+                相对时间节点(t:单日或某一整周)
+    Tip: 生成的产能数据帧中，生产速率是汇总后的产速, 等于原产速乘上工时, 而工时归为1
     '''
     now_time = datetime.date.today()
     df_capacity['productCode'] = df_capacity['productCode'].astype(str)

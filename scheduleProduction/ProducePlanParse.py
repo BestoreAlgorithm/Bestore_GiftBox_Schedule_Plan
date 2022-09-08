@@ -16,7 +16,8 @@ def lock_data_parse(df_last_produce, now_time):
     获取7天排产计划算法中, 上一次七天排产计划数据中仍然位于规划期内的锁定订单数据
     :param df_last_produce: DataFrame, 原上一七天排产计划数据
     :param now_time: datetime, 当前日期
-    :return: DataFrame, 返回锁定标识为True且排产计划日期在日期列表中的锁定订单数据帧
+    :return: DataFrame, 返回锁定标识为True且排产计划日期在日期列表中的锁定订单数据帧:
+                 排产计划ID(合成), 成品编码, bom版本号, 子渠道编码, 仓库编码, 需求提报相对日期(int), 分装计划相对周次(int), 排产计划数量, 排产相对日期(int), 锁定标识(0,1)
     '''
     if df_last_produce.shape[0] == 0:
         df_last_produce = pd.DataFrame(columns=['scheduleId', 'productCode', 'bomVersion', 'subChannel', 'warehouse',
@@ -64,7 +65,11 @@ def orders_f_data_parse(df_orders, lock, list_date):
     :param df_orders: DataFrame, 原近两周周度分装计划数据帧
     :param lock: DataFrame, 上一七天排产计划中锁定且有效的订单数据帧
     :param list_date: list['str'], 7天排产计划所需规划的日期列表
-    :return: DataFrame, 返回锁定订单与近两周周度分装计划的并集数据帧, 近两周周度分装计划数据帧
+    :return: DataFrame, 返回锁定订单与近两周周度分装计划的并集数据帧:
+                    订单ID(合成), 成品编码, bom版本号, 子渠道编码, 仓库编码, 需求提报相对日期(int), 分装计划相对周次(int), 成品需求数量, 锁定标识(0,1)
+             DataFrame, 近两周周度分装计划数据帧:
+                    分装计划ID(合成), 成品编码, bom版本号, 子渠道编码, 仓库编码, 需求提报相对日期(int), 分装计划相对周次(int), 分装计划数量
+    Tip: 合并的数据帧列名称由于混合了分装计划和排产计划, 因此重新命名
     '''
     the_first_date = datetime.datetime.strptime(list_date[0], "%Y-%m-%d").date()
     # 2. 解析订单分装需求（df_orders）
@@ -115,7 +120,10 @@ def I_0_data_inventory_parse(df_inventory):
     '''
     解析子件库存数据
     :param df_inventory: DataFrame, 原子件库存数据帧
-    :return: DataFrame, 预处理后的子件库存数据帧
+    :return: DataFrame, 预处理后的子件库存数据帧:
+              物料编码
+              仓库编码
+              库存数量
     '''
     # 3. 解析库存数据Inventory
     data_inventory = pd.DataFrame(df_inventory, columns=['productCode', 'warehouse', 'stockNum'])
@@ -138,7 +146,7 @@ def arr_data_parse(df_arrival, now_time, arrive_interval_days):
     :return: DataFrame, 返回清洗后的子件到货数据:
             仓库编码
             物料编码
-            物料数量
+            到货数量
             可使用日期
     '''
     the_first_date = now_time + datetime.timedelta(days=1)

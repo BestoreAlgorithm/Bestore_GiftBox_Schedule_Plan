@@ -12,7 +12,10 @@ def orders_data_parse(data_list):
     '''
     13周主数据由字典转DataFrame函数, 分理出初始的周度分装计划和子件供应计划
     :param data_list: json主数据转化成的字典
-    :return: DataFrame, 分装计划需求数据, 子件供应计划数据
+    :return: DataFrame, 分装计划需求数据:
+                  分装计划单号, 分装计划单序号, 分装计划版本, 事业部, 子渠道编码, 成品编码, 成品计划分装数量, bom版本号, 指定排期标识, 需求出库周, 分装计划周次, 需求提报日期, 锁定标识, 下单覆盖周次
+             DataFrame, 子件供应计划数据
+                  分装计划版本, 子件需求计划版本, 子件品类, 子件编码, 子件名称, 仓库编码, 子件当前库存数, 子件计划调拨数, 子件计划回货数, 计划供货日期
     '''
     df_orders = pd.DataFrame(data_list["packingPlanInfo"])
     df_samples = pd.DataFrame(data_list["subSupplyPlanInfo"])
@@ -25,7 +28,8 @@ def data_orders_clean(df_orders, now_time, list_date):
     :param df_orders: DataFrame, 初始分装计划需求
     :param now_time: datetime, 当前日期
     :param list_date: list['str'], 需要进行分装计划的周次(周末)日期列表
-    :return: DataFrame, 预处理后的分装计划需求数据
+    :return: DataFrame, 预处理后的分装计划需求数据:
+                  分装计划ID(合成), 成品编码, bom版本号, 子渠道编码, 仓库编码, 需求提报相对日期(int), 分装计划相对周次(int), 指定排期标识(0,1), 分装计划数量
     '''
     df_orders["packingPlanId"] = df_orders["packingPlanId"].astype(str)  # 将packingPlanId列转化为字符串
     df_orders["packingPlanSerialNum"] = df_orders["packingPlanSerialNum"].astype(int)  # 将packingPlanSerialNum列转化为整数
@@ -76,7 +80,10 @@ def I_0_data_clean(df_samples):
     '''
     子件库存数据获取函数
     :param df_samples: DataFrame, 原子件供应计划数据
-    :return: DataFrame, 子件库存数据
+    :return: DataFrame, 子件库存数据帧:
+                物料编码
+                仓库编码
+                库存数量
     '''
     data_inventory = pd.DataFrame(df_samples, columns=['subCode', 'factoryCode', 'currentStock'])  # df_samples为空值时也支持
     data_inventory.rename(columns={'subCode': 'sample', 'factoryCode': 'warehouse', 'currentStock': 'num'},
@@ -92,7 +99,11 @@ def trans_data_clean(df_samples, list_date_time):
     调拨子件数据获取函数
     :param df_samples: DataFrame, 原子件供应计划数据
     :param list_date_time: list['datetime'], 需要进行分装计划的周次(周末)日期datetime列表
-    :return: DataFrame, 调拨子件数据
+    :return: DataFrame, 调拨子件数据:
+                物料编码
+                仓库编码
+                调拨数量
+                到货周次(int, 相对时间节点)
     '''
     data_trans = pd.DataFrame(df_samples, columns=['subCode', 'factoryCode', 'appropriationPlanNum', 'planSupplyDate'])
     data_trans.rename(columns={'subCode': 'sample', 'factoryCode': 'warehouse', 'appropriationPlanNum': 'num',
@@ -117,7 +128,11 @@ def arrive_data_clean(df_samples, list_date_time):
     子件预约到货数据获取函数
     :param df_samples: DataFrame, 原子件供应计划
     :param list_date_time: list['datetime'], 需要进行分装计划的周次(周末)日期datetime列表
-    :return: DataFrame, 子件预约到货数据
+    :return: DataFrame, 子件预约到货数据:
+                物料编码
+                仓库编码
+                到货数量
+                到货周次(int, 相对时间节点)
     '''
     data_arrival = pd.DataFrame(df_samples, columns=['subCode', 'factoryCode', 'backToCargoPlanNum', 'planSupplyDate'])
     data_arrival.rename(columns={'subCode': 'sample', 'factoryCode': 'warehouse', 'backToCargoPlanNum': 'num',
