@@ -157,14 +157,18 @@ def pc_data_parse(category, df_capacity, Calendar_df, list_date):
     return pc
 
 
-def capacity_check(orders, df_capacity, ScheduleProductionResult, request_id):
+def capacity_data_check(category, orders, df_capacity, ScheduleProductionResult, request_id):
     '''
     检查产能是否与需求数据配套, 即排产、分装计划中出现的仓库和成品编码组合, 是否在产能基础数据中已经存在。
+    :param category: int, 所执行算法的标识:
+                当 category == 7: 返回检查信息到7天排产计划算法的接口中
+                当 category == 13: 返回检查信息到13周分装计划算法的接口中
     :param orders: DataFrame, 清洗后的需求数据(分装计划数据或7天排产计划中的锁定+需求数据)
     :param df_capacity: DataFrame, 原产能基础数据
     :param ScheduleProductionResult: 合法的结果json文件存放的路径
     :param request_id: 每次运行的主数据requestId
     :return:无返回值, 数据配套则继续，否则终止
+    Tip: 要保证结果json文件的路径的正确性，根据输入的category不同而不同
     '''
     for i in range(orders.shape[0]):
         check_flag = 0
@@ -175,9 +179,16 @@ def capacity_check(orders, df_capacity, ScheduleProductionResult, request_id):
                 break
         if check_flag == 0:
             print("产能数据中没有礼盒{0}在工厂{1}中的产能信息".format(orders.loc[i, 'package'], orders.loc[i, 'warehouse']))
-            res = {'code': 701, 'msg': "产能基础数据中没有礼盒{0}在工厂{1}中的产能信息".format(orders.loc[i, 'package'], orders.loc[
-                                                                                                   i, 'warehouse']),
-                   'data': {'packingPlanInfo': [], 'subSupplyPlanInfo': [], 'requestId': request_id}}
+            if category == 7:
+                res = {'code': 701,
+                       'msg': "产能基础数据中没有礼盒{0}在工厂{1}中的产能信息".format(orders.loc[i, 'package'], orders.loc[
+                                                                                          i, 'warehouse']),
+                       'requestId': request_id, 'data': []}
+            elif category == 13:
+                res = {'code': 701,
+                       'msg': "产能基础数据中没有礼盒{0}在工厂{1}中的产能信息".format(orders.loc[i, 'package'], orders.loc[
+                                                                                          i, 'warehouse']),
+                       'data': {'packingPlanInfo': [], 'subSupplyPlanInfo': [], 'requestId': request_id}}
             with open(ScheduleProductionResult, 'w', encoding='utf-8') as write_f:
                 write_f.write(json.dumps(res, indent=4, ensure_ascii=False))
             sys.exit(0)
