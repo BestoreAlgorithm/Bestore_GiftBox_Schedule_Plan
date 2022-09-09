@@ -4,6 +4,8 @@
 # @FileName: bomsParse.py
 # @Software: PyCharm
 import pandas as pd
+import json
+import sys
 
 
 def bom_data_parse(df_bom, data_orders):
@@ -54,7 +56,8 @@ def bom_data_check(category, df_bom, data_orders, ScheduleProductionResult, requ
     for i in range(bom_in_order.shape[0]):
         check_flag = 0
         for j in range(df_bom.shape[0]):
-            if bom_in_order.loc[i, 'package'] == df_bom.loc[j, 'productCode'] and bom_in_order.loc[i, 'bom'] == df_bom.loc[j, 'bomVersion']:
+            if bom_in_order.loc[i, 'package'] == df_bom.loc[j, 'productCode'] and bom_in_order.loc[i, 'bom'] \
+                    == df_bom.loc[j, 'bomVersion']:
                 check_flag = 1
                 break
         if check_flag == 0:

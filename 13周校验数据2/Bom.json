@@ -1,1 +1,242 @@
-[{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"11004815","subName":"南瓜酥（膨化食品）","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"11005110","subName":"沙拉薯条45g（电商）","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"11006753","subName":"鸡翅尖（奥尔良风味）158g","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"11007000","subName":"米酿（百香果味）150g","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"11007304","subName":"Q爽豆干（麻辣味）128g","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"11007546","subName":"天日盐小圆饼102g","subQuantity":"2.000"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"11007648","subName":"糯米小麻花（原味）160g","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"11007910","subName":"新疆免洗枣500g","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"11007980","subName":"牛肉味兰花豆120g","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"11008130","subName":"高蛋白肉脯(100g)","subQuantity":"2.000"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"11008139","subName":"小鸡腿(鸡翅根)(奥尔良风味)108g","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"11008761","subName":"双椒海带85克","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"11008792","subName":"鸭脖(甜辣味)128g社交电商专供","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"11008968","subName":"鲜炖银耳羹","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"11009036","subName":"山楂片100g(礼盒子件专用)","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"11009039","subName":"墨鱼片(藤椒味)15g","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"11009249","subName":"鱼丸(香辣味)100g","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"11009276","subName":"小脆薯片(烧烤味)38g","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"11009338","subName":"山珍鱿鱼70g","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"11009416","subName":"多味花生148g-22年礼盒子件","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"11009538","subName":"小鱼仔(香辣味)80g","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"11009820","subName":"手撕肉脯(原味)60g","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"11010320","subName":"重庆小面105g","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"11010529","subName":"麻辣鸡丝100g","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"80011728","subName":"礼包通用外箱C","subQuantity":"0.500"},{"bomVersion":"1","productCode":"11010645","productName":"公主的心意(TH2)","subCode":"80012287","subName":"公主心意大礼包-线上-三边封带单边拉链-2207","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11008917","productName":"良品食尚（大红色）（商城专供）","subCode":"11008360","subName":"红玛瑙葡萄干250g(电商)","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11008917","productName":"良品食尚（大红色）（商城专供）","subCode":"11008917","subName":"金凰后葡萄干250g(电商专供）","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11008917","productName":"良品食尚（大红色）（商城专供）","subCode":"80007632","subName":"黑加仑葡萄干250g(电商专供）","subQuantity":"1.000"},{"bomVersion":"1","productCode":"11008917","productName":"良品食尚（大红色）（商城专供）","subCode":"80012269","subName":"精装无核白葡萄干（250g）（电商专供）","subQuantity":"1.000"}]
+[
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "11004815",
+    "subName": "南瓜酥（膨化食品）",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "11005110",
+    "subName": "沙拉薯条45g（电商）",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "11006753",
+    "subName": "鸡翅尖（奥尔良风味）158g",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "11007000",
+    "subName": "米酿（百香果味）150g",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "11007304",
+    "subName": "Q爽豆干（麻辣味）128g",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "11007546",
+    "subName": "天日盐小圆饼102g",
+    "subQuantity": "2.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "11007648",
+    "subName": "糯米小麻花（原味）160g",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "11007910",
+    "subName": "新疆免洗枣500g",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "11007980",
+    "subName": "牛肉味兰花豆120g",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "11008130",
+    "subName": "高蛋白肉脯(100g)",
+    "subQuantity": "2.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "11008139",
+    "subName": "小鸡腿(鸡翅根)(奥尔良风味)108g",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "11008761",
+    "subName": "双椒海带85克",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "11008792",
+    "subName": "鸭脖(甜辣味)128g社交电商专供",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "11008968",
+    "subName": "鲜炖银耳羹",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "11009036",
+    "subName": "山楂片100g(礼盒子件专用)",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "11009039",
+    "subName": "墨鱼片(藤椒味)15g",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "11009249",
+    "subName": "鱼丸(香辣味)100g",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "11009276",
+    "subName": "小脆薯片(烧烤味)38g",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "11009338",
+    "subName": "山珍鱿鱼70g",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "11009416",
+    "subName": "多味花生148g-22年礼盒子件",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "11009538",
+    "subName": "小鱼仔(香辣味)80g",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "11009820",
+    "subName": "手撕肉脯(原味)60g",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "11010320",
+    "subName": "重庆小面105g",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "11010529",
+    "subName": "麻辣鸡丝100g",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "80011728",
+    "subName": "礼包通用外箱C",
+    "subQuantity": "0.500"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11010645",
+    "productName": "公主的心意(TH2)",
+    "subCode": "80012287",
+    "subName": "公主心意大礼包-线上-三边封带单边拉链-2207",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11008917",
+    "productName": "良品食尚（大红色）（商城专供）",
+    "subCode": "11008360",
+    "subName": "红玛瑙葡萄干250g(电商)",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11008917",
+    "productName": "良品食尚（大红色）（商城专供）",
+    "subCode": "11008917",
+    "subName": "金凰后葡萄干250g(电商专供）",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11008917",
+    "productName": "良品食尚（大红色）（商城专供）",
+    "subCode": "80007632",
+    "subName": "黑加仑葡萄干250g(电商专供）",
+    "subQuantity": "1.000"
+  },
+  {
+    "bomVersion": "1",
+    "productCode": "11008917",
+    "productName": "良品食尚（大红色）（商城专供）",
+    "subCode": "80012269",
+    "subName": "精装无核白葡萄干（250g）（电商专供）",
+    "subQuantity": "1.000"
+  }
+]
