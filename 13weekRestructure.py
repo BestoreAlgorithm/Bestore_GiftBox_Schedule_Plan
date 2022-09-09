@@ -239,7 +239,10 @@ else:
 # 添加需求约束
 for i_d in ORDER_ID:
     for i in X1_INDEX[i_d]:
-        x_sum = x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['o_t']]
+        if i['o_t'] < 0:
+            x_sum = 0
+        else:
+            x_sum = x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['o_t']]
         solver.Add(x_sum + x_1[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f']] ==
                    model.get_demand(Order, i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f']))
 

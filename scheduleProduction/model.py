@@ -242,6 +242,15 @@ def get_sample(data_orders, BOM, flag):
 
 
 def packing_t(t, T_COVER, T):
+    '''
+    返回对应交付日期的生产区间
+    :param t:
+    :param T_COVER:
+    :param T:
+    :return:
+    '''
+    if t < 0:
+        t = 1
     return range(t, T[-1] + 1)
 
 

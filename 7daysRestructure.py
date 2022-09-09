@@ -211,12 +211,12 @@ for k, s, t in itertools.product(WAREHOUSE, SAMPLE, range(LOCK_NUM + 1, PACK_RAN
 # 添加需求约束
 for i_d in ORDER_ID:
     if OrderFull[OrderFull['id'] == i_d]['isLock'].values[0] != 1:
+        x_sum = 0
         for i in X1_INDEX[i_d]:
-            x_sum = 0
             for pt in range(FIX_NUM + 1, i['o_t'] + 1):
                 x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], pt]
-            solver.Add(x_sum + x_1[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t']] ==
-                       model.get_demand(Order, i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], 3))
+        solver.Add(x_sum + x_1[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t']] ==
+                   model.get_demand(Order, i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], 3))
 
 for i_d in ORDER_ID:
     if OrderFull[OrderFull['id'] == i_d]['isLock'].values[0] != 1:
