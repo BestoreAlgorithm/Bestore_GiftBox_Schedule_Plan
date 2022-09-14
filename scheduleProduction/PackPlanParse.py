@@ -89,6 +89,7 @@ def I_0_data_clean(df_samples):
     data_inventory.rename(columns={'subCode': 'sample', 'factoryCode': 'warehouse', 'currentStock': 'num'},
                           inplace=True)
     I_0 = data_inventory.dropna()  # 删除含有空值的所有行
+    I_0.drop_duplicates(subset=['sample', 'warehouse'], keep='first', inplace=True)  # 去除重复值
     I_0.reset_index(drop=True, inplace=True)
     I_0['sample'] = I_0['sample'].astype(str)
     return I_0

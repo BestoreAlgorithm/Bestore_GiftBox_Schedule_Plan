@@ -49,7 +49,7 @@ print('产能主数据所在的文件夹路径：', Capacity)
 print('优先级主数据所在的文件夹路径：', Priority)
 print('日历主数据所在的文件路径：', Calendar)
 
-now_time = datetime.date.today()  # 当日日期
+now_time = datetime.date(2022, 9, 9)  # 当日日期
 # 日期处理：生成13周的str日期和date日期
 list_date_time, list_date = shareFunction.data_list_create(13, now_time, 13)
 days_before_date = list_date_time[0] + datetime.timedelta(days=-7)  # 第一周的前一周日期(特殊情况)
@@ -111,7 +111,7 @@ with open(Capacity, "r", encoding="utf-8") as f_json_capacity:
     data_list_capacity = json.loads(info_capacity)
     df_capacity = pd.DataFrame(data_list_capacity)
 capacityParse.capacity_data_check(13, Order, df_capacity, ScheduleProductionResult, data_list['requestId'])
-PackingCapacity = capacityParse.pc_data_parse(13, df_capacity, Calendar_df, list_date)
+PackingCapacity = capacityParse.pc_data_parse(13, df_capacity, Calendar_df, now_time, list_date)
 
 # priority优先级json信息读入与解析
 with open(Priority, "r", encoding="utf-8") as f_json_priority:

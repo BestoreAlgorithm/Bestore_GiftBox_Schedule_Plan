@@ -10,7 +10,7 @@ import json
 import sys
 
 
-def pc_data_parse(category, df_capacity, Calendar_df, list_date):
+def pc_data_parse(category, df_capacity, Calendar_df, now_time, list_date):
     '''
     产能数据清洗函数, 会对产能按仓库和礼盒进行汇总。将工时进行归一处理, 并将工时数值转化到(乘数)礼盒生产速率上。
     :param category: int, 生成所需产能数据帧的标识符
@@ -18,6 +18,7 @@ def pc_data_parse(category, df_capacity, Calendar_df, list_date):
             当 category == 13: 生成13周分装计划的产能数据帧
     :param df_capacity: DataFrame, 原产能基础数据
     :param Calendar_df: DataFrame, 工厂日历基础数据
+    :param now_time: datetime, 当前时间的日期
     :param list_date: list['str'],  需要进行排产计划或分装计划的周次(周末)日期列表, 根据category的值不同而不同
     :return: DataFrame, 不同算法所需的经过汇总处理的产能数据帧:
                 仓库编码
@@ -28,7 +29,6 @@ def pc_data_parse(category, df_capacity, Calendar_df, list_date):
                 相对时间节点(t:单日或某一整周)
     Tip: 生成的产能数据帧中，生产速率是汇总后的产速, 等于原产速乘上工时, 而工时归为1
     '''
-    now_time = datetime.date.today()
     df_capacity['productCode'] = df_capacity['productCode'].astype(str)
     data_capacity = pd.DataFrame(columns=['warehouse', 'line', 'package', 'num', 'hours',
                                           'startTime', 'endTime'])

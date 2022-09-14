@@ -106,7 +106,7 @@ with open(Capacity, "r", encoding="utf-8") as f_json_capacity:
     data_list_capacity = json.loads(info_capacity)
     df_capacity = pd.DataFrame(data_list_capacity)
 capacityParse.capacity_data_check(7, OrderFull, df_capacity, ScheduleProductionResult, data_list['requestId'])
-PackingCapacity = capacityParse.pc_data_parse(7, df_capacity, Calendar_df, list_date)
+PackingCapacity = capacityParse.pc_data_parse(7, df_capacity, Calendar_df, now_time, list_date)
 
 # priority优先级json信息读入与解析
 with open(Priority, "r", encoding="utf-8") as f_json_priority:
