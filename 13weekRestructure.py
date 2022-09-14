@@ -220,7 +220,7 @@ else:
             if s in PackSample[i['m']]:
                 bom_nums = model.get_bom(BOM, i['m'], s)
                 x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']] * bom_nums
-        for j in SUB_Y_INDEX[k, t]:
+        for j in SUB_Y_INDEX[k, 1]:
             if s == j['s']:
                 y_sum = y_sum + y[j['s'], j['id'], j['m'], j['n'], j['k'], j['s_t'], j['o_t'], j['f'], j['t']]
         solver.Add(x_sum + invent[k, s, 1] == model.get_inventory(InventoryInitial, k, s) + y_sum)
@@ -265,6 +265,7 @@ for i_d in ORDER_ID:
                            model.get_demand(Order, i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f']))
 
 # 供应量约束
+'''
 for s, t in itertools.product(SAMPLE, T):
     y_sum = 0
     index_temp = []
@@ -274,7 +275,7 @@ for s, t in itertools.product(SAMPLE, T):
         if i['s'] == s:
             y_sum = y_sum + y[i['s'], i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']]
     solver.Add(y_sum <= model.supply_c(s, t))
-
+'''
 # 添加产能约束
 for k, t in itertools.product(WAREHOUSE, T):
     rate = 0

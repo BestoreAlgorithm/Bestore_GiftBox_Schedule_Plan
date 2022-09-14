@@ -218,7 +218,7 @@ for i_d in ORDER_ID:
             for pt in range(FIX_NUM + 1, i['o_t'] + 1):
                 x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], pt]
         solver.Add(x_sum + x_1[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t']] ==
-                   model.get_demand(Order, i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], 3))
+                   model.get_demand(Order, i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t']))
 
 for i_d in ORDER_ID:
     if OrderFull[OrderFull['id'] == i_d]['isLock'].values[0] != 1:

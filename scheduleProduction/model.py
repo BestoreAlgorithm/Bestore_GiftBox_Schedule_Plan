@@ -11,6 +11,17 @@ import copy as cy
 
 
 def init_model_parameters(pack_range, *, lock_num=0, fix_num=0, cover_num=0):
+    '''
+    初始化模型参数
+    :param pack_range: int, 区分7天和和13周
+           pack_range == 7, 返回7天的模型参数
+           pack_range == 14, 返回14周模型参数
+    :param lock_num: int, 7天模型中的锁定天数
+    :param fix_num: int, 7周模型中的固定天数
+    :param cover_num: 14周模型的需求覆盖周次
+    :return: pack_range == 7, 返回 (lock_num, fix_num)
+             pack_range == 14, 返回 cover_num
+    '''
     if pack_range == 7:
         if fix_num < 0:
             fix_num = 0
@@ -19,17 +30,17 @@ def init_model_parameters(pack_range, *, lock_num=0, fix_num=0, cover_num=0):
         return cover_num
 
 
-def get_demand(df, i_d, pack, n, k, s_t, o_t, flag=3):
+def get_demand(df, i_d, pack, n, k, s_t, o_t, flag=0):
     '''
-    返回需求计划总量num(flag==3代表7天，flag等于0,1代表13周)
-    :param df: 订单的DataFrame
-    :param i_d: 订单id
-    :param pack: 礼盒编码
-    :param n: 渠道编码
-    :param k: 仓库
-    :param s_t: 需求提报时间
-    :param o_t: 需求到货时间
-    :return: 需求计划数量
+    在需求总表中获取特定需求
+    :param df: DataFrame, 需求总表
+    :param i_d: str, 订单id
+    :param pack: str, 礼盒编码
+    :param n: str, 渠道编码
+    :param k: str, 仓库
+    :param s_t: str, 需求提报时间
+    :param o_t: str, 需求到货时间
+    :return: int, 需求计划数量
     '''
     if flag == 3:
         if df[(df['id'] == i_d) &
