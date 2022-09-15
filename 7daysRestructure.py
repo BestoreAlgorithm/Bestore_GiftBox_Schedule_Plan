@@ -29,6 +29,9 @@ pd.set_option('display.unicode.east_asian_width', True)
 data_prepare_start = time.time()  # 数据准备时间开始函数
 
 # 设置数据路径全局变量
+
+
+print('test')
 project_path = os.getcwd()  # 当前路径
 jsons_filename = 'jsons'  # 存放数据的文件夹的名称
 result_filename = 'result'  # 结果数据的文件夹的名称
