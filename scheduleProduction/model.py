@@ -42,7 +42,7 @@ def get_demand(df, i_d, pack, n, k, s_t, o_t, flag=0):
     :param o_t: str, 需求到货时间
     :return: int, 需求计划数量
     '''
-    if flag == 3:
+    if flag == 7:
         if df[(df['id'] == i_d) &
               (df['package'] == pack) &
               (df['n'] == n) &
@@ -227,9 +227,9 @@ def objective_weight(m, n, k, s_t, o_t, wei, pack_range, type, f=0):
     '''
     if pack_range == 7:
         if type == 1:
-            return 2000 / (s_t + 100) + 10 / weight(wei, m, n)
+            return 2000 / (s_t + 50) + 10 / weight(wei, m, n)
         elif type == 2:
-            return 200 / (s_t + 100) + 1 / weight(wei, m, n)
+            return 140 / (s_t + 7) + 1 / weight(wei, m, n)
     elif pack_range == 14:
         if type == 1:
             return f * 1000 + 100 * (106 - s_t) / 140 + 10 / weight(wei, m, n)

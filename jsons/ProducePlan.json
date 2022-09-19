@@ -1,827 +1,2583 @@
 {
-  "fixedDate": "2022-09-09",
-  "lockDays": 3,
-  "requestId": 1662451632825,
-  "minimumStockOut": 1.0,
-  "optimalComponentConsumption": 0.0,
-  "maximumNumberOfGiftBoxes": 0.0,
-  "schedulingRequest": [
-    {
-      "packingPlanId": 10000823,
-      "packingPlanSerialNum": 3,
-      "demandCommitDate": "2022-08-29",
-      "scheduleId": 20000002,
-      "scheduleVersion": 2022090601,
-      "warehouse": "D303",
-      "batchRequire": null,
-      "productCode": "11010593",
-      "productName": "拜托了小熊猫",
-      "subChannel": "5001",
-      "bomVersion": "2",
-      "scheduleDate": "2022-09-07",
-      "planQuantity": 2175,
-      "deliveryFactory": null,
-      "isLock": true
-    },
-    {
-      "packingPlanId": 10000850,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-08-29",
-      "scheduleId": 20000003,
-      "scheduleVersion": 2022090601,
-      "warehouse": "D303",
-      "batchRequire": null,
-      "productCode": "11010645",
-      "productName": "公主的心意(TH2)",
-      "subChannel": "5001",
-      "bomVersion": "1",
-      "scheduleDate": "2022-09-07",
-      "planQuantity": 80,
-      "deliveryFactory": null,
-      "isLock": true
-    },
-    {
-      "packingPlanId": 10000029,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-09-05",
-      "scheduleId": 20000006,
-      "scheduleVersion": 2022090601,
-      "warehouse": "D303",
-      "batchRequire": "1/3",
-      "productCode": "11006387",
-      "productName": "猪事顺利大礼包3157g",
-      "subChannel": "3001",
-      "bomVersion": "20",
-      "scheduleDate": "2022-09-07",
-      "planQuantity": 639,
-      "deliveryFactory": null,
-      "isLock": true
-    },
-    {
-      "packingPlanId": 10000074,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-09-05",
-      "scheduleId": 20000007,
-      "scheduleVersion": 2022090601,
-      "warehouse": "D303",
-      "batchRequire": "1/3",
-      "productCode": "11007626",
-      "productName": "欢乐PARTY包-小时刻1418g（电商）",
-      "subChannel": "3001",
-      "bomVersion": "5",
-      "scheduleDate": "2022-09-07",
-      "planQuantity": 20,
-      "deliveryFactory": null,
-      "isLock": true
-    }
-  ],
-  "packingPlanRequest": [
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000824,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-09-05",
-      "requireOutWeek": "2022-10-09",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "50",
-      "subChannel": "5001",
-      "warehouse": "D303",
-      "giftBoxCode": "11010593",
-      "giftBoxName": "拜托了小熊猫",
-      "bomVersion": "2",
-      "planPackingQuantity": 9500,
-      "ageRequire": 0.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000850,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-08-29",
-      "requireOutWeek": "2022-10-02",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "50",
-      "subChannel": "5001",
-      "warehouse": "D303",
-      "giftBoxCode": "11010645",
-      "giftBoxName": "公主的心意(TH2)",
-      "bomVersion": "1",
-      "planPackingQuantity": 45000,
-      "ageRequire": 0.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000824,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-09-05",
-      "requireOutWeek": "2022-10-09",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "50",
-      "subChannel": "5001",
-      "warehouse": "D303",
-      "giftBoxCode": "11010593",
-      "giftBoxName": "拜托了小熊猫",
-      "bomVersion": "2",
-      "planPackingQuantity": 9500,
-      "ageRequire": 0.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000850,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-08-29",
-      "requireOutWeek": "2022-10-02",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "50",
-      "subChannel": "5001",
-      "warehouse": "D303",
-      "giftBoxCode": "11010645",
-      "giftBoxName": "公主的心意(TH2)",
-      "bomVersion": "1",
-      "planPackingQuantity": 45000,
-      "ageRequire": 0.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000788,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-09-05",
-      "requireOutWeek": "2022-10-09",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "20",
-      "subChannel": "2003",
-      "warehouse": "D303",
-      "giftBoxCode": "11010420",
-      "giftBoxName": "爱吃的大熊猫(TH)",
-      "bomVersion": "4",
-      "planPackingQuantity": 900,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000769,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-08-29",
-      "requireOutWeek": "2022-10-02",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "20",
-      "subChannel": "2003",
-      "warehouse": "D303",
-      "giftBoxCode": "11008765",
-      "giftBoxName": "家の美味魔方(门店款)",
-      "bomVersion": "1",
-      "planPackingQuantity": 6000,
-      "ageRequire": 40.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000824,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-09-05",
-      "requireOutWeek": "2022-10-09",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "50",
-      "subChannel": "5001",
-      "warehouse": "D303",
-      "giftBoxCode": "11010593",
-      "giftBoxName": "拜托了小熊猫",
-      "bomVersion": "2",
-      "planPackingQuantity": 9500,
-      "ageRequire": 0.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000823,
-      "packingPlanSerialNum": 3,
-      "demandCommitDate": "2022-08-29",
-      "requireOutWeek": "2022-10-02",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "50",
-      "subChannel": "5001",
-      "warehouse": "D303",
-      "giftBoxCode": "11010593",
-      "giftBoxName": "拜托了小熊猫",
-      "bomVersion": "2",
-      "planPackingQuantity": 18175,
-      "ageRequire": 0.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000808,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": null,
-      "requireOutWeek": "2022-10-23",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "20",
-      "subChannel": "2003",
-      "warehouse": "D303",
-      "giftBoxCode": "11010561",
-      "giftBoxName": "猪事顺利(TH)",
-      "bomVersion": "2",
-      "planPackingQuantity": 600,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000809,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": null,
-      "requireOutWeek": "2022-10-30",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "20",
-      "subChannel": "2003",
-      "warehouse": "D303",
-      "giftBoxCode": "11010561",
-      "giftBoxName": "猪事顺利(TH)",
-      "bomVersion": "2",
-      "planPackingQuantity": 500,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000807,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": null,
-      "requireOutWeek": "2022-10-16",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "20",
-      "subChannel": "2003",
-      "warehouse": "D303",
-      "giftBoxCode": "11010561",
-      "giftBoxName": "猪事顺利(TH)",
-      "bomVersion": "2",
-      "planPackingQuantity": 600,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000850,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-08-29",
-      "requireOutWeek": "2022-10-02",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "50",
-      "subChannel": "5001",
-      "warehouse": "D303",
-      "giftBoxCode": "11010645",
-      "giftBoxName": "公主的心意(TH2)",
-      "bomVersion": "1",
-      "planPackingQuantity": 45000,
-      "ageRequire": 0.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000841,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-08-29",
-      "requireOutWeek": "2022-10-02",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "50",
-      "subChannel": "5001",
-      "warehouse": "D303",
-      "giftBoxCode": "11010627",
-      "giftBoxName": "公主的心意(TH)",
-      "bomVersion": "1",
-      "planPackingQuantity": 10000,
-      "ageRequire": 0.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000842,
-      "packingPlanSerialNum": 2,
-      "demandCommitDate": "2022-09-05",
-      "requireOutWeek": "2022-10-09",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "50",
-      "subChannel": "5001",
-      "warehouse": "D303",
-      "giftBoxCode": "11010627",
-      "giftBoxName": "公主的心意(TH)",
-      "bomVersion": "1",
-      "planPackingQuantity": 4797,
-      "ageRequire": 0.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000842,
-      "packingPlanSerialNum": 3,
-      "demandCommitDate": "2022-09-05",
-      "requireOutWeek": "2022-10-09",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "50",
-      "subChannel": "5001",
-      "warehouse": "D303",
-      "giftBoxCode": "11010627",
-      "giftBoxName": "公主的心意(TH)",
-      "bomVersion": "1",
-      "planPackingQuantity": 5203,
-      "ageRequire": 0.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000832,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-08-29",
-      "requireOutWeek": "2022-10-02",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "50",
-      "subChannel": "5001",
-      "warehouse": "D303",
-      "giftBoxCode": "11010613",
-      "giftBoxName": "公主的心意",
-      "bomVersion": "2",
-      "planPackingQuantity": 3000,
-      "ageRequire": 0.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000752,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-09-05",
-      "requireOutWeek": "2022-10-09",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "20",
-      "subChannel": "2003",
-      "warehouse": "D303",
-      "giftBoxCode": "11006988",
-      "giftBoxName": "肉肉大满足1405g",
-      "bomVersion": "14",
-      "planPackingQuantity": 1325,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000753,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": null,
-      "requireOutWeek": "2022-10-16",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "20",
-      "subChannel": "2003",
-      "warehouse": "D303",
-      "giftBoxCode": "11006988",
-      "giftBoxName": "肉肉大满足1405g",
-      "bomVersion": "14",
-      "planPackingQuantity": 700,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000754,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": null,
-      "requireOutWeek": "2022-10-23",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "20",
-      "subChannel": "2003",
-      "warehouse": "D303",
-      "giftBoxCode": "11006988",
-      "giftBoxName": "肉肉大满足1405g",
-      "bomVersion": "14",
-      "planPackingQuantity": 700,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000755,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": null,
-      "requireOutWeek": "2022-10-30",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "20",
-      "subChannel": "2003",
-      "warehouse": "D303",
-      "giftBoxCode": "11006988",
-      "giftBoxName": "肉肉大满足1405g",
-      "bomVersion": "14",
-      "planPackingQuantity": 500,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000029,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-09-05",
-      "requireOutWeek": "2022-10-09",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11006387",
-      "giftBoxName": "猪事顺利大礼包3157g",
-      "bomVersion": "20",
-      "planPackingQuantity": 51480,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000030,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": null,
-      "requireOutWeek": "2022-10-16",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11006387",
-      "giftBoxName": "猪事顺利大礼包3157g",
-      "bomVersion": "20",
-      "planPackingQuantity": 8860,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000031,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": null,
-      "requireOutWeek": "2022-10-23",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11006387",
-      "giftBoxName": "猪事顺利大礼包3157g",
-      "bomVersion": "20",
-      "planPackingQuantity": 8860,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000056,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-09-05",
-      "requireOutWeek": "2022-10-09",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11006988",
-      "giftBoxName": "肉肉大满足1405g",
-      "bomVersion": "14",
-      "planPackingQuantity": 1892,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000059,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": null,
-      "requireOutWeek": "2022-10-30",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11006988",
-      "giftBoxName": "肉肉大满足1405g",
-      "bomVersion": "14",
-      "planPackingQuantity": 4491,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000048,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": null,
-      "requireOutWeek": "2022-10-16",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11006811",
-      "giftBoxName": "卤味夜宵大礼包405克",
-      "bomVersion": "11",
-      "planPackingQuantity": 344,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000049,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": null,
-      "requireOutWeek": "2022-10-23",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11006811",
-      "giftBoxName": "卤味夜宵大礼包405克",
-      "bomVersion": "11",
-      "planPackingQuantity": 2640,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000050,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": null,
-      "requireOutWeek": "2022-10-30",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11006811",
-      "giftBoxName": "卤味夜宵大礼包405克",
-      "bomVersion": "11",
-      "planPackingQuantity": 2640,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000040,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": null,
-      "requireOutWeek": "2022-10-23",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11006562",
-      "giftBoxName": "爱的果果-什锦果干（电商专供）",
-      "bomVersion": "7",
-      "planPackingQuantity": 582,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000041,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": null,
-      "requireOutWeek": "2022-10-30",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11006562",
-      "giftBoxName": "爱的果果-什锦果干（电商专供）",
-      "bomVersion": "7",
-      "planPackingQuantity": 582,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000032,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": null,
-      "requireOutWeek": "2022-10-30",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11006387",
-      "giftBoxName": "猪事顺利大礼包3157g",
-      "bomVersion": "20",
-      "planPackingQuantity": 8860,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000039,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": null,
-      "requireOutWeek": "2022-10-16",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11006562",
-      "giftBoxName": "爱的果果-什锦果干（电商专供）",
-      "bomVersion": "7",
-      "planPackingQuantity": 482,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000092,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-09-05",
-      "requireOutWeek": "2022-10-09",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11008460",
-      "giftBoxName": "良品小时刻",
-      "bomVersion": "8",
-      "planPackingQuantity": 3130,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10001117,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-09-05",
-      "requireOutWeek": "2022-10-09",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11010411",
-      "giftBoxName": "猪事顺利萌猪版(TH)",
-      "bomVersion": "2",
-      "planPackingQuantity": 240,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10001109,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": null,
-      "requireOutWeek": "2022-10-16",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11010369",
-      "giftBoxName": "卤味夜宵嗨吃包405g",
-      "bomVersion": "05",
-      "planPackingQuantity": 641,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10001110,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": null,
-      "requireOutWeek": "2022-10-23",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11010369",
-      "giftBoxName": "卤味夜宵嗨吃包405g",
-      "bomVersion": "05",
-      "planPackingQuantity": 641,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10001111,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": null,
-      "requireOutWeek": "2022-10-30",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11010369",
-      "giftBoxName": "卤味夜宵嗨吃包405g",
-      "bomVersion": "05",
-      "planPackingQuantity": 641,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000074,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-09-05",
-      "requireOutWeek": "2022-10-09",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11007626",
-      "giftBoxName": "欢乐PARTY包-小时刻1418g（电商）",
-      "bomVersion": "5",
-      "planPackingQuantity": 5000,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000110,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-09-05",
-      "requireOutWeek": "2022-10-09",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11008600",
-      "giftBoxName": "肉肉我喜欢",
-      "bomVersion": "4",
-      "planPackingQuantity": 174,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000269,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-09-05",
-      "requireOutWeek": "2022-10-09",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11010419",
-      "giftBoxName": "肉肉大派对(2022款)TH",
-      "bomVersion": "2",
-      "planPackingQuantity": 240,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000296,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-09-05",
-      "requireOutWeek": "2022-10-09",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11010424",
-      "giftBoxName": "萌萌的小兔子(TH)",
-      "bomVersion": "2",
-      "planPackingQuantity": 5300,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000182,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-09-05",
-      "requireOutWeek": "2022-10-09",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11010041",
-      "giftBoxName": "爱吃的大熊猫",
-      "bomVersion": "4",
-      "planPackingQuantity": 450,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000173,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-09-05",
-      "requireOutWeek": "2022-10-09",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11009819",
-      "giftBoxName": "肉肉大狂欢1751g",
-      "bomVersion": "6",
-      "planPackingQuantity": 930,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000251,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-09-05",
-      "requireOutWeek": "2022-10-09",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11010415",
-      "giftBoxName": "肉肉我喜欢(TH)",
-      "bomVersion": "1",
-      "planPackingQuantity": 80,
-      "ageRequire": 50.0
-    },
-    {
-      "packingPlanVersion": 20220905004,
-      "packingPlanId": 10000242,
-      "packingPlanSerialNum": 1,
-      "demandCommitDate": "2022-09-05",
-      "requireOutWeek": "2022-10-09",
-      "packingPlanWeekNum": "2022-09-11",
-      "bu": "30",
-      "subChannel": "3001",
-      "warehouse": "D303",
-      "giftBoxCode": "11010361",
-      "giftBoxName": "悠小聚果干礼包",
-      "bomVersion": "1",
-      "planPackingQuantity": 1320,
-      "ageRequire": 50.0
-    }
-  ],
-  "stockInfo": [],
-  "arrivalInfo": [
-    {
-      "productCode": "11000670",
-      "warehouse": "D303",
-      "arrivalNum": 360000.0,
-      "arrivalDate": "2022-08-25"
-    },
-    {
-      "productCode": "11000403",
-      "warehouse": "D303",
-      "arrivalNum": 500000.0,
-      "arrivalDate": "2022-08-25"
-    },
-    {
-      "productCode": "80000054",
-      "warehouse": "D303",
-      "arrivalNum": 10000.0,
-      "arrivalDate": "2022-08-27"
-    },
-    {
-      "productCode": "11000353",
-      "warehouse": "D303",
-      "arrivalNum": 360000.0,
-      "arrivalDate": "2022-08-25"
-    }
-  ]
+	"fixedDate": "2022-09-18",
+	"lockDays": 3,
+	"requestId": 1663300248228,
+	"minimumStockOut": 1.0,
+	"optimalComponentConsumption": 0.0,
+	"maximumNumberOfGiftBoxes": 0.0,
+	"schedulingRequest": [
+		{
+			"packingPlanId": 10002485,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"scheduleId": 20000001,
+			"scheduleVersion": 2022091501,
+			"warehouse": "D303",
+			"batchRequire": "1/3",
+			"productCode": "11006988",
+			"productName": "肉肉大满足1405g",
+			"subChannel": "2003",
+			"bomVersion": "14",
+			"scheduleDate": "2022-09-16",
+			"planQuantity": 1300,
+			"deliveryFactory": "D332",
+			"isLock": true
+		},
+		{
+			"packingPlanId": 10001819,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"scheduleId": 20000002,
+			"scheduleVersion": 2022091501,
+			"warehouse": "D303",
+			"batchRequire": "1/3",
+			"productCode": "11008460",
+			"productName": "良品小时刻",
+			"subChannel": "3001",
+			"bomVersion": "8",
+			"scheduleDate": "2022-09-16",
+			"planQuantity": 4,
+			"deliveryFactory": null,
+			"isLock": true
+		},
+		{
+			"packingPlanId": 10001747,
+			"packingPlanSerialNum": 3,
+			"demandCommitDate": "2022-08-15",
+			"scheduleId": 20000003,
+			"scheduleVersion": 2022091501,
+			"warehouse": "D303",
+			"batchRequire": "1/3",
+			"productCode": "11006309",
+			"productName": "【经典坚果礼】-食食有爱A款1528g",
+			"subChannel": "3001",
+			"bomVersion": "9",
+			"scheduleDate": "2022-09-16",
+			"planQuantity": 136,
+			"deliveryFactory": null,
+			"isLock": true
+		},
+		{
+			"packingPlanId": 10001783,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"scheduleId": 20000004,
+			"scheduleVersion": 2022091501,
+			"warehouse": "D303",
+			"batchRequire": "1/3",
+			"productCode": "11006988",
+			"productName": "肉肉大满足1405g",
+			"subChannel": "3001",
+			"bomVersion": "14",
+			"scheduleDate": "2022-09-16",
+			"planQuantity": 3173,
+			"deliveryFactory": "D304",
+			"isLock": true
+		},
+		{
+			"packingPlanId": 10001774,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"scheduleId": 20000005,
+			"scheduleVersion": 2022091501,
+			"warehouse": "D303",
+			"batchRequire": "1/3",
+			"productCode": "11006811",
+			"productName": "卤味夜宵大礼包405克",
+			"subChannel": "3001",
+			"bomVersion": "10",
+			"scheduleDate": "2022-09-16",
+			"planQuantity": 1000,
+			"deliveryFactory": "D326",
+			"isLock": true
+		},
+		{
+			"packingPlanId": 10002035,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"scheduleId": 20000006,
+			"scheduleVersion": 2022091501,
+			"warehouse": "D303",
+			"batchRequire": "1/3",
+			"productCode": "11010427",
+			"productName": "【乐享坚果礼】 - 大快果颐(TH)",
+			"subChannel": "3001",
+			"bomVersion": "1",
+			"scheduleDate": "2022-09-16",
+			"planQuantity": 81,
+			"deliveryFactory": null,
+			"isLock": true
+		}
+	],
+	"packingPlanRequest": [
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10002485,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-18",
+			"bu": "20",
+			"subChannel": "2003",
+			"warehouse": "D303",
+			"giftBoxCode": "11006988",
+			"giftBoxName": "肉肉大满足1405g",
+			"bomVersion": "14",
+			"planPackingQuantity": 1300,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10002467,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "90",
+			"subChannel": "9002",
+			"warehouse": "D303",
+			"giftBoxCode": "11010378",
+			"giftBoxName": "夜食良伴500克",
+			"bomVersion": "4",
+			"planPackingQuantity": 5040,
+			"ageRequire": 0.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10002521,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "20",
+			"subChannel": "2003",
+			"warehouse": "D303",
+			"giftBoxCode": "11010420",
+			"giftBoxName": "爱吃的大熊猫(TH)",
+			"bomVersion": "4",
+			"planPackingQuantity": 550,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10002548,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "50",
+			"subChannel": "5001",
+			"warehouse": "D303",
+			"giftBoxCode": "11010451",
+			"giftBoxName": "缤纷卤味嗨吃盒526g",
+			"bomVersion": "1",
+			"planPackingQuantity": 1500,
+			"ageRequire": 0.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001819,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-18",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11008460",
+			"giftBoxName": "良品小时刻",
+			"bomVersion": "8",
+			"planPackingQuantity": 18100,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001810,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-18",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11008065",
+			"giftBoxName": "傲娇的好运喵",
+			"bomVersion": "10",
+			"planPackingQuantity": 515,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001801,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-18",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11007626",
+			"giftBoxName": "欢乐PARTY包-小时刻1418g（电商）",
+			"bomVersion": "5",
+			"planPackingQuantity": 250,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001792,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-18",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11007373",
+			"giftBoxName": "零食一次吃到嗨3366g",
+			"bomVersion": "10",
+			"planPackingQuantity": 1632,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001855,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11009442",
+			"giftBoxName": "2021让嘴巴去旅行零食大礼盒5219g",
+			"bomVersion": "12",
+			"planPackingQuantity": 7720,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001846,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-18",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11008916",
+			"giftBoxName": "食力满满大礼包",
+			"bomVersion": "6",
+			"planPackingQuantity": 5710,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001846,
+			"packingPlanSerialNum": 3,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11008916",
+			"giftBoxName": "食力满满大礼包",
+			"bomVersion": "6",
+			"planPackingQuantity": 6790,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001837,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-18",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11008600",
+			"giftBoxName": "肉肉我喜欢",
+			"bomVersion": "4",
+			"planPackingQuantity": 1410,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001828,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-18",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11008478",
+			"giftBoxName": "齐嗨聚大礼包",
+			"bomVersion": "6",
+			"planPackingQuantity": 4410,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001882,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-18",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11009462",
+			"giftBoxName": "【乐享坚果礼】 - B1款高品质1853/11袋",
+			"bomVersion": "2",
+			"planPackingQuantity": 13678,
+			"ageRequire": 70.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001873,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11009460",
+			"giftBoxName": "【良品大坚果礼盒】 - A1款分量足2353g/14袋",
+			"bomVersion": "2",
+			"planPackingQuantity": 18000,
+			"ageRequire": 70.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001864,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11009459",
+			"giftBoxName": "【尊雅坚果礼】 - A1 坚果满满",
+			"bomVersion": "3",
+			"planPackingQuantity": 1100,
+			"ageRequire": 70.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001918,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11010046",
+			"giftBoxName": "萌萌的小兔子",
+			"bomVersion": "2",
+			"planPackingQuantity": 8470,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001909,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11010041",
+			"giftBoxName": "爱吃的大熊猫",
+			"bomVersion": "4",
+			"planPackingQuantity": 2250,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001900,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11009819",
+			"giftBoxName": "肉肉大狂欢1751g",
+			"bomVersion": "6",
+			"planPackingQuantity": 16740,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001891,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11009735",
+			"giftBoxName": "肉肉大派对",
+			"bomVersion": "5",
+			"planPackingQuantity": 5030,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001756,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-18",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11006387",
+			"giftBoxName": "猪事顺利大礼包3157g",
+			"bomVersion": "20",
+			"planPackingQuantity": 9540,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001747,
+			"packingPlanSerialNum": 3,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-18",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11006309",
+			"giftBoxName": "【经典坚果礼】-食食有爱A款1528g",
+			"bomVersion": "9",
+			"planPackingQuantity": 57421,
+			"ageRequire": 70.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001738,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-18",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11006263",
+			"giftBoxName": "【甄选坚果礼】-A1纯坚果品种多 2120g/13袋",
+			"bomVersion": "8",
+			"planPackingQuantity": 35183,
+			"ageRequire": 70.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001729,
+			"packingPlanSerialNum": 3,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-18",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11005337",
+			"giftBoxName": "东方食力大礼包600g(京东定制款）",
+			"bomVersion": "4",
+			"planPackingQuantity": 0,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001729,
+			"packingPlanSerialNum": 5,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-18",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11005337",
+			"giftBoxName": "东方食力大礼包600g(京东定制款）",
+			"bomVersion": "10",
+			"planPackingQuantity": 2000,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001783,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-18",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11006988",
+			"giftBoxName": "肉肉大满足1405g",
+			"bomVersion": "14",
+			"planPackingQuantity": 51368,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001774,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-18",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11006811",
+			"giftBoxName": "卤味夜宵大礼包405克",
+			"bomVersion": "10",
+			"planPackingQuantity": 18596,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001765,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-18",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11006562",
+			"giftBoxName": "爱的果果-什锦果干（电商专供）",
+			"bomVersion": "7",
+			"planPackingQuantity": 3110,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10002071,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11010467",
+			"giftBoxName": "营养棒棒分享装400g",
+			"bomVersion": "1",
+			"planPackingQuantity": 1800,
+			"ageRequire": 80.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10002062,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11010466",
+			"giftBoxName": "【大克重礼盒】-分量足A1款",
+			"bomVersion": "1",
+			"planPackingQuantity": 7997,
+			"ageRequire": 70.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10002053,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11010465",
+			"giftBoxName": "【良品大坚果礼盒】-纯坚果高品质",
+			"bomVersion": "1",
+			"planPackingQuantity": 283,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10002107,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11010561",
+			"giftBoxName": "猪事顺利(TH)",
+			"bomVersion": "2",
+			"planPackingQuantity": 52332,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10002098,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11010541",
+			"giftBoxName": "【尊雅坚果礼】-高品质坚果满满",
+			"bomVersion": "1",
+			"planPackingQuantity": 4163,
+			"ageRequire": 70.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10002089,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11010540",
+			"giftBoxName": "【尊雅坚果礼】-分量满满-坚果炒货大克重",
+			"bomVersion": "1",
+			"planPackingQuantity": 3500,
+			"ageRequire": 70.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10002080,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11010538",
+			"giftBoxName": "拾贰甄选(2022月饼礼盒)",
+			"bomVersion": "1",
+			"planPackingQuantity": 145,
+			"ageRequire": 10.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001945,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11010270",
+			"giftBoxName": "爱美的小兔子",
+			"bomVersion": "2",
+			"planPackingQuantity": 3640,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001936,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11010235",
+			"giftBoxName": "【甄选坚果礼】- 果然有肉1761g",
+			"bomVersion": "2",
+			"planPackingQuantity": 1600,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001927,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11010212",
+			"giftBoxName": "猪事顺利萌猪版",
+			"bomVersion": "3",
+			"planPackingQuantity": 11280,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001981,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11010415",
+			"giftBoxName": "肉肉我喜欢(TH)",
+			"bomVersion": "1",
+			"planPackingQuantity": 1020,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001972,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11010361",
+			"giftBoxName": "悠小聚果干礼包",
+			"bomVersion": "1",
+			"planPackingQuantity": 750,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001963,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11010335",
+			"giftBoxName": "甜宠日记礼盒",
+			"bomVersion": "06",
+			"planPackingQuantity": 16380,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001954,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11010322",
+			"giftBoxName": "卤味夜宵礼包(嗨享装)930克",
+			"bomVersion": "07",
+			"planPackingQuantity": 9780,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10002008,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11010420",
+			"giftBoxName": "爱吃的大熊猫(TH)",
+			"bomVersion": "4",
+			"planPackingQuantity": 16860,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10001999,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11010419",
+			"giftBoxName": "肉肉大派对(2022款)TH",
+			"bomVersion": "2",
+			"planPackingQuantity": 13400,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10002044,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11010464",
+			"giftBoxName": "【经典乐享礼】-欢聚款",
+			"bomVersion": "1",
+			"planPackingQuantity": 930,
+			"ageRequire": 70.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10002035,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11010427",
+			"giftBoxName": "【乐享坚果礼】 - 大快果颐(TH)",
+			"bomVersion": "1",
+			"planPackingQuantity": 681,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10002026,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11010424",
+			"giftBoxName": "萌萌的小兔子(TH)",
+			"bomVersion": "2",
+			"planPackingQuantity": 1950,
+			"ageRequire": 50.0
+		},
+		{
+			"packingPlanVersion": 20220916002,
+			"packingPlanId": 10002017,
+			"packingPlanSerialNum": 2,
+			"demandCommitDate": "2022-08-15",
+			"requireOutWeek": "2022-09-18",
+			"packingPlanWeekNum": "2022-09-25",
+			"bu": "30",
+			"subChannel": "3001",
+			"warehouse": "D303",
+			"giftBoxCode": "11010423",
+			"giftBoxName": "良品小时刻(TH)",
+			"bomVersion": "1",
+			"planPackingQuantity": 2400,
+			"ageRequire": 50.0
+		}
+	],
+	"stockInfo": [
+		{
+			"productCode": "80011887",
+			"warehouse": "D303",
+			"stockNum": 1654.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008965",
+			"warehouse": "D303",
+			"stockNum": 17800.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008966",
+			"warehouse": "D303",
+			"stockNum": 52300.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008722",
+			"warehouse": "D303",
+			"stockNum": 4268.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11006545",
+			"warehouse": "D303",
+			"stockNum": 4280.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11010238",
+			"warehouse": "D303",
+			"stockNum": 52260.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008967",
+			"warehouse": "D303",
+			"stockNum": 29010.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008968",
+			"warehouse": "D303",
+			"stockNum": 40662.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80006733",
+			"warehouse": "D303",
+			"stockNum": 101.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80006615",
+			"warehouse": "D303",
+			"stockNum": 10404.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11005694",
+			"warehouse": "D303",
+			"stockNum": 4280.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11000681",
+			"warehouse": "D303",
+			"stockNum": 4280.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008169",
+			"warehouse": "D303",
+			"stockNum": 4280.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011412",
+			"warehouse": "D303",
+			"stockNum": 3718.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80009577",
+			"warehouse": "D303",
+			"stockNum": 71248.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011894",
+			"warehouse": "D303",
+			"stockNum": 180.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011892",
+			"warehouse": "D303",
+			"stockNum": 9980.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80007036",
+			"warehouse": "D303",
+			"stockNum": 1092.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80008124",
+			"warehouse": "D303",
+			"stockNum": 18377.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11007648",
+			"warehouse": "D303",
+			"stockNum": 40452.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009826",
+			"warehouse": "D303",
+			"stockNum": 300.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11007649",
+			"warehouse": "D303",
+			"stockNum": 30.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008054",
+			"warehouse": "D303",
+			"stockNum": 11413.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80009216",
+			"warehouse": "D303",
+			"stockNum": 792.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009820",
+			"warehouse": "D303",
+			"stockNum": 25570.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011785",
+			"warehouse": "D303",
+			"stockNum": 22.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11000419",
+			"warehouse": "D303",
+			"stockNum": 3030.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011783",
+			"warehouse": "D303",
+			"stockNum": 210.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011784",
+			"warehouse": "D303",
+			"stockNum": 12.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80006993",
+			"warehouse": "D303",
+			"stockNum": 4400.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11007170",
+			"warehouse": "D303",
+			"stockNum": 39.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011782",
+			"warehouse": "D303",
+			"stockNum": 370.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11010222",
+			"warehouse": "D303",
+			"stockNum": 74023.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80006191",
+			"warehouse": "D303",
+			"stockNum": 1200.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80006190",
+			"warehouse": "D303",
+			"stockNum": 45106.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11010219",
+			"warehouse": "D303",
+			"stockNum": 4280.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11006642",
+			"warehouse": "D303",
+			"stockNum": 1.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80009906",
+			"warehouse": "D303",
+			"stockNum": 3977.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009475",
+			"warehouse": "D303",
+			"stockNum": 61800.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009354",
+			"warehouse": "D303",
+			"stockNum": 3024.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008141",
+			"warehouse": "D303",
+			"stockNum": 8004.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80006995",
+			"warehouse": "D303",
+			"stockNum": 4990.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009116",
+			"warehouse": "D303",
+			"stockNum": 15685.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11000303",
+			"warehouse": "D303",
+			"stockNum": 4302.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009249",
+			"warehouse": "D303",
+			"stockNum": 5122.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009248",
+			"warehouse": "D303",
+			"stockNum": 5250.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008156",
+			"warehouse": "D303",
+			"stockNum": 7431.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11007980",
+			"warehouse": "D303",
+			"stockNum": 47959.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11003145",
+			"warehouse": "D303",
+			"stockNum": 32.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11004595",
+			"warehouse": "D303",
+			"stockNum": 30.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011961",
+			"warehouse": "D303",
+			"stockNum": 16434.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011169",
+			"warehouse": "D303",
+			"stockNum": 5027.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80012258",
+			"warehouse": "D303",
+			"stockNum": 22499.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80012257",
+			"warehouse": "D303",
+			"stockNum": 22499.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80012015",
+			"warehouse": "D303",
+			"stockNum": 410.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009052",
+			"warehouse": "D303",
+			"stockNum": 4264.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011727",
+			"warehouse": "D303",
+			"stockNum": 445.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011728",
+			"warehouse": "D303",
+			"stockNum": 12851.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011721",
+			"warehouse": "D303",
+			"stockNum": 54.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80005726",
+			"warehouse": "D303",
+			"stockNum": 180.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80012370",
+			"warehouse": "D303",
+			"stockNum": 170.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80002576",
+			"warehouse": "D303",
+			"stockNum": 4015.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80005967",
+			"warehouse": "D303",
+			"stockNum": 720.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008761",
+			"warehouse": "D303",
+			"stockNum": 25891.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011059",
+			"warehouse": "D303",
+			"stockNum": 14040.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80012269",
+			"warehouse": "D303",
+			"stockNum": 368.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11000926",
+			"warehouse": "D303",
+			"stockNum": 3520.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80002580",
+			"warehouse": "D303",
+			"stockNum": 2060.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011732",
+			"warehouse": "D303",
+			"stockNum": 385.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009988",
+			"warehouse": "D303",
+			"stockNum": 14741.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11010606",
+			"warehouse": "D303",
+			"stockNum": 1.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011729",
+			"warehouse": "D303",
+			"stockNum": 67.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11002799",
+			"warehouse": "D303",
+			"stockNum": 177.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11004297",
+			"warehouse": "D303",
+			"stockNum": 4280.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80010773",
+			"warehouse": "D303",
+			"stockNum": 780.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80012279",
+			"warehouse": "D303",
+			"stockNum": 17817.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011981",
+			"warehouse": "D303",
+			"stockNum": 49.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011982",
+			"warehouse": "D303",
+			"stockNum": 10.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009393",
+			"warehouse": "D303",
+			"stockNum": 50.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011980",
+			"warehouse": "D303",
+			"stockNum": 20.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80012155",
+			"warehouse": "D303",
+			"stockNum": 16052.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80012154",
+			"warehouse": "D303",
+			"stockNum": 15800.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009392",
+			"warehouse": "D303",
+			"stockNum": 29.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11004815",
+			"warehouse": "D303",
+			"stockNum": 32790.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80006716",
+			"warehouse": "D303",
+			"stockNum": 12.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11004028",
+			"warehouse": "D303",
+			"stockNum": 3002.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009397",
+			"warehouse": "D303",
+			"stockNum": 590.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009276",
+			"warehouse": "D303",
+			"stockNum": 14477.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009398",
+			"warehouse": "D303",
+			"stockNum": 114.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009156",
+			"warehouse": "D303",
+			"stockNum": 4064.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80000297",
+			"warehouse": "D303",
+			"stockNum": 148.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80007248",
+			"warehouse": "D303",
+			"stockNum": 12877.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009396",
+			"warehouse": "D303",
+			"stockNum": 54.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009039",
+			"warehouse": "D303",
+			"stockNum": 36187.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11005110",
+			"warehouse": "D303",
+			"stockNum": 26578.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009036",
+			"warehouse": "D303",
+			"stockNum": 29415.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11005233",
+			"warehouse": "D303",
+			"stockNum": 17.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80012287",
+			"warehouse": "D303",
+			"stockNum": 1316.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11000468",
+			"warehouse": "D303",
+			"stockNum": 52.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11000347",
+			"warehouse": "D303",
+			"stockNum": 4275.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80012043",
+			"warehouse": "D303",
+			"stockNum": 10.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009040",
+			"warehouse": "D303",
+			"stockNum": 28906.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011996",
+			"warehouse": "D303",
+			"stockNum": 900.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011997",
+			"warehouse": "D303",
+			"stockNum": 895.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11005245",
+			"warehouse": "D303",
+			"stockNum": 261.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008757",
+			"warehouse": "D303",
+			"stockNum": 4238.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008512",
+			"warehouse": "D303",
+			"stockNum": 4040.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80006606",
+			"warehouse": "D303",
+			"stockNum": 7978.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11007546",
+			"warehouse": "D303",
+			"stockNum": 69631.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11007304",
+			"warehouse": "D303",
+			"stockNum": 4031.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80012042",
+			"warehouse": "D303",
+			"stockNum": 781.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80009558",
+			"warehouse": "D303",
+			"stockNum": 1392.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11000353",
+			"warehouse": "D303",
+			"stockNum": 14391.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009169",
+			"warehouse": "D303",
+			"stockNum": 4040.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11007542",
+			"warehouse": "D303",
+			"stockNum": 3072.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011244",
+			"warehouse": "D303",
+			"stockNum": 94.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011245",
+			"warehouse": "D303",
+			"stockNum": 8187.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80010154",
+			"warehouse": "D303",
+			"stockNum": 1222.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80009166",
+			"warehouse": "D303",
+			"stockNum": 4141.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80007661",
+			"warehouse": "D303",
+			"stockNum": 21.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011923",
+			"warehouse": "D303",
+			"stockNum": 762.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11010520",
+			"warehouse": "D303",
+			"stockNum": 7840.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011921",
+			"warehouse": "D303",
+			"stockNum": 7276.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011922",
+			"warehouse": "D303",
+			"stockNum": 3627.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011920",
+			"warehouse": "D303",
+			"stockNum": 19.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009416",
+			"warehouse": "D303",
+			"stockNum": 41364.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009538",
+			"warehouse": "D303",
+			"stockNum": 23763.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009417",
+			"warehouse": "D303",
+			"stockNum": 33.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008325",
+			"warehouse": "D303",
+			"stockNum": 52290.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11007910",
+			"warehouse": "D303",
+			"stockNum": 18507.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009419",
+			"warehouse": "D303",
+			"stockNum": 89.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009893",
+			"warehouse": "D303",
+			"stockNum": 14500.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008565",
+			"warehouse": "D303",
+			"stockNum": 7441.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008566",
+			"warehouse": "D303",
+			"stockNum": 35435.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009773",
+			"warehouse": "D303",
+			"stockNum": 52290.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009410",
+			"warehouse": "D303",
+			"stockNum": 60.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80007670",
+			"warehouse": "D303",
+			"stockNum": 3664.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80012223",
+			"warehouse": "D303",
+			"stockNum": 203.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011493",
+			"warehouse": "D303",
+			"stockNum": 200.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11000843",
+			"warehouse": "D303",
+			"stockNum": 14520.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11000609",
+			"warehouse": "D303",
+			"stockNum": 21581.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009428",
+			"warehouse": "D303",
+			"stockNum": 234.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11010529",
+			"warehouse": "D303",
+			"stockNum": 33569.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009420",
+			"warehouse": "D303",
+			"stockNum": 69.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11007000",
+			"warehouse": "D303",
+			"stockNum": 36076.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008574",
+			"warehouse": "D303",
+			"stockNum": 60.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011387",
+			"warehouse": "D303",
+			"stockNum": 8149.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80010056",
+			"warehouse": "D303",
+			"stockNum": 21451.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011386",
+			"warehouse": "D303",
+			"stockNum": 520.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11010068",
+			"warehouse": "D303",
+			"stockNum": 300.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011703",
+			"warehouse": "D303",
+			"stockNum": 82255.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011820",
+			"warehouse": "D303",
+			"stockNum": 7770.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11006369",
+			"warehouse": "D303",
+			"stockNum": 369.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011819",
+			"warehouse": "D303",
+			"stockNum": 4517.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80006116",
+			"warehouse": "D303",
+			"stockNum": 3980.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80007203",
+			"warehouse": "D303",
+			"stockNum": 38912.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80012005",
+			"warehouse": "D303",
+			"stockNum": 19570.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80012004",
+			"warehouse": "D303",
+			"stockNum": 367.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80012002",
+			"warehouse": "D303",
+			"stockNum": 2114.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80010065",
+			"warehouse": "D303",
+			"stockNum": 6042.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009086",
+			"warehouse": "D303",
+			"stockNum": 7429.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80005156",
+			"warehouse": "D303",
+			"stockNum": 1186.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80006122",
+			"warehouse": "D303",
+			"stockNum": 396.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11000820",
+			"warehouse": "D303",
+			"stockNum": 14520.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80012121",
+			"warehouse": "D303",
+			"stockNum": 180.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011716",
+			"warehouse": "D303",
+			"stockNum": 4430.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011717",
+			"warehouse": "D303",
+			"stockNum": 2637.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011956",
+			"warehouse": "D303",
+			"stockNum": 1652.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011714",
+			"warehouse": "D303",
+			"stockNum": 28570.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011955",
+			"warehouse": "D303",
+			"stockNum": 3849.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008437",
+			"warehouse": "D303",
+			"stockNum": 4040.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009406",
+			"warehouse": "D303",
+			"stockNum": 60.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009525",
+			"warehouse": "D303",
+			"stockNum": 4103.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009404",
+			"warehouse": "D303",
+			"stockNum": 8.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009407",
+			"warehouse": "D303",
+			"stockNum": 32.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008792",
+			"warehouse": "D303",
+			"stockNum": 22.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80006128",
+			"warehouse": "D303",
+			"stockNum": 99.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011391",
+			"warehouse": "D303",
+			"stockNum": 3700.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009401",
+			"warehouse": "D303",
+			"stockNum": 7941.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009402",
+			"warehouse": "D303",
+			"stockNum": 87.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11007103",
+			"warehouse": "D303",
+			"stockNum": 4299.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11000519",
+			"warehouse": "D303",
+			"stockNum": 3000.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80007620",
+			"warehouse": "D303",
+			"stockNum": 9320.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008360",
+			"warehouse": "D303",
+			"stockNum": 7377.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11010320",
+			"warehouse": "D303",
+			"stockNum": 19.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11007949",
+			"warehouse": "D303",
+			"stockNum": 4.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80010119",
+			"warehouse": "D303",
+			"stockNum": 149360.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008917",
+			"warehouse": "D303",
+			"stockNum": 4496.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80012416",
+			"warehouse": "D303",
+			"stockNum": 1667.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11007951",
+			"warehouse": "D303",
+			"stockNum": 22.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11004686",
+			"warehouse": "D303",
+			"stockNum": 12.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11009338",
+			"warehouse": "D303",
+			"stockNum": 26134.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11007152",
+			"warehouse": "D303",
+			"stockNum": 10437.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11000400",
+			"warehouse": "D303",
+			"stockNum": 3040.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11000401",
+			"warehouse": "D303",
+			"stockNum": 7295.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008488",
+			"warehouse": "D303",
+			"stockNum": 4022.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008003",
+			"warehouse": "D303",
+			"stockNum": 2.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11002388",
+			"warehouse": "D303",
+			"stockNum": 228.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11002267",
+			"warehouse": "D303",
+			"stockNum": 72.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008123",
+			"warehouse": "D303",
+			"stockNum": 11584.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80007627",
+			"warehouse": "D303",
+			"stockNum": 315.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11002385",
+			"warehouse": "D303",
+			"stockNum": 280.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11000406",
+			"warehouse": "D303",
+			"stockNum": 4340.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011696",
+			"warehouse": "D303",
+			"stockNum": 7895.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11007280",
+			"warehouse": "D303",
+			"stockNum": 4268.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11000405",
+			"warehouse": "D303",
+			"stockNum": 12.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80009376",
+			"warehouse": "D303",
+			"stockNum": 53.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11006628",
+			"warehouse": "D303",
+			"stockNum": 4300.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011699",
+			"warehouse": "D303",
+			"stockNum": 110922.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008139",
+			"warehouse": "D303",
+			"stockNum": 62570.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11006753",
+			"warehouse": "D303",
+			"stockNum": 21805.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11004456",
+			"warehouse": "D303",
+			"stockNum": 3030.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11007606",
+			"warehouse": "D303",
+			"stockNum": 4.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11007605",
+			"warehouse": "D303",
+			"stockNum": 11247.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008010",
+			"warehouse": "D303",
+			"stockNum": 11280.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80007635",
+			"warehouse": "D303",
+			"stockNum": 657.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008130",
+			"warehouse": "D303",
+			"stockNum": 107368.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80007997",
+			"warehouse": "D303",
+			"stockNum": 5098.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80004126",
+			"warehouse": "D303",
+			"stockNum": 1219.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80007512",
+			"warehouse": "D303",
+			"stockNum": 10.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80007632",
+			"warehouse": "D303",
+			"stockNum": 574.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11007960",
+			"warehouse": "D303",
+			"stockNum": 15.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80002622",
+			"warehouse": "D303",
+			"stockNum": 32967.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011345",
+			"warehouse": "D303",
+			"stockNum": 260.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80010014",
+			"warehouse": "D303",
+			"stockNum": 2183.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011346",
+			"warehouse": "D303",
+			"stockNum": 178.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80008973",
+			"warehouse": "D303",
+			"stockNum": 158.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80007520",
+			"warehouse": "D303",
+			"stockNum": 197.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011584",
+			"warehouse": "D303",
+			"stockNum": 14775.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11000611",
+			"warehouse": "D303",
+			"stockNum": 4030.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80010935",
+			"warehouse": "D303",
+			"stockNum": 33720.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011904",
+			"warehouse": "D303",
+			"stockNum": 3440.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80010936",
+			"warehouse": "D303",
+			"stockNum": 759.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011109",
+			"warehouse": "D303",
+			"stockNum": 5820.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80010934",
+			"warehouse": "D303",
+			"stockNum": 1800.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011349",
+			"warehouse": "D303",
+			"stockNum": 1840.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011108",
+			"warehouse": "D303",
+			"stockNum": 3129.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80008292",
+			"warehouse": "D303",
+			"stockNum": 1160.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011347",
+			"warehouse": "D303",
+			"stockNum": 22750.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011348",
+			"warehouse": "D303",
+			"stockNum": 12776.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011106",
+			"warehouse": "D303",
+			"stockNum": 79.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80008291",
+			"warehouse": "D303",
+			"stockNum": 91.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11007137",
+			"warehouse": "D303",
+			"stockNum": 7112.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11004664",
+			"warehouse": "D303",
+			"stockNum": 15677.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11006724",
+			"warehouse": "D303",
+			"stockNum": 630.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80010808",
+			"warehouse": "D303",
+			"stockNum": 5434.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80007525",
+			"warehouse": "D303",
+			"stockNum": 34.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80007523",
+			"warehouse": "D303",
+			"stockNum": 1355.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11007134",
+			"warehouse": "D303",
+			"stockNum": 4280.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80008974",
+			"warehouse": "D303",
+			"stockNum": 1330.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80007529",
+			"warehouse": "D303",
+			"stockNum": 17084.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80007528",
+			"warehouse": "D303",
+			"stockNum": 29.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011235",
+			"warehouse": "D303",
+			"stockNum": 34211.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011114",
+			"warehouse": "D303",
+			"stockNum": 1445.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80009399",
+			"warehouse": "D303",
+			"stockNum": 400.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011115",
+			"warehouse": "D303",
+			"stockNum": 50669.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80012202",
+			"warehouse": "D303",
+			"stockNum": 720.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011112",
+			"warehouse": "D303",
+			"stockNum": 3420.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011113",
+			"warehouse": "D303",
+			"stockNum": 1515.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011594",
+			"warehouse": "D303",
+			"stockNum": 11840.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011110",
+			"warehouse": "D303",
+			"stockNum": 2002.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80010143",
+			"warehouse": "D303",
+			"stockNum": 254.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11000625",
+			"warehouse": "D303",
+			"stockNum": 4294.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011111",
+			"warehouse": "D303",
+			"stockNum": 49809.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80006684",
+			"warehouse": "D303",
+			"stockNum": 193.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80007530",
+			"warehouse": "D303",
+			"stockNum": 1030.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80010702",
+			"warehouse": "D303",
+			"stockNum": 327.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11008906",
+			"warehouse": "D303",
+			"stockNum": 4287.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80010701",
+			"warehouse": "D303",
+			"stockNum": 216.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011116",
+			"warehouse": "D303",
+			"stockNum": 2.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80010149",
+			"warehouse": "D303",
+			"stockNum": 94.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011238",
+			"warehouse": "D303",
+			"stockNum": 10056.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11002373",
+			"warehouse": "D303",
+			"stockNum": 387.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11010307",
+			"warehouse": "D303",
+			"stockNum": 19769.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80000227",
+			"warehouse": "D303",
+			"stockNum": 300.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011909",
+			"warehouse": "D303",
+			"stockNum": 1194.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11005766",
+			"warehouse": "D303",
+			"stockNum": 3000.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80011905",
+			"warehouse": "D303",
+			"stockNum": 1020.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80010937",
+			"warehouse": "D303",
+			"stockNum": 5598.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80007536",
+			"warehouse": "D303",
+			"stockNum": 27393.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11007143",
+			"warehouse": "D303",
+			"stockNum": 81.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "80008507",
+			"warehouse": "D303",
+			"stockNum": 1845.0,
+			"manufactureDay": "2022-09-16"
+		},
+		{
+			"productCode": "11006058",
+			"warehouse": "D303",
+			"stockNum": 12.0,
+			"manufactureDay": "2022-09-16"
+		}
+	],
+	"arrivalInfo": []
 }

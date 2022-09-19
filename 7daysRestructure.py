@@ -31,7 +31,6 @@ data_prepare_start = time.time()  # 数据准备时间开始函数
 # 设置数据路径全局变量
 
 
-print('test')
 project_path = os.getcwd()  # 当前路径
 jsons_filename = 'jsons'  # 存放数据的文件夹的名称
 result_filename = 'result'  # 结果数据的文件夹的名称
@@ -150,6 +149,9 @@ SAMPLE = list(sample_data.unique())  # 子件列表
 X_INDEX, X1_INDEX = model.get_xindex_x1index(ORDER_ID, OrderFull, T, PACK_RANGE, FIX_NUM)
 PackSample = model.get_package_sample(BOM, PACKAGE)
 
+# 模型中对于锁定与库存之间的逻辑的检验
+ProducePlanParse.Inventory_data_check(InventoryInitial, Lock, PackSample, BOM, data_list['requestId'], ScheduleProductionResult)
+
 data_prepare_end = time.time()  # 数据准备时间结束函数
 print('parameters are ready, time cost are: {0}s'.format(str(data_prepare_end - data_prepare_start)))
 
@@ -173,9 +175,10 @@ x_2 = model.create_x_2_tupledict(ORDER_ID, X_INDEX, solver, INFINITY, PACK_RANGE
 # 添加x变量的锁定库存的约束
 for line in range(Lock.shape[0]):
     i = Lock.loc[line, :]
-    # print('i: {}'.format(i))
-    solver.Add(x[i['id'], i['package'], i['n'], i['warehouse'], i['s_t'], i['o_t'], i['t']] == i['num'])
-    print('x: {}\n {}'.format([i['id'], i['package'], i['n'], i['warehouse'], i['s_t'], i['o_t'], i['t']], i['num']))
+    if i['o_t'] > 0:
+        # print('i: {}'.format(i))
+        solver.Add(x[i['id'], i['package'], i['n'], i['warehouse'], i['s_t'], i['o_t'], i['t']] == i['num'])
+        print('x: {}\n {}'.format([i['id'], i['package'], i['n'], i['warehouse'], i['s_t'], i['o_t'], i['t']], i['num']))
 # 添加初始库存约束
 for k, s in itertools.product(WAREHOUSE, SAMPLE):
     x_sum = 0
@@ -221,7 +224,7 @@ for i_d in ORDER_ID:
             for pt in range(FIX_NUM + 1, i['o_t'] + 1):
                 x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], pt]
         solver.Add(x_sum + x_1[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t']] ==
-                   model.get_demand(Order, i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t']))
+                   model.get_demand(Order, i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], PACK_RANGE))
 
 for i_d in ORDER_ID:
     if OrderFull[OrderFull['id'] == i_d]['isLock'].values[0] != 1:
@@ -231,7 +234,7 @@ for i_d in ORDER_ID:
                 for t_sum in range(FIX_NUM + 1, i['t'] + 1):
                     x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], t_sum]
                 solver.Add(x_sum + x_2[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['t']] ==
-                           model.get_demand(Order, i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t']))
+                           model.get_demand(Order, i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], PACK_RANGE))
 
 # 添加产能约束
 for k, t in itertools.product(WAREHOUSE, T):
@@ -280,42 +283,31 @@ if result_status == solver.OPTIMAL:
     request_id = data_list['requestId']
     res = {'code': 200, 'msg': "success", 'requestId': request_id, 'data': []}
     # TODO (杨江南)： 这个输出文件需要优化
+    for i in range(Lock.shape[0]):
+        for od in range(df_last_produce.shape[0]):
+            if Lock.loc[i, 'id'] == str(df_last_produce.loc[od, 'scheduleId']):
+                last_res = {'lockDays': LOCK_NUM,
+                            'packingPlanId': int(df_last_produce.loc[od, 'packingPlanId']),
+                            'packingPlanSerialNum': int(df_last_produce.loc[od, 'packingPlanSerialNum']),
+                            'demandCommitDate': df_last_produce.loc[od, 'demandCommitDate'],
+                            'scheduleId': int(df_last_produce.loc[od, 'scheduleId']),
+                            'scheduleVersion': int(df_last_produce.loc[od, 'scheduleVersion']),
+                            'warehouse': str(df_last_produce.loc[od, 'warehouse']),
+                            'subChannel': str(df_last_produce.loc[od, 'subChannel']),
+                            'productCode': str(df_last_produce.loc[od, 'productCode']),
+                            'productName': df_last_produce.loc[od, 'productName'],
+                            'bomVersion': str(df_last_produce.loc[od, 'bomVersion']),
+                            'scheduleDate': df_last_produce.loc[od, 'scheduleDate'],
+                            'planQuantity': int(df_last_produce.loc[od, 'planQuantity']),
+                            'batchRequire': str(df_last_produce.loc[od, 'batchRequire']),
+                            'deliveryFactory': str(df_last_produce.loc[od, 'deliveryFactory'])}
+                res['data'].append(last_res)
     for i_d in ORDER_ID:
         for i in X_INDEX[i_d]:
             if x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['t']].solution_value() > 0:
                 print((i['id'], i['m'], i['n'], i['k'], i['s_t'],
                        i['o_t'], i['t']), x[i['id'], i['m'], i['n'],
                                             i['k'], i['s_t'], i['o_t'], i['t']].solution_value())
-                for od in range(df_last_produce.shape[0]):
-                    if i['id'] == str(df_last_produce.loc[od, 'scheduleId']):
-                        if df_bom[(df_bom["productCode"] == i['m']) &
-                                  (df_bom["bomVersion"] == Order.loc[od, 'bom'])]["productName"].shape[0] == 0:
-                            product_name = "null"
-                        else:
-                            product_name = df_bom[(df_bom["productCode"] == str(i['m'])) &
-                                                  (df_bom["bomVersion"] == str(df_last_produce.loc[od, 'bomVersion'])
-                                                   )]["productName"].values[0]
-                        last_res = {
-                            'lockDays': lock_day_num,
-                            'packingPlanId': int(df_last_produce.loc[od, 'packingPlanId']),
-                            'packingPlanSerialNum': int(df_last_produce.loc[od, 'packingPlanSerialNum']),
-                            'demandCommitDate': df_last_produce.loc[od, 'demandCommitDate'],
-                            'scheduleId': int(df_last_produce.loc[od, 'scheduleId']),
-                            'scheduleVersion': int(df_last_produce.loc[od, 'scheduleVersion']),
-                            'warehouse': df_last_produce.loc[od, 'warehouse'],
-                            'subChannel': str(df_last_produce.loc[od, 'subChannel']),
-                            'productCode': str(df_last_produce.loc[od, 'productCode']),
-                            'productName': product_name,
-                            'bomVersion': str(df_last_produce.loc[od, 'bomVersion']),
-                            'scheduleDate': df_last_produce.loc[od, 'scheduleDate'],
-                            'planQuantity': int(df_last_produce.loc[od, 'planQuantity']),
-                            'batchRequire': str(df_last_produce.loc[od, 'batchRequire']),
-                            'deliveryFactory': str(df_last_produce.loc[od, 'deliveryFactory'])}
-                        res['data'].append(last_res)
-
-    for i_d in ORDER_ID:
-        for i in X_INDEX[i_d]:
-            if x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['t']].solution_value() > 0:
                 for od in range(Order.shape[0]):
                     if i['id'] == Order.loc[od, 'id']:
                         mid_res = {
