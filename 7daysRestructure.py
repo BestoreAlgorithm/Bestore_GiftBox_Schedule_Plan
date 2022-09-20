@@ -43,6 +43,7 @@ Priority = jsons_data_path + '\\' + 'Priority.json'
 Calendar = jsons_data_path + '\\' + 'Calendar.json'
 ScheduleProductionResult = result_data_path + '\\' + '7days_schedule_plan_result.json'
 ExecLog = result_data_path + '\\' + 'exec_7days.log'
+save_stdout = sys.stdout  # 保存当前控制台的输出路径
 sys.stdout = open(ExecLog, mode='w', encoding='utf-8')  # 添加log记录
 print('json数据所在的文件夹路径：', jsons_data_path)
 print('排产计划数据所在的文件夹路径：', ProducePlan)
@@ -333,6 +334,9 @@ if result_status == solver.OPTIMAL:
     with open(ScheduleProductionResult, 'w', encoding='utf-8') as write_f:
         write_f.write(json.dumps(res, indent=4, ensure_ascii=False))
     print('the result is be saved!')
+    print('Objective Value:{}'.format(solver.Objective().Value()))
+    sys.stdout = save_stdout
+    print(True)
 elif (result_status == solver.FEASIBLE):
     print('A potentially suboptimal solution was found.')  # 发现了一个潜在的次优解决方案
 elif (result_status == solver.INFEASIBLE):
@@ -344,6 +348,6 @@ elif (result_status == solver.ABNORMAL):
 elif (result_status == solver.NOT_SOLVED):
     print("Problem is not solved")
 
-print('Objective Value:{}'.format(solver.Objective().Value()))
+
 
 

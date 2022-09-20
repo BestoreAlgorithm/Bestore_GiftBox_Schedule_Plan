@@ -40,6 +40,7 @@ Priority = jsons_data_path + '\\' + 'Priority.json'
 Calendar = jsons_data_path + '\\' + 'Calendar.json'
 ScheduleProductionResult = result_data_path + '\\' + '13weeks_schedule_plan_result.json'
 ExecLog = result_data_path + '\\' + 'exec_13weeks.log'
+save_stdout = sys.stdout  # 保存当前控制台的输出路径
 # 添加log记录
 sys.stdout = open(ExecLog, mode='w', encoding='utf-8')
 print('json数据所在的文件夹路径：', jsons_data_path)
@@ -411,6 +412,8 @@ if status == pywraplp.Solver.OPTIMAL:
                             res['data']['subSupplyPlanInfo'].append(mid_sample)
     with open(ScheduleProductionResult, 'w', encoding='utf-8') as write_f:
         write_f.write(json.dumps(res, indent=4, ensure_ascii=False))
+    sys.stdout = save_stdout
+    print(True)
 elif (result_status == solver.FEASIBLE):
     print('A potentially suboptimal solution was found.')
 elif (result_status == solver.INFEASIBLE):

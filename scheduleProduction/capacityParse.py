@@ -8,6 +8,7 @@ import pandas as pd
 import datetime
 import json
 import sys
+save_stdout = sys.stdout  # 保存当前控制台的输出路径
 
 
 def pc_data_parse(category, df_capacity, Calendar_df, now_time, list_date):
@@ -191,4 +192,6 @@ def capacity_data_check(category, orders, df_capacity, ScheduleProductionResult,
                        'data': {'packingPlanInfo': [], 'subSupplyPlanInfo': [], 'requestId': request_id}}
             with open(ScheduleProductionResult, 'w', encoding='utf-8') as write_f:
                 write_f.write(json.dumps(res, indent=4, ensure_ascii=False))
+            sys.stdout = save_stdout
+            print(True)
             sys.exit(0)

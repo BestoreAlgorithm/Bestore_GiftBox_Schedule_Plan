@@ -6,6 +6,7 @@
 import pandas as pd
 import json
 import sys
+save_stdout = sys.stdout  # 保存当前控制台的输出路径
 
 
 def bom_data_parse(df_bom, data_orders):
@@ -74,4 +75,6 @@ def bom_data_check(category, df_bom, data_orders, ScheduleProductionResult, requ
                        'data': {'packingPlanInfo': [], 'subSupplyPlanInfo': [], 'requestId': request_id}}
             with open(ScheduleProductionResult, 'w', encoding='utf-8') as write_f:
                 write_f.write(json.dumps(res, indent=4, ensure_ascii=False))
+            sys.stdout = save_stdout
+            print(True)
             sys.exit(0)

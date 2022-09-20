@@ -8,6 +8,7 @@ import datetime
 from scheduleProduction import model
 import json
 import sys
+save_stdout = sys.stdout  # 保存当前控制台的输出路径
 
 # 传统设置列名和列对齐
 pd.set_option('display.unicode.ambiguous_as_wide', True)
@@ -212,5 +213,6 @@ def Inventory_data_check(I_0, data_lock, pack_sample, Bom, request_id, ScheduleP
                            'requestId': request_id, 'data': []}
                     with open(ScheduleProductionResult, 'w', encoding='utf-8') as write_f:
                         write_f.write(json.dumps(res, indent=4, ensure_ascii=False))
+                    sys.stdout = save_stdout
                     print(True)
                     sys.exit(0)
