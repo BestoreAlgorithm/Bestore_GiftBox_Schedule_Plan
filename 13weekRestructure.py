@@ -316,7 +316,7 @@ for t in T:
                 h_t = h_t + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']]
     h_c = h_c + h_t
 
-solver.Minimize(delaySum + loseSum + 0.0000001 * y_sum + 0.0000001 * h_c)
+solver.Minimize(delaySum + loseSum + 0.00000001 * y_sum)
 print('Objective function setting done ！')
 
 # 5）开始训练
