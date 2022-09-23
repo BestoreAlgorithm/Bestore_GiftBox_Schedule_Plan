@@ -250,20 +250,17 @@ for i_d in ORDER_ID:
 
 for i_d in ORDER_ID:
     for i in X_INDEX[i_d]:
+        x_sum = 0
+        sum_range = []
         if i['o_t'] == -1:
-            for pt in range(1, PACK_RANGE + 1):
-                x_sum = 0
-                for t_sum in range(1, pt + 1):
-                    x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], t_sum]
-                solver.Add(x_sum + x_2[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], pt] ==
-                           model.get_demand(Order, i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f']))
-        else:
-            if i['t'] >= i['o_t']:
-                x_sum = 0
-                for t_sum in range(list(model.packing_t(i['o_t'], COVER_NUM, T))[0], i['t'] + 1):
-                    x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], t_sum]
-                solver.Add(x_sum + x_2[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']] ==
-                           model.get_demand(Order, i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f']))
+            sum_range = range(1, i['t'] + 1)
+        elif i['t'] > i['o_t']:
+            sum_range = range(i['o_t'], i['t'] + 1)
+        for t_sum in sum_range:
+            x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], t_sum]
+        if i['t'] != i['o_t']:
+            solver.Add(x_sum + x_2[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']] ==
+                       model.get_demand(Order, i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f']))
 
 # 供应量约束
 '''
