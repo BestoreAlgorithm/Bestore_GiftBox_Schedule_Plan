@@ -345,7 +345,7 @@ def get_xindex_x1index(order_id, orders_f, pack_range, flag, fix_num):
 
 def get_sub_index(index, order_id, warehouse, pack_range):
     '''
-    返回按周期和长裤分块的索引
+    返回按周期和仓库分块的索引
     :param index: 原索引
     :param order_id: 订单id list
     :param warehouse: 仓库list
