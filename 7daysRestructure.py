@@ -149,6 +149,8 @@ SAMPLE = list(sample_data.unique())  # 子件列表
 
 X_INDEX, X1_INDEX = model.get_xindex_x1index(ORDER_ID, OrderFull, T, PACK_RANGE, FIX_NUM)
 PackSample = model.get_package_sample(BOM, PACKAGE)
+# 分块后的索引
+SUB_X_INDEX = model.get_sub_index(X_INDEX, ORDER_ID, WAREHOUSE, T)
 
 # 模型中对于锁定与库存之间的逻辑的检验
 ProducePlanParse.Inventory_data_check(InventoryInitial, Lock, PackSample, BOM, data_list['requestId'], ScheduleProductionResult)
@@ -183,38 +185,28 @@ for line in range(Lock.shape[0]):
 # 添加初始库存约束
 for k, s in itertools.product(WAREHOUSE, SAMPLE):
     x_sum = 0
-    for i_d in ORDER_ID:
-        for i in X_INDEX[i_d]:
-            if k == i['k'] and i['t'] == 1:
-                if s in PackSample[model.id2p(i_d, OrderFull)]:
-                    bom_nums = model.get_bom(BOM, i['m'], s)  # 这个int转化是因为get_bom的函数没写好
-                    # print('bom_nums: {0}\n, x: {1}'.format(bom_nums, type(bom_nums)))
-                    x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['t']] * bom_nums
+    for i in SUB_X_INDEX[k, 1]:
+        if s in PackSample[i['m']]:
+            bom_nums = model.get_bom(BOM, i['m'], s)
+            x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['t']] * bom_nums
     solver.Add(x_sum + invent[k, s, 1] == model.get_inventory(InventoryInitial, k, s))
 
 # 添加到锁定期的库存约束
 for k, s, t in itertools.product(WAREHOUSE, SAMPLE, range(2, LOCK_NUM + 1)):
     x_sum = 0
-    for i_d in ORDER_ID:
-        for i in X_INDEX[i_d]:
-            if k == i['k'] and t == i['t']:
-                if s in PackSample[model.id2p(i_d, OrderFull)]:
-                    bom_nums = model.get_bom(BOM, i['m'], s)
-                    # print('bom_nums: {0}\n, x: {1}'.format(bom_nums, type(bom_nums)))
-                    x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['t']] * bom_nums
+    for i in SUB_X_INDEX[k, t]:
+        if s in PackSample[i['m']]:
+            bom_nums = model.get_bom(BOM, i['m'], s)
+            x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['t']] * bom_nums
     solver.Add(x_sum + invent[k, s, t] == invent[k, s, t - 1])
 
 # 添加到决策末期的库存约束
 for k, s, t in itertools.product(WAREHOUSE, SAMPLE, range(LOCK_NUM + 1, PACK_RANGE + 1)):
     x_sum = 0
-    y_sum = 0
-    for i_d in ORDER_ID:
-        for i in X_INDEX[i_d]:
-            if k == i['k'] and t == i['t']:
-                if s in PackSample[model.id2p(i_d, OrderFull)]:
-                    bom_nums = model.get_bom(BOM, i['m'], s)
-                    # print('bom_nums: {0}\n, x: {1}'.format(bom_nums, type(bom_nums)))
-                    x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['t']] * bom_nums
+    for i in SUB_X_INDEX[k, t]:
+        if s in PackSample[i['m']]:
+            bom_nums = model.get_bom(BOM, i['m'], s)
+            x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['t']] * bom_nums
     solver.Add(x_sum + invent[k, s, t] == invent[k, s, t - 1] + model.get_arr(Arr, k, s, t))
 
 # 添加需求约束
