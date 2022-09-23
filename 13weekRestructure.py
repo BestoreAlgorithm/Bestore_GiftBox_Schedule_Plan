@@ -50,8 +50,7 @@ print('产能主数据所在的文件夹路径：', Capacity)
 print('优先级主数据所在的文件夹路径：', Priority)
 print('日历主数据所在的文件路径：', Calendar)
 
-now_time = datetime.date(2022, 9, 11)
-#now_time = datetime.date.today()  # 当日日期
+now_time = datetime.date.today()  # 当日日期
 # 日期处理：生成13周的str日期和date日期
 list_date_time, list_date = shareFunction.data_list_create(13, now_time, 13)
 days_before_date = list_date_time[0] + datetime.timedelta(days=-7)  # 第一周的前一周日期(特殊情况)
@@ -173,7 +172,8 @@ invent = model.create_invent_tupledict(WAREHOUSE, SAMPLE, T, solver, INFINITY)
 x_1 = model.create_x_1_tupledict(ORDER_ID, X1_INDEX, solver, INFINITY, PACK_RANGE)
 # 初始化[x_2]tupledict变量子集
 x_2 = model.create_x_2_tupledict(ORDER_ID, X_INDEX, solver, INFINITY, PACK_RANGE)
-
+initial_time = time.time()
+print("开始添加库存约束...")
 # 3) 设置求解器约束
 # 添加x变量的锁定库存的约束
 # 添加库存约束(1)
@@ -238,7 +238,10 @@ else:
             if s == j['s']:
                 y_sum = y_sum + y[j['s'], j['id'], j['m'], j['n'], j['k'], j['s_t'], j['o_t'], j['f'], j['t']]
         solver.Add(x_sum + invent[k, s, t] == invent[k, s, t - 1] + y_sum)
-
+print("库存约束数", solver.NumConstraints())
+inventory_time = time.time()
+print("库存约束时间花费:", inventory_time - initial_time)
+print("开始添加需求约束...")
 # 添加需求约束
 for i_d in ORDER_ID:
     for i in X1_INDEX[i_d]:
@@ -262,7 +265,9 @@ for i_d in ORDER_ID:
         if i['t'] != i['o_t']:
             solver.Add(x_sum + x_2[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']] ==
                        model.get_demand(Order, i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f']))
-
+print("需求约束数", solver.NumConstraints())
+demand_time = time.time()
+print("需求约束时间花费:",  demand_time - inventory_time)
 # 供应量约束
 '''
 for s, t in itertools.product(SAMPLE, T):
@@ -275,6 +280,7 @@ for s, t in itertools.product(SAMPLE, T):
             y_sum = y_sum + y[i['s'], i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']]
     solver.Add(y_sum <= model.supply_c(s, t))
 '''
+print("开始添加产能约束...")
 # 添加产能约束
 for k, t in itertools.product(WAREHOUSE, T):
     rate = 0
@@ -284,7 +290,9 @@ for k, t in itertools.product(WAREHOUSE, T):
         rate = rate + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']] / \
                model.warehouse_s(PackingCapacity, k, i['m'], t)
     solver.Add(rate <= float(model.warehouse_c(PackingCapacity, k, t)))
-
+print("产能约束数", solver.NumConstraints())
+pc_time = time.time()
+print("产能约束花费时间:", pc_time - demand_time)
 # 4) 设置目标函数
 
 for i_d in ORDER_ID:
@@ -314,12 +322,12 @@ for t in T:
                 h_t = h_t + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']]
     h_c = h_c + h_t
 
-solver.Minimize(delaySum + loseSum + 0.00000001 * y_sum)
+solver.Minimize(delaySum + loseSum + 0.0000001 * y_sum)
 print('Objective function setting done ！')
 
 # 5）开始训练
 parameters = pywraplp.MPSolverParameters()
-parameters.SetDoubleParam(pywraplp.MPSolverParameters.RELATIVE_MIP_GAP, 1e-8)
+parameters.SetDoubleParam(pywraplp.MPSolverParameters.RELATIVE_MIP_GAP, 1e-7)
 print('Optimizing...')
 status = solver.Solve(parameters)
 if status == pywraplp.Solver.OPTIMAL:
@@ -412,13 +420,16 @@ if status == pywraplp.Solver.OPTIMAL:
         write_f.write(json.dumps(res, indent=4, ensure_ascii=False))
     sys.stdout = save_stdout
     print(True)
-elif (result_status == solver.FEASIBLE):
+elif (status == solver.FEASIBLE):
     print('A potentially suboptimal solution was found.')
-elif (result_status == solver.INFEASIBLE):
+elif (status == solver.INFEASIBLE):
     print("Problem is infeasible")
-elif (result_status == solver.UNBOUNDED):
+elif (status == solver.UNBOUNDED):
     print("Problem is unbounded")
-elif (result_status == solver.ABNORMAL):
+elif (status == solver.ABNORMAL):
     print("Problem is abnormal")
-elif (result_status == solver.NOT_SOLVED):
+elif (status == solver.NOT_SOLVED):
     print("Problem is not solved")
+time_end = time.time()
+print("Total time consume:", time_end - data_prepare_start)
+
