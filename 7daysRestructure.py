@@ -130,22 +130,22 @@ T = range(1, PACK_RANGE + 1)
 FIX_NUM = add_day_num
 if FIX_NUM < 0:
     FIX_NUM = 0
-INVENTORY_SCALE = 10000000
+INVENTORY_SCALE = 10000
 # 目标函数
 loseSum = 0
 delaySum = 0
 h_c = 0
 # lists
 # print('Order:\n{0},\n lock: \n {1}'.format(Order.head(), Lock.head()))
-lock_day_num = data_list['lockDays']
 
 N = list(Order['n'].unique())  # 渠道数量
 WAREHOUSE = list(Order['warehouse'].unique())  # 仓库列表
 PACKAGE = list(Order['package'].unique())  # 礼盒列表
 ORDER_ID = list(OrderFull['id'].unique())  # 全部编号列表
-
+MappingTable = pd.DataFrame()
 LOCK_ID = list(Lock['id'].unique())  # 锁定订单编号
 SAMPLE = list(sample_data.unique())  # 子件列表
+CHANNEL = model.n_2_channel_list(MappingTable, N)
 
 X_INDEX, X1_INDEX = model.get_xindex_x1index(ORDER_ID, OrderFull, T, PACK_RANGE, FIX_NUM)
 PackSample = model.get_package_sample(BOM, PACKAGE)
@@ -181,33 +181,41 @@ for line in range(Lock.shape[0]):
     if i['o_t'] > 0:
         # print('i: {}'.format(i))
         solver.Add(x[i['id'], i['package'], i['n'], i['warehouse'], i['s_t'], i['o_t'], i['t']] == i['num'])
-        print('x: {}\n {}'.format([i['id'], i['package'], i['n'], i['warehouse'], i['s_t'], i['o_t'], i['t']], i['num']))
+        # print('x: {}\n {}'.format([i['id'], i['package'], i['n'], i['warehouse'], i['s_t'], i['o_t'], i['t']],
+        # i['num']))
 # 添加初始库存约束
-for k, s in itertools.product(WAREHOUSE, SAMPLE):
+print('Inventory constraints begin...')
+for k, ch, s in itertools.product(WAREHOUSE, CHANNEL, SAMPLE):
     x_sum = 0
+    # 循环还有优化的空间
     for i in SUB_X_INDEX[k, 1]:
-        if s in PackSample[i['m']]:
-            bom_nums = model.get_bom(BOM, i['m'], s)
-            x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['t']] * bom_nums
-    solver.Add(x_sum + invent[k, s, 1] == model.get_inventory(InventoryInitial, k, s))
+        if ch == model.n_2_channel(MappingTable, i['k'], i['n']):
+            if s in PackSample[i['m']]:
+                bom_nums = model.get_bom(BOM, i['m'], s)
+                x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['t']] * bom_nums
+    solver.Add(x_sum + invent[k, ch, s, 1] == model.get_inventory(InventoryInitial, k, ch, s))
 
 # 添加到锁定期的库存约束
-for k, s, t in itertools.product(WAREHOUSE, SAMPLE, range(2, LOCK_NUM + 1)):
-    x_sum = 0
-    for i in SUB_X_INDEX[k, t]:
-        if s in PackSample[i['m']]:
-            bom_nums = model.get_bom(BOM, i['m'], s)
-            x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['t']] * bom_nums
-    solver.Add(x_sum + invent[k, s, t] == invent[k, s, t - 1])
+if LOCK_NUM > 0:
+    for k, ch, s, t in itertools.product(WAREHOUSE, CHANNEL, SAMPLE, range(2, LOCK_NUM + 1)):
+        x_sum = 0
+        for i in SUB_X_INDEX[k, t]:
+            if ch == model.n_2_channel(MappingTable, i['k'], i['n']):
+                if s in PackSample[i['m']]:
+                    bom_nums = model.get_bom(BOM, i['m'], s)
+                    x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['t']] * bom_nums
+        solver.Add(x_sum + invent[k, s, t] == invent[k, s, t - 1])
 
 # 添加到决策末期的库存约束
-for k, s, t in itertools.product(WAREHOUSE, SAMPLE, range(LOCK_NUM + 1, PACK_RANGE + 1)):
+for k, ch, s, t in itertools.product(WAREHOUSE, CHANNEL, SAMPLE, range(LOCK_NUM + 1, PACK_RANGE + 1)):
     x_sum = 0
     for i in SUB_X_INDEX[k, t]:
-        if s in PackSample[i['m']]:
-            bom_nums = model.get_bom(BOM, i['m'], s)
-            x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['t']] * bom_nums
+        if ch == model.n_2_channel(MappingTable, i['k'], i['n']):
+            if s in PackSample[i['m']]:
+                bom_nums = model.get_bom(BOM, i['m'], s)
+                x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['t']] * bom_nums
     solver.Add(x_sum + invent[k, s, t] == invent[k, s, t - 1] + model.get_arr(Arr, k, s, t))
+print('Inventory constraints done...')
 
 # 添加需求约束
 for i_d in ORDER_ID:
@@ -228,18 +236,24 @@ for i_d in ORDER_ID:
                     x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], t_sum]
                 solver.Add(x_sum + x_2[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['t']] ==
                            model.get_demand(Order, i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], PACK_RANGE))
+print('Demond done...')
+
 
 # 添加产能约束
 for k, t in itertools.product(WAREHOUSE, T):
+    warehouse_list = list(PackingCapacity[PackingCapacity['pack_factory'] == k]['warehouse'].unique())
     rate = 0
     for i_d in ORDER_ID:
         for i in X_INDEX[i_d]:
-            if i['k'] == k and i['t'] == t:
+            if i['k'] in warehouse_list and i['t'] == t:
                 rate = rate + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['t']] / \
                        model.warehouse_s(PackingCapacity, k, i['m'], t)
     solver.Add(rate <= float(model.warehouse_c(PackingCapacity, k, t)))
+print('Capacity done...')
+
 
 # 4) 设置目标函数
+
 for i_d in ORDER_ID:
     for i in X1_INDEX[i_d]:
         delaySum = delaySum + model.objective_weight(i['m'], i['n'], i['k'], i['s_t'], i['o_t'], Wei, PACK_RANGE, 1) * \
@@ -251,8 +265,8 @@ for i_d in ORDER_ID:
             loseSum = loseSum + model.objective_weight(i['m'], i['n'], i['k'], i['s_t'], i['o_t'], Wei, PACK_RANGE, 1) * \
                       x_2[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['t']]
 
-for k, s, t in itertools.product(WAREHOUSE, SAMPLE, T):
-    h_c = h_c + invent[k, s, t]
+for k, ch, s, t in itertools.product(WAREHOUSE, CHANNEL, SAMPLE, T):
+    h_c = h_c + invent[k, ch, s, t]
 
 solver.Minimize(delaySum + loseSum + h_c / INVENTORY_SCALE)
 print('Objective function setting done ！')

@@ -50,7 +50,8 @@ print('产能主数据所在的文件夹路径：', Capacity)
 print('优先级主数据所在的文件夹路径：', Priority)
 print('日历主数据所在的文件路径：', Calendar)
 
-now_time = datetime.date.today()  # 当日日期
+#now_time = datetime.date.today()  # 当日日期
+now_time = datetime.date(2022, 9, 9)
 # 日期处理：生成13周的str日期和date日期
 list_date_time, list_date = shareFunction.data_list_create(13, now_time, 13)
 days_before_date = list_date_time[0] + datetime.timedelta(days=-7)  # 第一周的前一周日期(特殊情况)

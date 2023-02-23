@@ -291,12 +291,12 @@ def get_yindex(x_index, order_id, order, pack_sample):
 def get_xindex_x1index(order_id, orders_f, pack_range, flag, fix_num):
     '''
 
-    :param order_id:
-    :param orders_f:
-    :param pack_range:
-    :param flag:
-    :param fix_num:
-    :return:
+    :param order_id: 生成x的订单id
+    :param orders_f: 包含锁定订单的订单列表
+    :param pack_range: 分装周期
+    :param flag: 7天13周区分标志
+    :param fix_num: 固定天数，固定天数后可以加单
+    :return: dataframe, 两个决策变量的索引
     '''
     xindex = {}
     x1index = {}
@@ -343,6 +343,35 @@ def get_xindex_x1index(order_id, orders_f, pack_range, flag, fix_num):
     return xindex, x1index
 
 
+def n_2_channel_list(mapping_table, n_list):
+    '''
+    返回所有需求涉及的子渠道列表
+    :param mapping_table: 需求仓库渠道与库存子渠道对应表
+    :param n_list: 需求的渠道列表
+    :return: 需求涉及的子渠道列表
+    '''
+    c_list = []
+    for n in n_list:
+        ch = mapping_table[mapping_table['n'] == n]['sub_channel'].unique()
+        if len(ch) != 1:
+            print('一个n对应多个子渠道')
+            exit()
+        else:
+            c_list.append(ch[0])
+        return c_list
+
+
+def n_2_channel(mapping_table, warehouse, n):
+    '''
+    将需求仓库和渠道转化为子渠道
+    :param mapping_table: 需求渠道与库存子渠道对应表
+    :param warehouse: 需求对应的仓库
+    :param n: 需求对应的渠道
+    :return: 需求对应的库存子渠道
+    '''
+    return mapping_table[(mapping_table['warehouse'] == warehouse) & (mapping_table['n'] == n)]['sub_channel'].values[0]
+
+
 def get_sub_index(index, order_id, warehouse, pack_range):
     '''
     返回按周期和仓库分块的索引
@@ -363,6 +392,12 @@ def get_sub_index(index, order_id, warehouse, pack_range):
 
 
 def get_package_sample(BOM, package):
+    '''
+    返回礼盒的子件列表
+    :param BOM: BOM单
+    :param package: 礼盒id
+    :return: 对应礼盒的子件id列表
+    '''
     PackSample = {}
     for p in package:
         PackSample[p] = BOM[BOM['pack'] == p]['sample'].unique()
