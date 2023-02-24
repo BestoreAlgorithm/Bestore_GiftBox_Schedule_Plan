@@ -32,7 +32,7 @@ data_prepare_start = time.time()  # 数据准备时间开始函数
 
 
 project_path = os.getcwd()  # 当前路径
-jsons_filename = 'jsons'  # 存放数据的文件夹的名称
+jsons_filename = '7天测试'  # 存放数据的文件夹的名称
 result_filename = 'result'  # 结果数据的文件夹的名称
 jsons_data_path = project_path + '\\' + jsons_filename  # 原始数据的路径
 result_data_path = project_path + '\\' + result_filename  # 结果数据的路径
@@ -41,6 +41,7 @@ Bom = jsons_data_path + '\\' + 'Bom.json'
 Capacity = jsons_data_path + '\\' + 'Capacity.json'
 Priority = jsons_data_path + '\\' + 'Priority.json'
 Calendar = jsons_data_path + '\\' + 'Calendar.json'
+ChannelMap = jsons_data_path + '\\' + 'Mappingtable.json'
 ScheduleProductionResult = result_data_path + '\\' + '7days_schedule_plan_result.json'
 ExecLog = result_data_path + '\\' + 'exec_7days.log'
 save_stdout = sys.stdout  # 保存当前控制台的输出路径
@@ -51,6 +52,7 @@ print('Bom主数据所在的文件夹路径：', Bom)
 print('产能主数据所在的文件夹路径：', Capacity)
 print('优先级主数据所在的文件夹路径：', Priority)
 print('日历主数据所在的文件路径：', Calendar)
+print('渠道映射表所在的文件路径：', ChannelMap)
 
 
 # 日期变量
@@ -59,8 +61,18 @@ print('日历主数据所在的文件路径：', Calendar)
 2、 创建日期字符串列表（从今天到未来滚动七天）
 '''
 
-now_time = datetime.date.today()
+now_time = datetime.date.today()  # 日期改变位置
+now_time = datetime.date(2022, 12, 27)
 list_date_time, list_date = shareFunction.data_list_create(7, now_time, 7)
+
+# 渠道映射表读入
+''' 用于下单渠道和子件库存渠道之间的映射关系 '''
+
+with open(ChannelMap, "r", encoding="utf-8") as f_mapping_json:
+    info_channel_map = f_mapping_json.read()
+    data_list_mapping = json.loads(info_channel_map)
+    df_channel_mapping = pd.DataFrame(data_list_mapping)
+MappingTable = df_channel_mapping.rename(columns={'stockFactory': 'warehouse', 'finishChannel': 'n'})
 
 # ProducePlan json信息读入
 '''
@@ -73,18 +85,18 @@ ProducePlan主要数据读入
 arrive_interval_days = 2  # 全局变量，表示到货子件变成可用的相对日期
 
 with open(ProducePlan, "r", encoding="utf-8") as f_json:
-    info = f_json.read()
-    data_list = json.loads(info)
+    info_main = f_json.read()
+    data_list = json.loads(info_main)  # 主数据的data_list，下方还会用于锁定规则的使用
     df_orders = pd.DataFrame(data_list["packingPlanRequest"])  # 分装需求
     df_inventory = pd.DataFrame(data_list["stockInfo"])  # 库存信息
     df_arrival = pd.DataFrame(data_list["arrivalInfo"])  # 到货信息
     df_last_produce = pd.DataFrame(data_list["schedulingRequest"])  # 排产需求（多行）
 
 print('df_last_produce:\n {}'.format(df_last_produce))
-Lock = ProducePlanParse.lock_data_parse(df_last_produce, now_time)  # 解析锁定的计划
+Lock = ProducePlanParse.lock_data_parse(df_last_produce, now_time, list_date)  # 解析锁定的计划
 OrderFull, Order = ProducePlanParse.orders_f_data_parse(df_orders, Lock, list_date)  # 解析需求提报计划锁定数据
 InventoryInitial = ProducePlanParse.I_0_data_inventory_parse(df_inventory)  # 解析库存数据Inventory
-Arr = ProducePlanParse.arr_data_parse(df_arrival, now_time, arrive_interval_days)  # 解析到货信息
+Arr = ProducePlanParse.arr_data_parse(df_arrival, now_time, arrive_interval_days, data_list['lockDays'])  # 解析到货信息
 
 # BOM基础数据json信息读入与解析
 with open(Bom, "r", encoding="utf-8") as f_json_bom:
@@ -95,9 +107,9 @@ bomsParse.bom_data_check(7, df_bom, OrderFull, ScheduleProductionResult, data_li
 BOM = bomsParse.bom_data_parse(df_bom, OrderFull)  # Order -> OrderFull
 
 # calendar基础数据日历(休息日)读入与解析
-with open(Calendar, "r", encoding="utf-8") as f_json:
-    info = f_json.read()
-    data_list_calendar = json.loads(info)
+with open(Calendar, "r", encoding="utf-8") as f_json_calendar:
+    info_calendar = f_json_calendar.read()
+    data_list_calendar = json.loads(info_calendar)
     Calendar_df_1 = pd.DataFrame(data_list_calendar)
     Calendar_df = Calendar_df_1.explode('dayOff')
     Calendar_df.reset_index(drop=True, inplace=True)
@@ -117,8 +129,14 @@ with open(Priority, "r", encoding="utf-8") as f_json_priority:
     data_list_priority = json.loads(info_priority)
     df_priority = pd.DataFrame(data_list_priority)
 Wei = priorityParse.wei_data_parse(df_priority)
-add_date = datetime.datetime.strptime(data_list['fixedDate'], "%Y-%m-%d").date()  # 传入的锁定天数为一个日期，可能为可以加单日期或隔天可以加单？
-add_day_num = (add_date - now_time).days  # 转化为第n天，今天24，数据中为26号，则为排产的第二天
+
+# 锁定功能使用开关：可加单日期 (从data_list中提取)
+if not data_list['fixedDate']:  # 当传入的fixedDate为空时，关闭"锁定日期"功能，空的表现形式为:""或:null
+    add_day_num = 0
+else:
+    add_date = datetime.datetime.strptime(data_list['fixedDate'], "%Y-%m-%d").date()  # 传入的锁定天数为一个日期，可能为可以加单日期或隔天可以加单？
+    add_day_num = (add_date - now_time).days  # 转化为第n天，如今天24，数据中为26号，则为排产的第二天
+
 # Sample
 sample_data = model.get_sample(Order, BOM, 7)
 

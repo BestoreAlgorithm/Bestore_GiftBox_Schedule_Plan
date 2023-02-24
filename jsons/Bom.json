@@ -24118,5 +24118,117 @@
 		"subCode": "80011923",
 		"subName": "礼包通用外箱E",
 		"subQuantity": "0.100"
+	},
+	{
+		"productCode": "11008532",
+		"productName": "家の美味魔方",
+		"bomVersion": "7",
+		"subCode": "11002081",
+		"subName": "茶香瓜子（150g）",
+		"subQuantity": "1.000"
+	},
+	{
+		"productCode": "11008532",
+		"productName": "家の美味魔方",
+		"bomVersion": "7",
+		"subCode": "11002831",
+		"subName": "天山珍枣（155g）",
+		"subQuantity": "1.000"
+	},
+	{
+		"productCode": "11000952",
+		"productName": "良品食尚（大红色）（商城专供）",
+		"bomVersion": "5",
+		"subCode": "11002155",
+		"subName": "健康枣片（90g）",
+		"subQuantity": "0.005"
+	},
+	{
+		"productCode": "11000952",
+		"productName": "良品食尚（大红色）（商城专供）",
+		"bomVersion": "5",
+		"subCode": "11002207",
+		"subName": "无核白葡萄干（245克）",
+		"subQuantity": "1.000"
+	},
+	{
+		"productCode": "11002614",
+		"productName": "良品食尚（大红色）",
+		"bomVersion": "4",
+		"subCode": "11002742",
+		"subName": "自然豆语（165g）",
+		"subQuantity": "2.000"
+	},
+	{
+		"productCode": "11002614",
+		"productName": "良品食尚（大红色）",
+		"bomVersion": "3",
+		"subCode": "11002155",
+		"subName": "健康枣片（90g）",
+		"subQuantity": "0.500"
+	},
+	{
+		"productCode": "11002614",
+		"productName": "良品食尚（大红色）",
+		"bomVersion": "3",
+		"subCode": "11002207",
+		"subName": "无核白葡萄干（245克）",
+		"subQuantity": "1.000"
+	},
+	{
+		"productCode": "11005337",
+		"productName": "东方食力大礼包600g(京东定制款）",
+		"bomVersion": "10",
+		"subCode": "11008130",
+		"subName": "高蛋白肉脯(100g)",
+		"subQuantity": "1000.000"
+	},
+	{
+		"productCode": "11005337",
+		"productName": "东方食力大礼包600g(京东定制款）",
+		"bomVersion": "10",
+		"subCode": "11008139",
+		"subName": "小鸡腿(鸡翅根)(奥尔良风味)108g",
+		"subQuantity": "1000.000"
+	},
+	{
+		"productCode": "11000718",
+		"productName": "果然有福（礼盒）",
+		"bomVersion": "3",
+		"subCode": "11000379",
+		"subName": "奶香夏威夷果（280g）（电商专供新包装）",
+		"subQuantity": "1.000"
+	},
+	{
+		"productCode": "11000718",
+		"productName": "果然有福（礼盒）",
+		"bomVersion": "4",
+		"subCode": "11000379",
+		"subName": "奶香夏威夷果（280g）（电商专供新包装）",
+		"subQuantity": "1.000"
+	},
+	{
+		"productCode": "11006387",
+		"productName": "猪事顺利大礼包3157g",
+		"bomVersion": "21",
+		"subCode": "11000353",
+		"subName": "手造麻薯（红豆味）（电商）",
+		"subQuantity": "1.000"
+	},
+	{
+		"productCode": "11006387",
+		"productName": "猪事顺利大礼包3157g",
+		"bomVersion": "21",
+		"subCode": "11004664",
+		"subName": "怪味胡豆 120g(电商专供）",
+		"subQuantity": "3.000"
+	},
+	{
+		"productCode": "11006387",
+		"productName": "猪事顺利大礼包3157g",
+		"bomVersion": "21",
+		"subCode": "11007108",
+		"subName": "青绿小豆",
+		"subQuantity": "2.000"
 	}
 ]
