@@ -33,11 +33,11 @@ def pc_data_parse(category, df_capacity, Calendar_df, now_time, list_date):
     df_capacity['productCode'] = df_capacity['productCode'].astype(str)
 
     if category == 7:
-        Calendar_df.rename(columns={'dayOff': 't', 'packingFactoryCode': 'packFactory'}, inplace=True)
+        Calendar_df.rename(columns={'dayOff': 't', 'packingFactoryCode': 'pack_factory'}, inplace=True)
         pc = pd.DataFrame(columns=['', 'warehouse', 'line', 'package', 'num', 'hours', 't'])  # 最终取出的DataFrame结果
         df_capacity_explode = df_capacity.explode('warehouse')
         df_capacity_explode.reset_index(drop=True, inplace=True)
-        data_capacity = pd.DataFrame(columns=['packFactory', 'warehouse', 'line', 'package', 'num',
+        data_capacity = pd.DataFrame(columns=['pack_factory', 'warehouse', 'line', 'package', 'num',
                                               'hours', 'startTime', 'endTime'])
         for i in range(df_capacity_explode.shape[0]):
             line_start_datetime = datetime.datetime.strptime(df_capacity_explode.loc[i, 'startDate'], "%Y-%m-%d").date()
@@ -45,7 +45,7 @@ def pc_data_parse(category, df_capacity, Calendar_df, now_time, list_date):
             line_start_t = (line_start_datetime - now_time).days  # 为了方便比较，先统一减去now_time，转化为数值形式的相对时间
             line_ent_t = (line_end_datetime - now_time).days
             data_capacity = pd.concat([data_capacity, pd.DataFrame(
-                {'packFactory': df_capacity_explode.loc[i, 'factoryCode'],
+                {'pack_factory': df_capacity_explode.loc[i, 'factoryCode'],
                  'warehouse': df_capacity_explode.loc[i, 'warehouse'],
                  'line': df_capacity_explode.loc[i, 'lineNo'],
                  'package': df_capacity_explode.loc[i, 'productCode'],
@@ -61,7 +61,7 @@ def pc_data_parse(category, df_capacity, Calendar_df, now_time, list_date):
         Capacity_date_df = pd.merge(data_capacity, df_date, how='outer', on='sup')
         Capacity_date_df.drop(['sup'], axis=1, inplace=True)
         # print('Capacity_date_df：\n{}'.format(Capacity_date_df.head(20)))
-        Capacity_date_Calendar = pd.merge(Capacity_date_df, Calendar_df, how='left', on=['packFactory', 't'])
+        Capacity_date_Calendar = pd.merge(Capacity_date_df, Calendar_df, how='left', on=['pack_factory', 't'])
         # print('Capacity_date_Calendar：\n{}'.format(Capacity_date_Calendar.head(20)))
         Capacity_date_Calendar.loc[Capacity_date_Calendar[Capacity_date_Calendar.sup == 1].index.tolist(), 'hours'] = 0
         Capacity_date_Calendar.drop(['sup'], axis=1, inplace=True)
@@ -81,7 +81,7 @@ def pc_data_parse(category, df_capacity, Calendar_df, now_time, list_date):
                 conversion_multiple = Capacity_date_Calendar.loc[i, 'hours']  # 获取原工时，即工时归一后，需要给产速乘的倍数
                 the_pack_ratio = Capacity_date_Calendar.loc[i, 'num']  # 获取产速
                 deal_num = the_pack_ratio * conversion_multiple  # 新的分装产能
-            pc = pd.concat([pc, pd.DataFrame({'packFactory': Capacity_date_Calendar.loc[i, 'packFactory'],
+            pc = pd.concat([pc, pd.DataFrame({'pack_factory': Capacity_date_Calendar.loc[i, 'pack_factory'],
                                               'warehouse': Capacity_date_Calendar.loc[i, 'warehouse'],
                                               'line': Capacity_date_Calendar.loc[i, 'line'],
                                               'package': Capacity_date_Calendar.loc[i, 'package'],

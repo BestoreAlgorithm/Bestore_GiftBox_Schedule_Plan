@@ -72,7 +72,8 @@ with open(ChannelMap, "r", encoding="utf-8") as f_mapping_json:
     info_channel_map = f_mapping_json.read()
     data_list_mapping = json.loads(info_channel_map)
     df_channel_mapping = pd.DataFrame(data_list_mapping)
-MappingTable = df_channel_mapping.rename(columns={'stockFactory': 'warehouse', 'finishChannel': 'n'})
+MappingTable = df_channel_mapping.rename(columns={'stockFactory': 'warehouse', 'subChannel': 'sub_channel',
+                                                  'finishChannel': 'n'})
 
 # ProducePlan json信息读入
 '''
@@ -160,7 +161,7 @@ N = list(Order['n'].unique())  # 渠道数量
 WAREHOUSE = list(Order['warehouse'].unique())  # 仓库列表
 PACKAGE = list(Order['package'].unique())  # 礼盒列表
 ORDER_ID = list(OrderFull['id'].unique())  # 全部编号列表
-MappingTable = pd.DataFrame()
+
 LOCK_ID = list(Lock['id'].unique())  # 锁定订单编号
 SAMPLE = list(sample_data.unique())  # 子件列表
 CHANNEL = model.n_2_channel_list(MappingTable, N)
