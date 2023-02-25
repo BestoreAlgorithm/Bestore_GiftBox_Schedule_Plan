@@ -103,7 +103,7 @@ def orders_f_data_parse(df_orders, lock, list_date):
     data_orders = pd.DataFrame(
         columns=['id', 'package', 'bom', 'n', 'warehouse', 's_t', 'o_t', 'num'])  # 创建一个data_orders数据帧
     for i in range(df_orders.shape[0]):
-        date_demand = datetime.datetime.strptime(df_orders.loc[i, 'packingPlanWeekNum'], "%Y-%m-%d").date()  # 预分装日期
+        date_demand = datetime.datetime.strptime(df_orders.loc[i, 'packingPlanWeekNum'], "%Y-%m-%d").date() + datetime.timedelta(days=-6)  # 预分装日期，推进到周一为基准
         date_report = datetime.datetime.strptime(df_orders.loc[i, 'demandCommitDate'], "%Y-%m-%d").date()  # 提报日期
         dis_day = (date_demand - the_first_date).days  # 分装需求时间间隔（天） o_t
         tos_day = (date_report - the_first_date).days  # 提报日期时间间隔（天）s_t
