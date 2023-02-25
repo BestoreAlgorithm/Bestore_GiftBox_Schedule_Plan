@@ -76,18 +76,19 @@ def get_demand(df, i_d, pack, n, k, s_t, o_t, flag=0):
                       (df['flag'] == flag)]['num'].sum()
 
 
-def get_inventory(df, warehouse, sample):
+def get_inventory(df, warehouse, ch, sample):
     '''
     获取仓库库存
     :param df: 初始库存DataFrame
     :param warehouse: 仓库ID
+    :param ch: 库存子渠道
     :param sample: 子件ID
     :return: 初始库存量
     '''
-    if df[(df['warehouse'] == warehouse) & (df['sample'] == sample)]['num'].size == 0:
+    if df[(df['warehouse'] == warehouse) & (df['sample'] == sample) & (df['subChannel'] == ch)]['num'].size == 0:
         return 0
     else:
-        return df[(df['warehouse'] == warehouse) & (df['sample'] == sample)]['num'].sum()
+        return df[(df['warehouse'] == warehouse) & (df['sample'] == sample) & (df['subChannel'] == ch)]['num'].sum()
 
 
 def get_trans(df, warehouse, sample, t):
@@ -435,11 +436,11 @@ def create_y_tupledict(p_id, yIndex, solver, infinity):
     return y
 
 
-def create_invent_tupledict(warehouse, sample, pack_range, solver, up_bound):
+def create_invent_tupledict(warehouse, channel, sample, pack_range, solver, up_bound):
     invent = tupledict()
     # itertools.product 求笛卡尔积
-    for k, s, t in itertools.product(warehouse, sample, pack_range):
-        invent[k, s, t] = solver.NumVar(0.0, up_bound, name='I{}{}{}'.format(k, s, t))
+    for k, ch, s, t in itertools.product(warehouse, channel, sample, pack_range):
+        invent[k, ch, s, t] = solver.NumVar(0.0, up_bound, name='I{}{}{}{}'.format(k, ch, s, t))
     print('Number of variables invent =', solver.NumVariables())
     print('Invent variables ={}'.format(invent))
     return invent

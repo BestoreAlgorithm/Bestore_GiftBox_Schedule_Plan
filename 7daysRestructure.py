@@ -187,7 +187,7 @@ INFINITY = solver.infinity()
 # 初始化[x]tupledict变量子集
 x = model.create_x_tupledict(ORDER_ID, X_INDEX, solver, INFINITY, PACK_RANGE)
 # 创建[I]tupledict变量子集
-invent = model.create_invent_tupledict(WAREHOUSE, SAMPLE, T, solver, INFINITY)
+invent = model.create_invent_tupledict(WAREHOUSE, CHANNEL, SAMPLE, T, solver, INFINITY)
 # 初始化[x_1]tupledict变量子集
 x_1 = model.create_x_1_tupledict(ORDER_ID, X1_INDEX, solver, INFINITY, PACK_RANGE)
 # 初始化[x_2]tupledict变量子集
@@ -223,7 +223,7 @@ if LOCK_NUM > 0:
                 if s in PackSample[i['m']]:
                     bom_nums = model.get_bom(BOM, i['m'], s)
                     x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['t']] * bom_nums
-        solver.Add(x_sum + invent[k, s, t] == invent[k, s, t - 1])
+        solver.Add(x_sum + invent[k, ch, s, t] == invent[k, ch, s, t - 1])
 
 # 添加到决策末期的库存约束
 for k, ch, s, t in itertools.product(WAREHOUSE, CHANNEL, SAMPLE, range(LOCK_NUM + 1, PACK_RANGE + 1)):
@@ -233,7 +233,7 @@ for k, ch, s, t in itertools.product(WAREHOUSE, CHANNEL, SAMPLE, range(LOCK_NUM 
             if s in PackSample[i['m']]:
                 bom_nums = model.get_bom(BOM, i['m'], s)
                 x_sum = x_sum + x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['t']] * bom_nums
-    solver.Add(x_sum + invent[k, s, t] == invent[k, s, t - 1] + model.get_arr(Arr, k, s, t))
+    solver.Add(x_sum + invent[k, ch, s, t] == invent[k, ch, s, t - 1] + model.get_arr(Arr, k, s, t))
 print('Inventory constraints done...')
 
 # 添加需求约束
