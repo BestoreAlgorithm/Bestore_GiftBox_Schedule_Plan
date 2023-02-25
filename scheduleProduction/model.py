@@ -313,7 +313,7 @@ def get_xindex_x1index(order_id, orders_f, pack_range, flag, fix_num):
             index_m = sub_series.to_dict()  # Series转字典类型
             index_x1 = index_m.copy()
             x1index[i_d].append(index_x1)
-            print('sub_df: \n {0} \n Type: {1} \n index_m: \n {2}'.format(sub_series, type(sub_series), index_m))
+            # print('sub_df: \n {0} \n Type: {1} \n index_m: \n {2}'.format(sub_series, type(sub_series), index_m))
             if sub_df.loc[0, 'isLock'] == 1:
                 index_m['t'] = sub_df.loc[0, 'o_t']
                 index_mm = index_m.copy()
@@ -323,7 +323,7 @@ def get_xindex_x1index(order_id, orders_f, pack_range, flag, fix_num):
                     index_m['t'] = p_t
                     index_mm = index_m.copy()
                     xindex[i_d].append(index_mm)
-        print('index_m:\n {0},\n x1index: \n {1}, \n xindex: \n {2}'.format(index_m, x1index.keys(), xindex.values()))
+        # print('index_m:\n {0},\n x1index: \n {1}, \n xindex: \n {2}'.format(index_m, x1index.keys(), xindex.values()))
     elif flag == 14:
         for i_d in order_id:
             xindex[i_d] = []
@@ -336,7 +336,7 @@ def get_xindex_x1index(order_id, orders_f, pack_range, flag, fix_num):
             index_m = sub_series.to_dict()  # Series转字典类型
             index_x1 = index_m.copy()  # 这个地方为什么要copy
             x1index[i_d].append(index_x1)
-            print('sub_df: \n {0} \n Type: {1} \n index_m: \n {2}'.format(sub_series, type(sub_series), index_m))
+            # print('sub_df: \n {0} \n Type: {1} \n index_m: \n {2}'.format(sub_series, type(sub_series), index_m))
             for p_t in packing_t(index_m['o_t'], fix_num, pack_range):
                 index_m['t'] = p_t
                 index_mm = index_m.copy()
@@ -359,7 +359,7 @@ def n_2_channel_list(mapping_table, n_list):
             exit()
         else:
             c_list.append(ch[0])
-        return c_list
+    return set(c_list)
 
 
 def n_2_channel(mapping_table, warehouse, n):
@@ -407,7 +407,7 @@ def get_package_sample(BOM, package):
 
 def create_x_tupledict(p_id, iterIndex, solver, infinity, flag):
     x = tupledict()  # tupledict类是基于Python字典类的封装
-    print('i_d in p_id: \n {0} \n iterIndex: \n {1}'.format(p_id, iterIndex))
+    # print('i_d in p_id: \n {0} \n iterIndex: \n {1}'.format(p_id, iterIndex))
     if flag == 7:
         for i_d in p_id:
             for i in iterIndex[i_d]:
@@ -418,9 +418,9 @@ def create_x_tupledict(p_id, iterIndex, solver, infinity, flag):
             for i in iterIndex[i_d]:
                 x[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f'], i['t']] \
                     = solver.IntVar(0.0, infinity, name='x{}{}'.format(i['id'], i['t']))
-    print('Number of variables ={}'.format(solver.NumVariables()))
+    print('Number of variables x = {}'.format(solver.NumVariables()))
     # tupledict的key（键）在内部的存储格式是tuplelist
-    print('x variables ={}'.format(x))
+    # print('x variables ={}'.format(x))
     return x
 
 
@@ -432,7 +432,7 @@ def create_y_tupledict(p_id, yIndex, solver, infinity):
                 = solver.IntVar(0.0, infinity, name='y{}{}{}'.format(i['s'], i['id'], i['t']))
     print('Number of variables ={}'.format(solver.NumVariables()))
     # tupledict的key（键）在内部的存储格式是 tuplelist
-    print('y variables ={}'.format(y))
+    # print('y variables ={}'.format(y))
     return y
 
 
@@ -442,7 +442,7 @@ def create_invent_tupledict(warehouse, channel, sample, pack_range, solver, up_b
     for k, ch, s, t in itertools.product(warehouse, channel, sample, pack_range):
         invent[k, ch, s, t] = solver.NumVar(0.0, up_bound, name='I{}{}{}{}'.format(k, ch, s, t))
     print('Number of variables invent =', solver.NumVariables())
-    print('Invent variables ={}'.format(invent))
+    # print('Invent variables ={}'.format(invent))
     return invent
 
 
@@ -459,7 +459,7 @@ def create_x_1_tupledict(p_id, x1Index, solver, infinity, flag):
                 x_1[i['id'], i['m'], i['n'], i['k'], i['s_t'], i['o_t'], i['f']] \
                     = solver.IntVar(0.0, infinity, name='x_1{}'.format(i['id']))
     print('Number of variables x_1 =', solver.NumVariables())
-    print('x_1 variables ={}'.format(x_1))
+    # print('x_1 variables ={}'.format(x_1))
     return x_1
 
 
@@ -479,5 +479,5 @@ def create_x_2_tupledict(p_id, iterIndex, solver, infinity, flag):
                         = solver.IntVar(0.0, infinity, name='x_2{}{}'.format(i['id'], i['t']))
 
     print('Number of variables x_2 =', solver.NumVariables())
-    print('x_2 variables ={0}\n type: {1}'.format(x_2, type(x_2)))
+    # print('x_2 variables ={0}\n type: {1}'.format(x_2, type(x_2)))
     return x_2

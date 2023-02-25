@@ -32,7 +32,7 @@ data_prepare_start = time.time()  # 数据准备时间开始函数
 
 
 project_path = os.getcwd()  # 当前路径
-jsons_filename = '7天测试'  # 存放数据的文件夹的名称
+jsons_filename = 'jsons'  # 存放数据的文件夹的名称
 result_filename = 'result'  # 结果数据的文件夹的名称
 jsons_data_path = project_path + '\\' + jsons_filename  # 原始数据的路径
 result_data_path = project_path + '\\' + result_filename  # 结果数据的路径
@@ -114,7 +114,7 @@ with open(Calendar, "r", encoding="utf-8") as f_json_calendar:
     Calendar_df_1 = pd.DataFrame(data_list_calendar)
     Calendar_df = Calendar_df_1.explode('dayOff')
     Calendar_df.reset_index(drop=True, inplace=True)
-print('Calendar_df\n: {}\n Calendar_df.type\n{}'.format(Calendar_df, Calendar_df.shape[0]))
+print('Calendar_df \n: {}\n Calendar_df.type\n{}'.format(Calendar_df, Calendar_df.shape[0]))
 
 # capacity基础数据分装产能读入与解析
 with open(Capacity, "r", encoding="utf-8") as f_json_capacity:
@@ -155,7 +155,7 @@ loseSum = 0
 delaySum = 0
 h_c = 0
 # lists
-# print('Order:\n{0},\n lock: \n {1}'.format(Order.head(), Lock.head()))
+print('Order:\n{0},\n lock: \n {1}'.format(Order.head(), Lock.head()))
 
 N = list(Order['n'].unique())  # 渠道数量
 WAREHOUSE = list(Order['warehouse'].unique())  # 仓库列表
@@ -188,11 +188,16 @@ INFINITY = solver.infinity()
 x = model.create_x_tupledict(ORDER_ID, X_INDEX, solver, INFINITY, PACK_RANGE)
 # 创建[I]tupledict变量子集
 invent = model.create_invent_tupledict(WAREHOUSE, CHANNEL, SAMPLE, T, solver, INFINITY)
+print(WAREHOUSE)
+print(CHANNEL)
+print(SAMPLE)
+print(T)
 # 初始化[x_1]tupledict变量子集
 x_1 = model.create_x_1_tupledict(ORDER_ID, X1_INDEX, solver, INFINITY, PACK_RANGE)
 # 初始化[x_2]tupledict变量子集
 x_2 = model.create_x_2_tupledict(ORDER_ID, X_INDEX, solver, INFINITY, PACK_RANGE)
-
+for k, v in x_2.items():
+    print(k)
 # 3) 设置求解器约束
 # 添加x变量的锁定库存的约束
 for line in range(Lock.shape[0]):

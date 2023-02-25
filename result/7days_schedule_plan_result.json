@@ -1,6 +1,75 @@
 {
     "code": 200,
     "msg": "success",
-    "requestId": 1672224199013,
-    "data": []
+    "requestId": 1672303057810,
+    "data": [
+        {
+            "lockDays": 3,
+            "packingPlanId": 10000062,
+            "packingPlanSerialNum": 1,
+            "demandCommitDate": "2022-12-05",
+            "scheduleId": null,
+            "scheduleVersion": null,
+            "warehouse": "D319",
+            "subChannel": "4005",
+            "productCode": "11010904",
+            "productName": "11010904",
+            "bomVersion": "2",
+            "scheduleDate": "2022-12-30",
+            "planQuantity": 2942,
+            "batchRequire": "0.0",
+            "deliveryFactory": null
+        },
+        {
+            "lockDays": 3,
+            "packingPlanId": 10000062,
+            "packingPlanSerialNum": 1,
+            "demandCommitDate": "2022-12-05",
+            "scheduleId": null,
+            "scheduleVersion": null,
+            "warehouse": "D319",
+            "subChannel": "4005",
+            "productCode": "11010904",
+            "productName": "11010904",
+            "bomVersion": "2",
+            "scheduleDate": "2023-01-01",
+            "planQuantity": 8,
+            "batchRequire": "0.0",
+            "deliveryFactory": null
+        },
+        {
+            "lockDays": 3,
+            "packingPlanId": 10000062,
+            "packingPlanSerialNum": 1,
+            "demandCommitDate": "2022-12-05",
+            "scheduleId": null,
+            "scheduleVersion": null,
+            "warehouse": "D319",
+            "subChannel": "4005",
+            "productCode": "11010904",
+            "productName": "11010904",
+            "bomVersion": "2",
+            "scheduleDate": "2023-01-02",
+            "planQuantity": 3933,
+            "batchRequire": "0.0",
+            "deliveryFactory": null
+        },
+        {
+            "lockDays": 3,
+            "packingPlanId": 10000062,
+            "packingPlanSerialNum": 2,
+            "demandCommitDate": "2022-12-05",
+            "scheduleId": null,
+            "scheduleVersion": null,
+            "warehouse": "D319",
+            "subChannel": "4005",
+            "productCode": "11010904",
+            "productName": "11010904",
+            "bomVersion": "2",
+            "scheduleDate": "2023-01-01",
+            "planQuantity": 3600,
+            "batchRequire": "0.0",
+            "deliveryFactory": null
+        }
+    ]
 }
