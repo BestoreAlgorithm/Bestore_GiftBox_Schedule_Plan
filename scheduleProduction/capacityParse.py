@@ -34,7 +34,7 @@ def pc_data_parse(category, df_capacity, Calendar_df, now_time, list_date):
 
     if category == 7:
         Calendar_df.rename(columns={'dayOff': 't', 'packingFactoryCode': 'pack_factory'}, inplace=True)
-        pc = pd.DataFrame(columns=['', 'warehouse', 'line', 'package', 'num', 'hours', 't'])  # 最终取出的DataFrame结果
+        pc = pd.DataFrame(columns=['pack_factory', 'warehouse', 'line', 'package', 'num', 'hours', 't'])  # 最终取出的DataFrame结果
         df_capacity_explode = df_capacity.explode('warehouse')
         df_capacity_explode.reset_index(drop=True, inplace=True)
         data_capacity = pd.DataFrame(columns=['pack_factory', 'warehouse', 'line', 'package', 'num',
@@ -94,6 +94,7 @@ def pc_data_parse(category, df_capacity, Calendar_df, now_time, list_date):
         Calendar_df.rename(columns={'dayOff': 't', 'packingFactoryCode': 'warehouse'}, inplace=True)
         data_capacity = pd.DataFrame(columns=['warehouse', 'line', 'package', 'num', 'hours',
                                               'startTime', 'endTime'])
+        pc = pd.DataFrame(columns=['warehouse', 'line', 'package', 'num', 'hours', 't'])
         for i in range(df_capacity.shape[0]):
             line_start_datetime = datetime.datetime.strptime(df_capacity.loc[i, 'startDate'], "%Y-%m-%d").date()
             line_end_datetime = datetime.datetime.strptime(df_capacity.loc[i, 'endDate'], "%Y-%m-%d").date()
